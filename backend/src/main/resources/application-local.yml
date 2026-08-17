@@ -7,12 +7,13 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
-
     open-in-view: false
-
-    properties:
-      hibernate:
-        format_sql: true
 
   flyway:
     enabled: true
+
+security:
+  jwt:
+    secret: ${JWT_SECRET:LocalDevJwtSecretKeyForAdvocateApi2026Minimum32Chars}
+    expiration-minutes: 30
+    issuer: ashutosh-upadhyay-advocate-api

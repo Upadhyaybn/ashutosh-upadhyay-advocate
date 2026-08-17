@@ -7,7 +7,13 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 
+@Tag(
+        name = "Appointments",
+        description = "Public appointment request APIs"
+)
 @RestController
 @RequestMapping("/api/v1/appointments")
 public class AppointmentController {
@@ -18,6 +24,11 @@ public class AppointmentController {
             AppointmentService service) {
         this.service = service;
     }
+
+    @Operation(
+            summary = "Request appointment",
+            description = "Creates a new appointment request"
+    )
 
     @PostMapping
     public ResponseEntity<CreateResponse> create(

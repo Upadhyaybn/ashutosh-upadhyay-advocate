@@ -7,7 +7,14 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 
+
+@Tag(
+        name = "Enquiries",
+        description = "Public legal enquiry submission APIs"
+)
 @RestController
 @RequestMapping("/api/v1/enquiries")
 public class EnquiryController {
@@ -17,6 +24,11 @@ public class EnquiryController {
     public EnquiryController(EnquiryService service) {
         this.service = service;
     }
+
+    @Operation(
+            summary = "Submit legal enquiry",
+            description = "Creates a new legal enquiry request"
+    )
 
     @PostMapping
     public ResponseEntity<CreateResponse> create(

@@ -2,10 +2,9 @@ package com.ashutoshupadhyay.advocate.service;
 
 import com.ashutoshupadhyay.advocate.dto.response.PracticeAreaResponse;
 import com.ashutoshupadhyay.advocate.entity.PracticeArea;
+import com.ashutoshupadhyay.advocate.exception.ResourceNotFoundException;
 import com.ashutoshupadhyay.advocate.repository.PracticeAreaRepository;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -14,7 +13,8 @@ public class PracticeAreaService {
 
     private final PracticeAreaRepository repository;
 
-    public PracticeAreaService(PracticeAreaRepository repository) {
+    public PracticeAreaService(
+            PracticeAreaRepository repository) {
         this.repository = repository;
     }
 
@@ -30,10 +30,10 @@ public class PracticeAreaService {
     public PracticeAreaResponse getBySlug(String slug) {
 
         PracticeArea practiceArea =
-                repository.findBySlugAndActiveTrue(slug)
+                repository
+                        .findBySlugAndActiveTrue(slug)
                         .orElseThrow(() ->
-                                new ResponseStatusException(
-                                        HttpStatus.NOT_FOUND,
+                                new ResourceNotFoundException(
                                         "Practice area not found"
                                 )
                         );

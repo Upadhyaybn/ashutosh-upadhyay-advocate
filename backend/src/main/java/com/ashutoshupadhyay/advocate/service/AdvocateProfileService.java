@@ -2,17 +2,17 @@ package com.ashutoshupadhyay.advocate.service;
 
 import com.ashutoshupadhyay.advocate.dto.response.AdvocateProfileResponse;
 import com.ashutoshupadhyay.advocate.entity.AdvocateProfile;
+import com.ashutoshupadhyay.advocate.exception.ResourceNotFoundException;
 import com.ashutoshupadhyay.advocate.repository.AdvocateProfileRepository;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class AdvocateProfileService {
 
     private final AdvocateProfileRepository repository;
 
-    public AdvocateProfileService(AdvocateProfileRepository repository) {
+    public AdvocateProfileService(
+            AdvocateProfileRepository repository) {
         this.repository = repository;
     }
 
@@ -22,8 +22,7 @@ public class AdvocateProfileService {
                 .stream()
                 .findFirst()
                 .orElseThrow(() ->
-                        new ResponseStatusException(
-                                HttpStatus.NOT_FOUND,
+                        new ResourceNotFoundException(
                                 "Advocate profile not found"
                         )
                 );

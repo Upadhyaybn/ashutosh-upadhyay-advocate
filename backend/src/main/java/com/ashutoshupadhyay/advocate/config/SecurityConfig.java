@@ -10,15 +10,29 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain securityFilterChain(
+            HttpSecurity http) throws Exception {
 
         http
-                .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(
-                                "/api/v1/public/**",
-                                "/actuator/health"
-                        ).permitAll()
-                        .anyRequest().authenticated()
+                .csrf(csrf -> csrf
+                        .ignoringRequestMatchers(
+                                "/api/v1/enquiries",
+                                "/api/v1/appointments"
+                        )
+                )
+                .authorizeHttpRequests(authorize ->
+                        authorize
+                                .requestMatchers(
+                                        "/api/v1/public/**",
+                                        "/api/v1/profile",
+                                        "/api/v1/practice-areas/**",
+                                        "/api/v1/enquiries",
+                                        "/api/v1/appointments",
+                                        "/actuator/health"
+                                )
+                                .permitAll()
+                                .anyRequest()
+                                .authenticated()
                 )
                 .httpBasic(Customizer.withDefaults());
 

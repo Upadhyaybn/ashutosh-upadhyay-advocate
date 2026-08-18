@@ -12,4 +12,10 @@ public interface PracticeAreaRepository
     List<PracticeArea> findByActiveTrueOrderByDisplayOrderAsc();
 
     Optional<PracticeArea> findBySlugAndActiveTrue(String slug);
+
+    Optional<PracticeArea> findBySlug(String slug);
+
+    boolean existsBySlug(String slug);
+
+    List<PracticeArea> findAllByOrderByDisplayOrderAsc();
 }

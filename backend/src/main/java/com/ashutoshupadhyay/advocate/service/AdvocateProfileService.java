@@ -18,9 +18,8 @@ public class AdvocateProfileService {
 
     public AdvocateProfileResponse getProfile() {
 
-        AdvocateProfile profile = repository.findAll()
-                .stream()
-                .findFirst()
+        AdvocateProfile profile = repository
+                .findFirstByOrderByIdAsc()
                 .orElseThrow(() ->
                         new ResourceNotFoundException(
                                 "Advocate profile not found"

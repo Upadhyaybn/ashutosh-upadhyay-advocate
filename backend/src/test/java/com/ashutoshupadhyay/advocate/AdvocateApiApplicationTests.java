@@ -2,11 +2,23 @@ package com.ashutoshupadhyay.advocate;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.test.context.ActiveProfiles;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
-@ActiveProfiles("test")
+@Testcontainers
 @SpringBootTest
+@ActiveProfiles("test")
 class AdvocateApiApplicationTests {
+
+	@Container
+	@ServiceConnection
+	static PostgreSQLContainer<?> postgres =
+			new PostgreSQLContainer<>(
+					"postgres:18"
+			);
 
 	@Test
 	void contextLoads() {

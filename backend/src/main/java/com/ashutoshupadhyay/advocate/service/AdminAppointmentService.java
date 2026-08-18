@@ -14,10 +14,14 @@ import java.util.List;
 public class AdminAppointmentService {
 
     private final AppointmentRepository repository;
+    private final AuditLogService auditLogService;
 
     public AdminAppointmentService(
-            AppointmentRepository repository) {
+            AppointmentRepository repository,
+            AuditLogService auditLogService) {
+
         this.repository = repository;
+        this.auditLogService = auditLogService;
     }
 
     public List<AdminAppointmentResponse> getAll() {
@@ -56,6 +60,11 @@ public class AdminAppointmentService {
                 );
 
         appointment.setStatus(request.status());
+        auditLogService.log(
+                "UPDATE_APPOINTMENT_STATUS",
+                "APPOINTMENT",
+                appointment.getId()
+        );
 
         return toResponse(appointment);
     }

@@ -11,10 +11,14 @@ import org.springframework.transaction.annotation.Transactional;
 public class AdminProfileService {
 
     private final AdvocateProfileRepository repository;
+    private final AuditLogService auditLogService;
 
     public AdminProfileService(
-            AdvocateProfileRepository repository) {
+            AdvocateProfileRepository repository,
+            AuditLogService auditLogService) {
+
         this.repository = repository;
+        this.auditLogService = auditLogService;
     }
 
     public AdvocateProfileResponse getProfile() {
@@ -51,6 +55,11 @@ public class AdminProfileService {
 
         AdvocateProfile saved =
                 repository.save(profile);
+        auditLogService.log(
+                "UPDATE_ADVOCATE_PROFILE",
+                "ADVOCATE_PROFILE",
+                saved.getId()
+        );
 
         return toResponse(saved);
     }

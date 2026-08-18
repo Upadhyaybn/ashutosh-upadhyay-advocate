@@ -14,10 +14,15 @@ import java.util.List;
 public class AdminEnquiryService {
 
     private final EnquiryRepository repository;
+    private final AuditLogService auditLogService;
 
     public AdminEnquiryService(
-            EnquiryRepository repository) {
+            EnquiryRepository repository,
+            AuditLogService auditLogService) {
+
         this.repository = repository;
+        this.auditLogService = auditLogService;
+
     }
 
     public List<AdminEnquiryResponse> getAll() {
@@ -56,6 +61,11 @@ public class AdminEnquiryService {
                 );
 
         enquiry.setStatus(request.status());
+        auditLogService.log(
+                "UPDATE_ENQUIRY_STATUS",
+                "ENQUIRY",
+                enquiry.getId()
+        );
 
         return toResponse(enquiry);
     }

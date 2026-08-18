@@ -14,10 +14,14 @@ import java.util.List;
 public class AdminPracticeAreaService {
 
     private final PracticeAreaRepository repository;
+    private final AuditLogService auditLogService;
 
     public AdminPracticeAreaService(
-            PracticeAreaRepository repository) {
+            PracticeAreaRepository repository,
+            AuditLogService auditLogService) {
+
         this.repository = repository;
+        this.auditLogService = auditLogService;
     }
 
     public List<PracticeAreaResponse> getAll() {
@@ -44,9 +48,16 @@ public class AdminPracticeAreaService {
 
         applyRequest(practiceArea, request);
 
-        return toResponse(
-                repository.save(practiceArea)
+        PracticeArea saved =
+                repository.save(practiceArea);
+
+        auditLogService.log(
+                "CREATE_PRACTICE_AREA",
+                "PRACTICE_AREA",
+                saved.getId()
         );
+
+        return toResponse(saved);
     }
 
     @Transactional
@@ -74,6 +85,11 @@ public class AdminPracticeAreaService {
                 });
 
         applyRequest(practiceArea, request);
+        auditLogService.log(
+                "UPDATE_PRACTICE_AREA",
+                "PRACTICE_AREA",
+                practiceArea.getId()
+        );
 
         return toResponse(practiceArea);
     }
@@ -93,6 +109,11 @@ public class AdminPracticeAreaService {
                         );
 
         practiceArea.setActive(active);
+        auditLogService.log(
+                "UPDATE_PRACTICE_AREA_STATUS",
+                "PRACTICE_AREA",
+                practiceArea.getId()
+        );
 
         return toResponse(practiceArea);
     }
@@ -108,8 +129,15 @@ public class AdminPracticeAreaService {
                                         "Practice area not found"
                                 )
                         );
+        Long deletedId = practiceArea.getId();
 
         repository.delete(practiceArea);
+
+        auditLogService.log(
+                "DELETE_PRACTICE_AREA",
+                "PRACTICE_AREA",
+                deletedId
+        );
     }
 
     private void applyRequest(

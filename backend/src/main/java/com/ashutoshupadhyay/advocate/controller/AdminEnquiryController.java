@@ -9,11 +9,13 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/admin/enquiries")
+@PreAuthorize("hasRole('ADMIN')")
 @Tag(
         name = "Admin Enquiries",
         description = "Protected admin enquiry APIs"

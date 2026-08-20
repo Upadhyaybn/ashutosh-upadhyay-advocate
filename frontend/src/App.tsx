@@ -1,30 +1,72 @@
-import { Route, Routes } from "react-router";
+import {
+  Route,
+  Routes,
+} from "react-router";
 
-import PublicLayout from "./layouts/PublicLayout";
-import AdminLayout from "./layouts/AdminLayout";
+import PublicLayout
+  from "./layouts/PublicLayout";
 
-import HomePage from "./pages/public/HomePage";
-import AboutPage from "./pages/public/AboutPage";
-import PracticeAreasPage from "./pages/public/PracticeAreasPage";
-import ContactPage from "./pages/public/ContactPage";
-import EnquiryPage from "./pages/public/EnquiryPage";
-import AppointmentPage from "./pages/public/AppointmentPage";
+import AdminLayout
+  from "./layouts/AdminLayout";
 
-import AdminLoginPage from "./pages/admin/AdminLoginPage";
-import AdminDashboardPage from "./pages/admin/AdminDashboardPage";
-import AdminEnquiriesPage from "./pages/admin/AdminEnquiriesPage";
-import AdminAppointmentsPage from "./pages/admin/AdminAppointmentsPage";
-import AdminProfilePage from "./pages/admin/AdminProfilePage";
-import AdminPracticeAreasPage from "./pages/admin/AdminPracticeAreasPage";
-import AdminAuditLogsPage from "./pages/admin/AdminAuditLogsPage";
+import ProtectedRoute
+  from "./routes/ProtectedRoute";
 
-import NotFoundPage from "./pages/NotFoundPage";
-import { ROUTES } from "./routes/routePaths";
+import HomePage
+  from "./pages/public/HomePage";
+
+import AboutPage
+  from "./pages/public/AboutPage";
+
+import PracticeAreasPage
+  from "./pages/public/PracticeAreasPage";
+
+import ContactPage
+  from "./pages/public/ContactPage";
+
+import EnquiryPage
+  from "./pages/public/EnquiryPage";
+
+import AppointmentPage
+  from "./pages/public/AppointmentPage";
+
+import AdminLoginPage
+  from "./pages/admin/AdminLoginPage";
+
+import AdminDashboardPage
+  from "./pages/admin/AdminDashboardPage";
+
+import AdminEnquiriesPage
+  from "./pages/admin/AdminEnquiriesPage";
+
+import AdminAppointmentsPage
+  from "./pages/admin/AdminAppointmentsPage";
+
+import AdminProfilePage
+  from "./pages/admin/AdminProfilePage";
+
+import AdminPracticeAreasPage
+  from "./pages/admin/AdminPracticeAreasPage";
+
+import AdminAuditLogsPage
+  from "./pages/admin/AdminAuditLogsPage";
+
+import NotFoundPage
+  from "./pages/NotFoundPage";
+
+import {
+  ROUTES,
+} from "./routes/routePaths";
 
 function App() {
+
   return (
     <Routes>
-      <Route element={<PublicLayout />}>
+
+      <Route
+        element={<PublicLayout />}
+      >
+
         <Route
           path={ROUTES.HOME}
           element={<HomePage />}
@@ -54,6 +96,7 @@ function App() {
           path={ROUTES.APPOINTMENT}
           element={<AppointmentPage />}
         />
+
       </Route>
 
       <Route
@@ -62,44 +105,53 @@ function App() {
       />
 
       <Route
-        path="/admin"
-        element={<AdminLayout />}
+        element={<ProtectedRoute />}
       >
-        <Route
-          index
-          element={<AdminDashboardPage />}
-        />
 
         <Route
-          path="enquiries"
-          element={<AdminEnquiriesPage />}
-        />
+          path="/admin"
+          element={<AdminLayout />}
+        >
 
-        <Route
-          path="appointments"
-          element={<AdminAppointmentsPage />}
-        />
+          <Route
+            index
+            element={<AdminDashboardPage />}
+          />
 
-        <Route
-          path="profile"
-          element={<AdminProfilePage />}
-        />
+          <Route
+            path="enquiries"
+            element={<AdminEnquiriesPage />}
+          />
 
-        <Route
-          path="practice-areas"
-          element={<AdminPracticeAreasPage />}
-        />
+          <Route
+            path="appointments"
+            element={<AdminAppointmentsPage />}
+          />
 
-        <Route
-          path="audit-logs"
-          element={<AdminAuditLogsPage />}
-        />
+          <Route
+            path="profile"
+            element={<AdminProfilePage />}
+          />
+
+          <Route
+            path="practice-areas"
+            element={<AdminPracticeAreasPage />}
+          />
+
+          <Route
+            path="audit-logs"
+            element={<AdminAuditLogsPage />}
+          />
+
+        </Route>
+
       </Route>
 
       <Route
         path="*"
         element={<NotFoundPage />}
       />
+
     </Routes>
   );
 }

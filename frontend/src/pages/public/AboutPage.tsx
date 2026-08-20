@@ -1,6 +1,63 @@
-import PageHeader from "../../components/common/PageHeader";
+import {
+  useEffect,
+  useState,
+} from "react";
+
+import PageHeader
+  from "../../components/common/PageHeader";
+
+import {
+  getProfile,
+} from "../../api/publicApi";
+
+import {
+  getApiErrorMessage,
+} from "../../utils/apiError";
+
+import type {
+  AdvocateProfile,
+} from "../../types/api";
 
 function AboutPage() {
+
+  const [profile, setProfile] =
+    useState<AdvocateProfile | null>(
+      null
+    );
+
+  const [loading, setLoading] =
+    useState(true);
+
+  const [error, setError] =
+    useState("");
+
+  useEffect(() => {
+
+    const load = async () => {
+
+      try {
+
+        const response =
+          await getProfile();
+
+        setProfile(response);
+
+      } catch (err) {
+
+        setError(
+          getApiErrorMessage(err)
+        );
+
+      } finally {
+
+        setLoading(false);
+      }
+    };
+
+    void load();
+
+  }, []);
+
   return (
     <>
       <PageHeader
@@ -9,58 +66,106 @@ function AboutPage() {
       />
 
       <section className="section">
-        <div className="container content-grid">
-          <div>
-            <p className="eyebrow">
-              Advocate
-            </p>
+        <div className="container">
 
-            <h2>Ashutosh Upadhyay</h2>
+          {loading && (
+            <p>Loading profile...</p>
+          )}
 
-            <p>
-              Ashutosh Upadhyay is an Advocate
-              practicing at District Court
-              Siddharthnagar, Uttar Pradesh.
-            </p>
+          {error && (
+            <div className="admin-info-panel">
+              {error}
+            </div>
+          )}
 
-            <p>
-              The practice focuses on providing
-              professional legal consultation,
-              understanding client concerns and
-              assisting clients through appropriate
-              legal procedures.
-            </p>
-          </div>
+          {!loading &&
+            !error &&
+            profile && (
 
-          <aside className="info-card">
-            <h3>Professional Details</h3>
+              <div className="content-grid">
 
-            <dl>
-              <div>
-                <dt>Designation</dt>
-                <dd>Advocate</dd>
+                <div>
+
+                  <p className="eyebrow">
+                    {
+                      profile.designation ||
+                      "Advocate"
+                    }
+                  </p>
+
+                  <h2>
+                    {profile.fullName}
+                  </h2>
+
+                  {profile.professionalBio && (
+                    <p>
+                      {
+                        profile
+                          .professionalBio
+                      }
+                    </p>
+                  )}
+
+                </div>
+
+                <aside className="info-card">
+
+                  <h3>
+                    Professional Details
+                  </h3>
+
+                  <dl>
+
+                    <div>
+                      <dt>Designation</dt>
+                      <dd>
+                        {
+                          profile.designation ||
+                          "-"
+                        }
+                      </dd>
+                    </div>
+
+                    <div>
+                      <dt>Court</dt>
+                      <dd>
+                        {
+                          profile
+                            .courtsOfPractice ||
+                          "-"
+                        }
+                      </dd>
+                    </div>
+
+                    <div>
+                      <dt>Location</dt>
+                      <dd>
+                        {
+                          profile
+                            .officeAddress ||
+                          "-"
+                        }
+                      </dd>
+                    </div>
+
+                    <div>
+                      <dt>Languages</dt>
+                      <dd>
+                        {
+                          profile.languages ||
+                          "-"
+                        }
+                      </dd>
+                    </div>
+
+                  </dl>
+
+                </aside>
+
               </div>
 
-              <div>
-                <dt>Court</dt>
-                <dd>
-                  District Court Siddharthnagar
-                </dd>
-              </div>
+            )}
 
-              <div>
-                <dt>Location</dt>
-                <dd>
-                  Siddharthnagar, Uttar Pradesh
-                </dd>
-              </div>
-
-              <div>
-                <dt>Languages</dt>
-                <dd>Hindi, English</dd>
-              </div>
-            </dl>
-          </aside>
         </div>
       </section>
     </>

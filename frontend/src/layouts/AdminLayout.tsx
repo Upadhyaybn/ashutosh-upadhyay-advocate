@@ -1,15 +1,45 @@
-import { NavLink, Outlet } from "react-router";
-import { ROUTES } from "../routes/routePaths";
+import {
+  NavLink,
+  Outlet,
+  useNavigate,
+} from "react-router";
+
+import {
+  ROUTES,
+} from "../routes/routePaths";
+
+import {
+  removeToken,
+} from "../utils/authStorage";
 
 function AdminLayout() {
+
+  const navigate =
+    useNavigate();
+
+  const handleLogout = () => {
+
+    removeToken();
+
+    navigate(
+      ROUTES.ADMIN_LOGIN,
+      {
+        replace: true,
+      }
+    );
+  };
+
   return (
     <div className="admin-shell">
+
       <aside className="admin-sidebar">
+
         <div className="admin-brand">
           Advocate Admin
         </div>
 
         <nav>
+
           <NavLink
             end
             to={ROUTES.ADMIN_DASHBOARD}
@@ -46,12 +76,23 @@ function AdminLayout() {
           >
             Audit Logs
           </NavLink>
+
+          <button
+            type="button"
+            className="admin-logout"
+            onClick={handleLogout}
+          >
+            Logout
+          </button>
+
         </nav>
+
       </aside>
 
       <main className="admin-content">
         <Outlet />
       </main>
+
     </div>
   );
 }

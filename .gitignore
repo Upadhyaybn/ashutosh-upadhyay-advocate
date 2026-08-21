@@ -80,3 +80,13 @@ docker-compose.override.yml
 *.sql.backup
 *.dump
 backups/
+
+# Never commit real environment/secrets
+.env
+.env.prod
+.env.local
+.env.*.local
+
+# Allow safe environment templates
+!.env.example
+!.env.prod.example

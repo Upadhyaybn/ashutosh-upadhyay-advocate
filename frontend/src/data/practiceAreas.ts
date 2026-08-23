@@ -5,40 +5,68 @@ export interface PracticeAreaItem {
 }
 
 export const practiceAreas: PracticeAreaItem[] = [
+
   {
     id: 1,
     title: "Civil Matters",
     description:
-      "Legal assistance relating to civil disputes, property matters, recovery matters and other civil proceedings.",
+      "Civil suits, injunctions, declarations, ejectment, recovery, execution, SCC matters, tenancy, specific performance, succession, arbitration, land and property disputes, partition, title, possession and related civil matters.",
   },
+
   {
     id: 2,
     title: "Criminal Matters",
     description:
-      "Legal representation and consultation in criminal complaints, bail matters and criminal court proceedings.",
+      "Professional assistance in sessions trials, warrant trials, summons trials, summary trials and other substantive and procedural criminal-law matters.",
   },
+
   {
     id: 3,
-    title: "Family Matters",
+    title: "POCSO Cases",
     description:
-      "Legal guidance relating to matrimonial disputes, maintenance, family disputes and related proceedings.",
+      "Professional assistance and legal representation in proceedings arising under the Protection of Children from Sexual Offences Act, 2012.",
   },
+
   {
     id: 4,
-    title: "Property Matters",
+    title: "Matrimonial & Family Matters",
     description:
-      "Assistance with property disputes, ownership issues, possession and related legal matters.",
+      "Matrimonial disputes, maintenance proceedings, domestic violence proceedings, family disputes and related matrimonial and family-law matters.",
   },
+
   {
     id: 5,
-    title: "Consumer Matters",
+    title: "NDPS Cases",
     description:
-      "Legal assistance for consumer disputes involving goods, services and consumer rights.",
+      "Professional assistance and legal representation in proceedings arising under the Narcotic Drugs and Psychotropic Substances Act, 1985.",
   },
+
   {
     id: 6,
-    title: "Legal Consultation",
+    title: "Negotiable Instruments / NI Act",
     description:
-      "Professional consultation to understand legal options, documentation and appropriate next steps.",
+      "Cheque-related matters, cheque bounce cases and other proceedings arising under the Negotiable Instruments Act.",
   },
+
+  {
+    id: 7,
+    title: "Revenue Matters",
+    description:
+      "Partition, map partition, declaratory suits, boundary disputes, correction of revenue records, mutation, Khatauni, demarcation, injunctions and other proceedings before revenue authorities.",
+  },
+
+  {
+    id: 8,
+    title: "Motor Accident Claims (MACT)",
+    description:
+      "Representation before the Motor Accident Claims Tribunal in accident compensation, injury, death, property damage, insurance and related legally maintainable claims.",
+  },
+
+  {
+    id: 9,
+    title: "Government Authority Matters",
+    description:
+      "Legal assistance concerning unlawful or arbitrary actions of police, revenue departments, district administration and other State or Central Government authorities, including RTI and accountability-related matters.",
+  },
+
 ];

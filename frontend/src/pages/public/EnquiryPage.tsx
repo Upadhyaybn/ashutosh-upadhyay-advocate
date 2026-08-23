@@ -6,6 +6,9 @@ import type {
   FormEvent,
 } from "react";
 
+import Seo
+  from "../../components/seo/Seo";
+
 import PageHeader
   from "../../components/common/PageHeader";
 
@@ -150,6 +153,14 @@ function EnquiryPage() {
 
   return (
     <>
+
+      <Seo
+        title="Submit a Legal Enquiry"
+        description="Submit a legal enquiry to Advocate Ashutosh Upadhyay regarding a legal matter in Siddharthnagar, Uttar Pradesh."
+        path="/enquiry"
+        index={false}
+      />
+
       <PageHeader
         title="Legal Enquiry"
         description="Share a brief description of your legal concern."
@@ -160,6 +171,7 @@ function EnquiryPage() {
         <div className="container form-container">
 
           {success && (
+
             <div className="success-message">
 
               <h2>
@@ -171,9 +183,11 @@ function EnquiryPage() {
               </p>
 
             </div>
+
           )}
 
           {error && (
+
             <div className="error-message">
 
               <strong>
@@ -185,6 +199,7 @@ function EnquiryPage() {
               </p>
 
             </div>
+
           )}
 
           {!success && (
@@ -206,6 +221,7 @@ function EnquiryPage() {
                     maxLength={150}
                     required
                   />
+
                 </label>
 
                 <label>
@@ -223,6 +239,7 @@ function EnquiryPage() {
                   <small>
                     Enter a 10-digit Indian mobile number.
                   </small>
+
                 </label>
 
                 <label>
@@ -232,6 +249,7 @@ function EnquiryPage() {
                     type="email"
                     name="email"
                   />
+
                 </label>
 
                 <label>
@@ -242,6 +260,7 @@ function EnquiryPage() {
                     name="cityDistrict"
                     maxLength={100}
                   />
+
                 </label>
 
                 <label>
@@ -295,6 +314,7 @@ function EnquiryPage() {
                   minLength={10}
                   required
                 />
+
               </label>
 
               <p className="form-notice">
@@ -323,11 +343,13 @@ function EnquiryPage() {
                 className="button button-primary"
                 disabled={submitting}
               >
+
                 {
                   submitting
                     ? "Submitting..."
                     : "Submit Enquiry"
                 }
+
               </button>
 
             </form>
@@ -337,6 +359,7 @@ function EnquiryPage() {
         </div>
 
       </section>
+
     </>
   );
 }

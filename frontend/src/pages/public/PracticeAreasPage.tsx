@@ -3,6 +3,9 @@ import {
   useState,
 } from "react";
 
+import Seo
+  from "../../components/seo/Seo";
+
 import PageHeader
   from "../../components/common/PageHeader";
 
@@ -57,6 +60,13 @@ function PracticeAreasPage() {
 
   return (
     <>
+
+      <Seo
+        title="Legal Practice Areas in Siddharthnagar"
+        description="Explore legal consultation and representation services offered by Advocate Ashutosh Upadhyay in Siddharthnagar, Uttar Pradesh."
+        path="/practice-areas"
+      />
+
       <PageHeader
         title="Practice Areas"
         description="Legal services and consultation for a range of common legal matters."
@@ -67,7 +77,9 @@ function PracticeAreasPage() {
         <div className="container">
 
           {loading && (
-            <p>Loading...</p>
+            <p>
+              Loading...
+            </p>
           )}
 
           {error && (
@@ -79,9 +91,11 @@ function PracticeAreasPage() {
           {!loading &&
             !error &&
             areas.length === 0 && (
+
               <div className="admin-info-panel">
                 No practice areas available.
               </div>
+
             )}
 
           <div className="card-grid">
@@ -114,6 +128,7 @@ function PracticeAreasPage() {
         </div>
 
       </section>
+
     </>
   );
 }

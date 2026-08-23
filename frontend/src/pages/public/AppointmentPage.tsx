@@ -6,6 +6,9 @@ import type {
   FormEvent,
 } from "react";
 
+import Seo
+  from "../../components/seo/Seo";
+
 import PageHeader
   from "../../components/common/PageHeader";
 
@@ -177,6 +180,14 @@ function AppointmentPage() {
 
   return (
     <>
+
+      <Seo
+        title="Request Legal Consultation Appointment"
+        description="Request an appointment with Advocate Ashutosh Upadhyay for legal consultation in Siddharthnagar, Uttar Pradesh."
+        path="/appointment"
+        index={false}
+      />
+
       <PageHeader
         title="Request Appointment"
         description="Request a preferred date and time for legal consultation."
@@ -187,6 +198,7 @@ function AppointmentPage() {
         <div className="container form-container">
 
           {success && (
+
             <div className="success-message">
 
               <h2>
@@ -198,9 +210,11 @@ function AppointmentPage() {
               </p>
 
             </div>
+
           )}
 
           {error && (
+
             <div className="error-message">
 
               <strong>
@@ -212,6 +226,7 @@ function AppointmentPage() {
               </p>
 
             </div>
+
           )}
 
           {!success && (
@@ -233,6 +248,7 @@ function AppointmentPage() {
                     maxLength={150}
                     required
                   />
+
                 </label>
 
                 <label>
@@ -250,6 +266,7 @@ function AppointmentPage() {
                   <small>
                     Enter a 10-digit Indian mobile number.
                   </small>
+
                 </label>
 
                 <label>
@@ -259,6 +276,7 @@ function AppointmentPage() {
                     type="email"
                     name="email"
                   />
+
                 </label>
 
                 <label>
@@ -270,6 +288,7 @@ function AppointmentPage() {
                     min={today}
                     required
                   />
+
                 </label>
 
                 <label>
@@ -279,6 +298,7 @@ function AppointmentPage() {
                     type="time"
                     name="preferredTime"
                   />
+
                 </label>
 
                 <label>
@@ -356,6 +376,7 @@ function AppointmentPage() {
                   rows={5}
                   maxLength={1000}
                 />
+
               </label>
 
               <label className="checkbox-label">
@@ -378,11 +399,13 @@ function AppointmentPage() {
                 className="button button-primary"
                 disabled={submitting}
               >
+
                 {
                   submitting
                     ? "Submitting..."
                     : "Request Appointment"
                 }
+
               </button>
 
             </form>
@@ -392,6 +415,7 @@ function AppointmentPage() {
         </div>
 
       </section>
+
     </>
   );
 }

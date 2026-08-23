@@ -3,6 +3,9 @@ import {
   useState,
 } from "react";
 
+import Seo
+  from "../../components/seo/Seo";
+
 import PageHeader
   from "../../components/common/PageHeader";
 
@@ -60,16 +63,26 @@ function AboutPage() {
 
   return (
     <>
+
+      <Seo
+        title="About Advocate Ashutosh Upadhyay"
+        description="Learn about Advocate Ashutosh Upadhyay and professional legal services provided in Siddharthnagar, Uttar Pradesh."
+        path="/about"
+      />
+
       <PageHeader
         title="About Advocate"
         description="Professional legal services and representation in Siddharthnagar, Uttar Pradesh."
       />
 
       <section className="section">
+
         <div className="container">
 
           {loading && (
-            <p>Loading profile...</p>
+            <p>
+              Loading profile...
+            </p>
           )}
 
           {error && (
@@ -87,10 +100,12 @@ function AboutPage() {
                 <div>
 
                   <p className="eyebrow">
+
                     {
                       profile.designation ||
                       "Advocate"
                     }
+
                   </p>
 
                   <h2>
@@ -98,12 +113,14 @@ function AboutPage() {
                   </h2>
 
                   {profile.professionalBio && (
+
                     <p>
                       {
                         profile
                           .professionalBio
                       }
                     </p>
+
                   )}
 
                 </div>
@@ -117,17 +134,26 @@ function AboutPage() {
                   <dl>
 
                     <div>
-                      <dt>Designation</dt>
+
+                      <dt>
+                        Designation
+                      </dt>
+
                       <dd>
                         {
                           profile.designation ||
                           "-"
                         }
                       </dd>
+
                     </div>
 
                     <div>
-                      <dt>Court</dt>
+
+                      <dt>
+                        Court
+                      </dt>
+
                       <dd>
                         {
                           profile
@@ -135,10 +161,15 @@ function AboutPage() {
                           "-"
                         }
                       </dd>
+
                     </div>
 
                     <div>
-                      <dt>Location</dt>
+
+                      <dt>
+                        Location
+                      </dt>
+
                       <dd>
                         {
                           profile
@@ -146,16 +177,22 @@ function AboutPage() {
                           "-"
                         }
                       </dd>
+
                     </div>
 
                     <div>
-                      <dt>Languages</dt>
+
+                      <dt>
+                        Languages
+                      </dt>
+
                       <dd>
                         {
                           profile.languages ||
                           "-"
                         }
                       </dd>
+
                     </div>
 
                   </dl>
@@ -167,7 +204,9 @@ function AboutPage() {
             )}
 
         </div>
+
       </section>
+
     </>
   );
 }

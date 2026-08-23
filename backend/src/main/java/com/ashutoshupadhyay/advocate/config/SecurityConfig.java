@@ -1,9 +1,13 @@
 package com.ashutoshupadhyay.advocate.config;
 
+import com.ashutoshupadhyay.advocate.security.CustomAccessDeniedHandler;
+import com.ashutoshupadhyay.advocate.security.CustomAuthenticationEntryPoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -11,14 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
-import com.ashutoshupadhyay.advocate.security.CustomAccessDeniedHandler;
-import com.ashutoshupadhyay.advocate.security.CustomAuthenticationEntryPoint;
-import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import java.util.List;
 
 @Configuration
 @EnableMethodSecurity
@@ -26,6 +23,7 @@ public class SecurityConfig {
 
     @Bean
     PasswordEncoder passwordEncoder() {
+
         return new BCryptPasswordEncoder();
     }
 
@@ -38,64 +36,24 @@ public class SecurityConfig {
     }
 
     @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-
-        CorsConfiguration configuration =
-                new CorsConfiguration();
-
-        configuration.setAllowedOrigins(
-                List.of(
-                        "http://localhost:5173"
-                )
-        );
-
-        configuration.setAllowedMethods(
-                List.of(
-                        "GET",
-                        "POST",
-                        "PUT",
-                        "PATCH",
-                        "DELETE",
-                        "OPTIONS"
-                )
-        );
-
-        configuration.setAllowedHeaders(
-                List.of(
-                        "Authorization",
-                        "Content-Type",
-                        "Accept"
-                )
-        );
-
-        configuration.setAllowCredentials(true);
-
-        UrlBasedCorsConfigurationSource source =
-                new UrlBasedCorsConfigurationSource();
-
-        source.registerCorsConfiguration(
-                "/**",
-                configuration
-        );
-
-        return source;
-    }
-
-    @Bean
     JwtAuthenticationConverter jwtAuthenticationConverter() {
 
         JwtGrantedAuthoritiesConverter authoritiesConverter =
                 new JwtGrantedAuthoritiesConverter();
 
-        authoritiesConverter.setAuthoritiesClaimName("roles");
+        authoritiesConverter.setAuthoritiesClaimName(
+                "roles"
+        );
 
         /*
-         * Our token already stores:
-         * ROLE_ADMIN
+         * JWT already contains ROLE_ADMIN.
          *
-         * so don't add Spring's default SCOPE_ prefix.
+         * Therefore Spring must not add
+         * its default SCOPE_ prefix.
          */
-        authoritiesConverter.setAuthorityPrefix("");
+        authoritiesConverter.setAuthorityPrefix(
+                ""
+        );
 
         JwtAuthenticationConverter converter =
                 new JwtAuthenticationConverter();
@@ -112,10 +70,18 @@ public class SecurityConfig {
             HttpSecurity http,
             JwtAuthenticationConverter jwtAuthenticationConverter,
             CustomAuthenticationEntryPoint authenticationEntryPoint,
-            CustomAccessDeniedHandler accessDeniedHandler)
+            CustomAccessDeniedHandler accessDeniedHandler,
+            CorsConfigurationSource corsConfigurationSource)
             throws Exception {
 
         http
+
+                .cors(cors ->
+                        cors.configurationSource(
+                                corsConfigurationSource
+                        )
+                )
+
                 .csrf(csrf ->
                         csrf.disable()
                 )
@@ -129,6 +95,19 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize ->
                         authorize
 
+                                /*
+                                 * Allow browser CORS
+                                 * preflight requests.
+                                 */
+                                .requestMatchers(
+                                        HttpMethod.OPTIONS,
+                                        "/**"
+                                )
+                                .permitAll()
+
+                                /*
+                                 * Public APIs.
+                                 */
                                 .requestMatchers(
                                         "/api/v1/public/**",
                                         "/api/v1/profile",
@@ -143,28 +122,44 @@ public class SecurityConfig {
                                 )
                                 .permitAll()
 
+                                /*
+                                 * Admin APIs require
+                                 * ROLE_ADMIN.
+                                 */
                                 .requestMatchers(
                                         "/api/v1/admin/**"
                                 )
                                 .hasRole("ADMIN")
 
+                                /*
+                                 * Current authenticated
+                                 * user API.
+                                 */
                                 .requestMatchers(
                                         "/api/v1/auth/me"
                                 )
                                 .authenticated()
 
+                                /*
+                                 * Everything else requires
+                                 * authentication.
+                                 */
                                 .anyRequest()
                                 .authenticated()
                 )
+
                 .exceptionHandling(exception ->
                         exception
+
                                 .authenticationEntryPoint(
                                         authenticationEntryPoint
                                 )
+
                                 .accessDeniedHandler(
                                         accessDeniedHandler
                                 )
                 )
+
                 .oauth2ResourceServer(oauth2 ->
                         oauth2.jwt(jwt ->
                                 jwt.jwtAuthenticationConverter(

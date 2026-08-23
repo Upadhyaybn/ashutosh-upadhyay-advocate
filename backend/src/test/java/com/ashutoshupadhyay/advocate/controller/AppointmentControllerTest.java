@@ -10,6 +10,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.LocalDate;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -38,20 +40,25 @@ class AppointmentControllerTest {
                         )
                 );
 
+        String futureDate =
+                LocalDate.now()
+                        .plusDays(7)
+                        .toString();
+
         String requestBody =
                 """
                 {
                   "fullName": "Test User",
                   "mobile": "9876543210",
                   "email": "test@example.com",
-                  "preferredDate": "2026-08-20",
+                  "preferredDate": "%s",
                   "preferredTime": "11:30:00",
                   "matterCategory": "Civil Matter",
                   "communicationMethod": "PHONE",
                   "shortNote": "Testing appointment controller",
                   "consent": true
                 }
-                """;
+                """.formatted(futureDate);
 
         mockMvc.perform(
                         post("/api/v1/appointments")
@@ -79,16 +86,21 @@ class AppointmentControllerTest {
     void shouldReturnBadRequestForInvalidMobile()
             throws Exception {
 
+        String futureDate =
+                LocalDate.now()
+                        .plusDays(7)
+                        .toString();
+
         String requestBody =
                 """
                 {
                   "fullName": "Test User",
                   "mobile": "1234",
                   "email": "test@example.com",
-                  "preferredDate": "2026-08-20",
+                  "preferredDate": "%s",
                   "consent": true
                 }
-                """;
+                """.formatted(futureDate);
 
         mockMvc.perform(
                         post("/api/v1/appointments")
@@ -106,16 +118,21 @@ class AppointmentControllerTest {
     void shouldReturnBadRequestForPastDate()
             throws Exception {
 
+        String pastDate =
+                LocalDate.now()
+                        .minusDays(1)
+                        .toString();
+
         String requestBody =
                 """
                 {
                   "fullName": "Test User",
                   "mobile": "9876543210",
                   "email": "test@example.com",
-                  "preferredDate": "2025-01-01",
+                  "preferredDate": "%s",
                   "consent": true
                 }
-                """;
+                """.formatted(pastDate);
 
         mockMvc.perform(
                         post("/api/v1/appointments")
@@ -133,16 +150,21 @@ class AppointmentControllerTest {
     void shouldReturnBadRequestWhenConsentIsFalse()
             throws Exception {
 
+        String futureDate =
+                LocalDate.now()
+                        .plusDays(7)
+                        .toString();
+
         String requestBody =
                 """
                 {
                   "fullName": "Test User",
                   "mobile": "9876543210",
                   "email": "test@example.com",
-                  "preferredDate": "2026-08-20",
+                  "preferredDate": "%s",
                   "consent": false
                 }
-                """;
+                """.formatted(futureDate);
 
         mockMvc.perform(
                         post("/api/v1/appointments")

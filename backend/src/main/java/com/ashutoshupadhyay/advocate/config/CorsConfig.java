@@ -2,11 +2,9 @@ package com.ashutoshupadhyay.advocate.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 
 import java.util.List;
 
@@ -14,15 +12,17 @@ import java.util.List;
 public class CorsConfig {
 
     @Bean
-    @Order(Ordered.HIGHEST_PRECEDENCE)
-    public CorsFilter corsFilter() {
+    public CorsConfigurationSource corsConfigurationSource() {
 
         CorsConfiguration configuration =
                 new CorsConfiguration();
 
         configuration.setAllowedOrigins(
                 List.of(
-                        "http://localhost:5173"
+                        "http://localhost:5173",
+                        "https://ashutoshupadhyayadvocate.com",
+                        "https://www.ashutoshupadhyayadvocate.com",
+                        "https://main.d1naxwy5z3pwc7.amplifyapp.com"
                 )
         );
 
@@ -42,7 +42,8 @@ public class CorsConfig {
                         "Authorization",
                         "Content-Type",
                         "Accept",
-                        "Origin"
+                        "Origin",
+                        "X-Requested-With"
                 )
         );
 
@@ -64,6 +65,6 @@ public class CorsConfig {
                 configuration
         );
 
-        return new CorsFilter(source);
+        return source;
     }
 }

@@ -14,6 +14,9 @@ const SITE_NAME =
 const SITE_URL =
   "https://www.ashutoshupadhyayadvocate.com";
 
+const AUTHOR =
+  "Ashutosh Upadhyay, Advocate";
+
 function Seo({
   title,
   description,
@@ -43,6 +46,11 @@ function Seo({
       />
 
       <meta
+        name="author"
+        content={AUTHOR}
+      />
+
+      <meta
         name="robots"
         content={
           index
@@ -64,6 +72,11 @@ function Seo({
       <meta
         property="og:site_name"
         content={SITE_NAME}
+      />
+
+      <meta
+        property="og:locale"
+        content="en_IN"
       />
 
       <meta
@@ -97,9 +110,11 @@ function Seo({
       />
 
       {structuredData && (
+
         <script type="application/ld+json">
           {JSON.stringify(structuredData)}
         </script>
+
       )}
 
     </Helmet>

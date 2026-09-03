@@ -33,6 +33,9 @@ function HomePage() {
     url:
       "https://www.ashutoshupadhyayadvocate.com",
 
+    image:
+      "https://www.ashutoshupadhyayadvocate.com/images/ashutosh-upadhyay-advocate-siddharthnagar.jpeg",
+
     description:
       "Ashutosh Upadhyay, Advocate provides legal consultation, case preparation and representation in Siddharthnagar, Uttar Pradesh across civil, criminal, family, revenue, NI Act, MACT and other legal matters.",
 

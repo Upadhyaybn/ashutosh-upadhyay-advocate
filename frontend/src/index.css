@@ -381,7 +381,7 @@ h3 {
 }
 
 .trust-points strong {
-  color: var(--gold);
+    color: var(--primary-dark);
 }
 
 .cta-section {

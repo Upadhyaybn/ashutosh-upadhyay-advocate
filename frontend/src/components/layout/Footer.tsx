@@ -39,13 +39,13 @@ function Footer() {
         <div>
           <h4>Office</h4>
 
-          <p>
-            District Court Siddharthnagar
-          </p>
+         <p>
+             Near Hanuman Mandir, Civil Court Premises
+         </p>
 
-          <p>
-            Uttar Pradesh, India
-          </p>
+         <p>
+             Siddharthnagar, Uttar Pradesh 272207, India
+         </p>
         </div>
       </div>
 

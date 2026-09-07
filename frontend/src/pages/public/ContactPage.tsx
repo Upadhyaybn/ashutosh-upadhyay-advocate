@@ -15,14 +15,15 @@ function ContactPage() {
           <div className="info-card">
             <h2>Office</h2>
 
-            <p>
-              District Court Siddharthnagar
-            </p>
+          <p>
+              Near Hanuman Mandir, Civil Court Premises
+          </p>
 
-            <p>
+          <p>
               Siddharthnagar,
-              Uttar Pradesh, India
-            </p>
+              <br />
+              Uttar Pradesh 272207, India
+          </p>
           </div>
 
           <div className="info-card">

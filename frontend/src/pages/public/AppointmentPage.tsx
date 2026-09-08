@@ -258,7 +258,7 @@ function AppointmentPage() {
                     type="tel"
                     name="mobile"
                     inputMode="numeric"
-                    placeholder="9876543210"
+                    placeholder="Enter 10-digit mobile number"
                     maxLength={11}
                     required
                   />

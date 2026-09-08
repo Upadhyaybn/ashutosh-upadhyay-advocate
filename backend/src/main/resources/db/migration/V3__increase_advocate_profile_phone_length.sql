@@ -1,0 +1,2 @@
+ALTER TABLE advocate_profile
+ALTER COLUMN phone TYPE VARCHAR(50);

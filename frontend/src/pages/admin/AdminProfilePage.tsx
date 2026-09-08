@@ -296,7 +296,7 @@ function AdminProfilePage() {
                 value={
                   profile.phone || ""
                 }
-                maxLength={20}
+                maxLength={50}
                 onChange={(event) =>
                   handleChange(
                     "phone",

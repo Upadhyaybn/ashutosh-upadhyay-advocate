@@ -25,7 +25,7 @@ public record UpdateAdvocateProfileRequest(
         @Size(max = 255)
         String languages,
 
-        @Size(max = 20)
+        @Size(max = 50)
         String phone,
 
         @Size(max = 20)

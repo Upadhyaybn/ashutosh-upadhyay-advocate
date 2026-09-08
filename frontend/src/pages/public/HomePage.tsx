@@ -1,3 +1,8 @@
+import {
+  useEffect,
+  useState,
+} from "react";
+
 import { Link } from "react-router";
 
 import Seo
@@ -11,7 +16,68 @@ import {
   practiceAreas,
 } from "../../data/practiceAreas";
 
+import {
+  getProfile,
+} from "../../api/publicApi";
+
+import type {
+  AdvocateProfile,
+} from "../../types/api";
+
+
+const FALLBACK_PHOTO_URL =
+  "/images/ashutosh-upadhyay-advocate-siddharthnagar-v2.jpeg";
+
+
 function HomePage() {
+
+  const [profile, setProfile] =
+    useState<AdvocateProfile | null>(null);
+
+
+  useEffect(() => {
+
+    let active = true;
+
+
+    const loadProfile = async () => {
+
+      try {
+
+        const data =
+          await getProfile();
+
+        if (active) {
+          setProfile(data);
+        }
+
+      } catch (error) {
+
+        console.error(
+          "Unable to load advocate profile.",
+          error
+        );
+
+      }
+
+    };
+
+
+    void loadProfile();
+
+
+    return () => {
+      active = false;
+    };
+
+  }, []);
+
+
+  const advocatePhotoUrl =
+    profile?.photoUrl?.trim()
+      ? profile.photoUrl
+      : FALLBACK_PHOTO_URL;
+
 
   const structuredData = {
 
@@ -33,8 +99,8 @@ function HomePage() {
     url:
       "https://www.ashutoshupadhyayadvocate.com",
 
-   image:
-     "https://www.ashutoshupadhyayadvocate.com/images/ashutosh-upadhyay-advocate-siddharthnagar-v2.jpeg",
+    image:
+      advocatePhotoUrl,
 
     description:
       "Ashutosh Upadhyay, Advocate provides legal consultation, case preparation and representation in Siddharthnagar, Uttar Pradesh across civil, criminal, family, revenue, NI Act, MACT and other legal matters.",
@@ -108,6 +174,7 @@ function HomePage() {
 
   };
 
+
   return (
     <>
 
@@ -119,6 +186,7 @@ function HomePage() {
           structuredData
         }
       />
+
 
       <section className="hero">
 
@@ -165,7 +233,51 @@ function HomePage() {
 
           </div>
 
+
           <div className="hero-card">
+
+            <div
+              style={{
+                width: "100%",
+                marginBottom: "24px",
+                overflow: "hidden",
+                borderRadius: "16px",
+              }}
+            >
+
+              <img
+                src={advocatePhotoUrl}
+                alt="Ashutosh Upadhyay, Advocate in Siddharthnagar"
+                loading="eager"
+                fetchPriority="high"
+                style={{
+                  display: "block",
+                  width: "100%",
+                  height: "360px",
+                  objectFit: "cover",
+                  objectPosition: "center top",
+                }}
+                onError={(event) => {
+
+                  if (
+                    event.currentTarget.src
+                    !==
+                    new URL(
+                      FALLBACK_PHOTO_URL,
+                      window.location.origin
+                    ).href
+                  ) {
+
+                    event.currentTarget.src =
+                      FALLBACK_PHOTO_URL;
+
+                  }
+
+                }}
+              />
+
+            </div>
+
 
             <div className="hero-card-badge">
               Advocate
@@ -197,6 +309,7 @@ function HomePage() {
 
       </section>
 
+
       <section className="section">
 
         <div className="container">
@@ -219,6 +332,7 @@ function HomePage() {
             </p>
 
           </div>
+
 
           <div className="card-grid">
 
@@ -245,6 +359,7 @@ function HomePage() {
 
           </div>
 
+
           <div className="center-action">
 
             <Link
@@ -259,6 +374,7 @@ function HomePage() {
         </div>
 
       </section>
+
 
       <section className="section section-muted">
 
@@ -285,6 +401,7 @@ function HomePage() {
 
           </div>
 
+
           <div className="trust-points">
 
             <div>
@@ -300,6 +417,7 @@ function HomePage() {
 
             </div>
 
+
             <div>
 
               <strong>
@@ -313,6 +431,7 @@ function HomePage() {
 
             </div>
 
+
             <div>
 
               <strong>
@@ -325,6 +444,7 @@ function HomePage() {
               </span>
 
             </div>
+
 
             <div>
 
@@ -344,6 +464,7 @@ function HomePage() {
         </div>
 
       </section>
+
 
       <section className="section">
 
@@ -368,6 +489,7 @@ function HomePage() {
 
           </div>
 
+
           <div className="card-grid">
 
             <article className="service-card">
@@ -384,6 +506,7 @@ function HomePage() {
 
             </article>
 
+
             <article className="service-card">
 
               <h3>
@@ -396,6 +519,7 @@ function HomePage() {
 
             </article>
 
+
             <article className="service-card">
 
               <h3>
@@ -407,6 +531,7 @@ function HomePage() {
               </p>
 
             </article>
+
 
             <article className="service-card">
 
@@ -427,6 +552,7 @@ function HomePage() {
         </div>
 
       </section>
+
 
       <section className="section section-muted">
 
@@ -450,87 +576,138 @@ function HomePage() {
 
           </div>
 
+
           <div className="card-grid">
 
             <article className="service-card">
-              <h3>Civil Matters</h3>
+
+              <h3>
+                Civil Matters
+              </h3>
+
               <p>
                 Civil suits, injunctions,
                 declarations, recovery,
                 execution, property,
                 succession and related matters.
               </p>
+
             </article>
 
+
             <article className="service-card">
-              <h3>Criminal Matters</h3>
+
+              <h3>
+                Criminal Matters
+              </h3>
+
               <p>
                 Criminal trials, complaints,
                 procedural matters and related
                 criminal proceedings.
               </p>
+
             </article>
 
+
             <article className="service-card">
-              <h3>POCSO Cases</h3>
+
+              <h3>
+                POCSO Cases
+              </h3>
+
               <p>
                 Professional assistance and
                 representation in proceedings
                 under the POCSO Act.
               </p>
+
             </article>
 
+
             <article className="service-card">
-              <h3>Matrimonial &amp; Family Matters</h3>
+
+              <h3>
+                Matrimonial &amp; Family Matters
+              </h3>
+
               <p>
                 Matrimonial disputes,
                 maintenance, domestic violence
                 and related family-law matters.
               </p>
+
             </article>
 
+
             <article className="service-card">
-              <h3>NDPS Cases</h3>
+
+              <h3>
+                NDPS Cases
+              </h3>
+
               <p>
                 Professional assistance and
                 representation in proceedings
                 under the NDPS Act.
               </p>
+
             </article>
 
+
             <article className="service-card">
-              <h3>NI Act Matters</h3>
+
+              <h3>
+                NI Act Matters
+              </h3>
+
               <p>
                 Cheque-related disputes,
                 cheque bounce cases and
                 proceedings under the
                 Negotiable Instruments Act.
               </p>
+
             </article>
 
+
             <article className="service-card">
-              <h3>Revenue Matters</h3>
+
+              <h3>
+                Revenue Matters
+              </h3>
+
               <p>
                 Partition, mutation, demarcation,
                 boundary disputes, revenue records
                 and proceedings before revenue
                 authorities.
               </p>
+
             </article>
 
+
             <article className="service-card">
-              <h3>Motor Accident Claims</h3>
+
+              <h3>
+                Motor Accident Claims
+              </h3>
+
               <p>
                 Representation before MACT
                 in accident compensation,
                 injury, death and related claims.
               </p>
+
             </article>
 
+
             <article className="service-card">
+
               <h3>
                 Government Authority Matters
               </h3>
+
               <p>
                 Legal assistance concerning
                 unlawful or arbitrary actions
@@ -538,6 +715,7 @@ function HomePage() {
                 district administration and
                 other public authorities.
               </p>
+
             </article>
 
           </div>
@@ -545,6 +723,7 @@ function HomePage() {
         </div>
 
       </section>
+
 
       <section className="section">
 
@@ -563,6 +742,7 @@ function HomePage() {
 
           </div>
 
+
           <div className="card-grid">
 
             <article className="service-card">
@@ -572,12 +752,15 @@ function HomePage() {
               </h3>
 
               <p>
+
                 <a href="tel:+919628395566">
                   +91 9628395566
                 </a>
+
               </p>
 
             </article>
+
 
             <article className="service-card">
 
@@ -586,12 +769,15 @@ function HomePage() {
               </h3>
 
               <p>
+
                 <a href="tel:+919565875651">
                   +91 9565875651
                 </a>
+
               </p>
 
             </article>
+
 
             <article className="service-card">
 
@@ -600,6 +786,7 @@ function HomePage() {
               </h3>
 
               <p>
+
                 <a
                   href="https://wa.me/919628395566"
                   target="_blank"
@@ -607,9 +794,11 @@ function HomePage() {
                 >
                   +91 9628395566
                 </a>
+
               </p>
 
             </article>
+
 
             <article className="service-card">
 
@@ -618,11 +807,13 @@ function HomePage() {
               </h3>
 
               <p>
+
                 <a
                   href="mailto:ashutoshadvocate24@gmail.com"
                 >
                   ashutoshadvocate24@gmail.com
                 </a>
+
               </p>
 
             </article>
@@ -632,6 +823,7 @@ function HomePage() {
         </div>
 
       </section>
+
 
       <section className="cta-section">
 
@@ -650,6 +842,7 @@ function HomePage() {
 
           </div>
 
+
           <Link
             className="button button-light"
             to={ROUTES.APPOINTMENT}
@@ -664,5 +857,6 @@ function HomePage() {
     </>
   );
 }
+
 
 export default HomePage;

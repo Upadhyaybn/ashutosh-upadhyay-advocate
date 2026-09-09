@@ -11,339 +11,442 @@
 
 A production-grade full-stack web application independently designed, developed, tested, secured, deployed, and productionized for a practicing legal professional in Siddharthnagar, Uttar Pradesh, India.
 
-The project demonstrates end-to-end ownership across **Java backend engineering, React frontend development, REST API design, authentication and authorization, relational database design, automated testing, containerization, AWS deployment, HTTPS, DNS, SEO, monitoring, backup, and production operations**.
+This project demonstrates end-to-end ownership across **Java backend engineering, React frontend development, REST API design, authentication and authorization, relational database design, automated testing, Docker containerization, AWS deployment, HTTPS, SEO, responsive UI, monitoring, backup, and production operations**.
 
-> **Production Release:** `v1.0.0`  
-> **Application Status:** 🟢 Live
+🌐 **Live Application:**  
+https://www.ashutoshupadhyayadvocate.com
 
----
+🔗 **Production API:**  
+https://api.ashutoshupadhyayadvocate.com
 
-## 🌐 Live Application
-
-### Production Website
-
-**https://www.ashutoshupadhyayadvocate.com**
-
-### Production API
-
-**https://api.ashutoshupadhyayadvocate.com**
-
-### API Health
-
-**https://api.ashutoshupadhyayadvocate.com/actuator/health**
+🏷️ **Production Release:** `v1.0.0`
 
 ---
 
-## 👨‍💻 Engineering Ownership
+## 📌 Project Overview
 
-This application was independently engineered as an end-to-end client project.
+The application was developed for **Ashutosh Upadhyay, Advocate**, practicing in Siddharthnagar, Uttar Pradesh.
 
-My responsibilities covered the complete software development lifecycle:
+It provides both a public-facing professional website and a secured administration system.
 
-- Requirements analysis
-- Solution architecture
-- Backend API design and development
-- Frontend development
-- Database design
-- Authentication and authorization
-- Input validation and exception handling
-- Database migration management
-- Automated unit and integration testing
-- Containerization
-- AWS infrastructure setup
-- Production deployment
-- DNS and custom-domain configuration
-- HTTPS/TLS configuration
-- Production security hardening
-- SEO implementation
-- Responsive design
-- Production QA
-- Database backup
-- Infrastructure snapshot
-- Monitoring and health checks
-- Technical documentation
-- Git release management
+Public users can:
 
-The goal was not only to build a functional website, but to take the application through a complete **development → testing → deployment → production → maintenance lifecycle**.
-
----
-
-# 📌 Business Problem
-
-A practicing advocate required a professional online presence through which prospective clients could:
-
-- Understand the advocate's professional profile
-- Explore legal practice areas
-- Find office and contact information
+- View the advocate's professional profile
+- Browse legal practice areas
 - Submit legal enquiries
-- Request appointments
-- Access the website across desktop and mobile devices
+- Request consultation appointments
+- Access office and contact information
+- Use the application across desktop, tablet, and mobile devices
 
-The advocate also required a secured administrative interface for managing incoming enquiries, appointments, practice information, and profile data without modifying application source code.
+Authorized administrators can:
 
----
+- Securely authenticate
+- View dashboard statistics
+- Review enquiries
+- Update enquiry statuses
+- Review appointment requests
+- Update appointment statuses
+- Maintain advocate profile information
+- Maintain practice areas
+- Review audit events
 
-# 💡 Solution
+The project was taken through the complete software development lifecycle:
 
-The solution is a full-stack web platform consisting of:
-
-1. A public **React + TypeScript Single Page Application**
-2. A **Java 25 / Spring Boot REST API**
-3. A secured **JWT-based administrative portal**
-4. A **PostgreSQL 18 relational database**
-5. **Flyway** database versioning
-6. Dockerized backend infrastructure
-7. AWS-based production deployment
-8. Nginx reverse proxy with HTTPS
-9. Automated backend testing using JUnit and Testcontainers
-10. Production monitoring, backup, SEO, and operational documentation
+**Requirements → Architecture → Backend → Database → Frontend → Security → Testing → Docker → CI/CD → AWS → Domain → HTTPS → SEO → Production QA → Monitoring → Backup → Release**
 
 ---
 
-# 🏗️ Production Architecture
+# 🏗️ Architecture
 
 ```text
-                           Internet
-                              │
-                              ▼
-               ashutoshupadhyayadvocate.com
-                              │
-                   ┌──────────┴──────────┐
-                   │                     │
-                   ▼                     ▼
-              AWS Amplify           API Subdomain
-                   │                     │
-                   │                     ▼
-          React + TypeScript           Nginx
-              Vite SPA                  │
-                   │                     │
-                   │ HTTPS REST API      ▼
-                   └──────────────► AWS Lightsail
-                                         │
-                                         ▼
-                                   Docker Compose
-                                    ┌────┴─────┐
-                                    │          │
-                                    ▼          ▼
-                              Spring Boot   PostgreSQL
-                                  API           18
-                                    │
-                                    ▼
-                               Flyway / JPA
+                         Internet
+                            │
+                            ▼
+             ashutoshupadhyayadvocate.com
+                            │
+                 ┌──────────┴──────────┐
+                 │                     │
+                 ▼                     ▼
+        www.ashutosh...          api.ashutosh...
+                 │                     │
+                 ▼                     ▼
+          AWS Amplify              Nginx / HTTPS
+                 │                     │
+                 ▼                     ▼
+        React + TypeScript        Docker Container
+                                       │
+                                       ▼
+                              Spring Boot REST API
+                                       │
+                              Spring Security + JWT
+                                       │
+                                       ▼
+                                  PostgreSQL
+                                       │
+                                       ▼
+                                    Flyway
 ```
 
-### Request Flow
+The frontend and backend are independently deployable.
 
-```text
-Browser
-   │
-   ▼
-React Frontend
-   │
-   │ HTTPS / JSON
-   ▼
-Nginx Reverse Proxy
-   │
-   ▼
-Spring Boot REST API
-   │
-   ├── Spring Security / JWT
-   ├── Validation
-   ├── Service Layer
-   ├── JPA / Hibernate
-   │
-   ▼
-PostgreSQL
-```
+The React frontend communicates with the Spring Boot backend through versioned REST APIs.
+
+The backend uses PostgreSQL for persistent storage, Flyway for schema migration, Spring Security with JWT for stateless administrator authentication, and Docker for production deployment.
 
 ---
 
 # 🛠️ Technology Stack
 
-## Frontend
-
-| Technology | Purpose |
-|---|---|
-| React | Component-based frontend |
-| TypeScript | Type-safe frontend development |
-| Vite | Development and production build tooling |
-| React Router | Client-side routing |
-| Axios | REST API communication |
-| Custom CSS | Responsive UI and styling |
-| React Helmet Async | SEO metadata management |
-
----
-
 ## Backend
 
-| Technology | Purpose |
-|---|---|
-| Java 25 | Backend programming language |
-| Spring Boot 4.1.0 | Application framework |
-| Spring Security | Authentication and authorization |
-| Spring Data JPA | Persistence abstraction |
-| Hibernate | ORM |
-| Jakarta Bean Validation | Request validation |
-| JWT | Stateless admin authentication |
-| REST | API architecture |
-| OpenAPI / Springdoc | API documentation |
-| Maven | Build and dependency management |
-| Spring Boot Actuator | Application health monitoring |
+- Java 25
+- Spring Boot 4.1.0
+- Spring Security
+- Spring Data JPA
+- Hibernate
+- Jakarta Bean Validation
+- REST APIs
+- JWT Authentication
+- Maven
+- Spring Boot Actuator
+- OpenAPI / Swagger
+- Flyway
 
----
+## Frontend
+
+- React
+- TypeScript
+- Vite
+- React Router
+- Axios
+- React Helmet Async
+- Responsive CSS
+- HTML5
+- CSS3
 
 ## Database
 
-| Technology | Purpose |
-|---|---|
-| PostgreSQL 18 | Production relational database |
-| Flyway | Database schema versioning |
-| JPA / Hibernate | Object-relational mapping |
-
----
+- PostgreSQL 18
+- Flyway Database Migrations
+- JPA / Hibernate ORM
 
 ## Testing & Quality
 
-| Technology | Purpose |
-|---|---|
-| JUnit | Unit and integration testing |
-| Spring Boot Test | Application-context testing |
-| MockMvc | Controller/API testing |
-| Mockito | Unit-test mocking |
-| Testcontainers | Real PostgreSQL integration testing |
-| JaCoCo | Code coverage verification |
+- JUnit 5
+- Spring Boot Test
+- MockMvc
+- Testcontainers
+- PostgreSQL Testcontainer
+- JaCoCo Code Coverage
+- Maven Verify
+- Production End-to-End Testing
+
+## DevOps & Infrastructure
+
+- Docker
+- Docker Compose
+- Git
+- GitHub
+- GitHub Actions
+- AWS Amplify
+- AWS Lightsail
+- Nginx
+- Let's Encrypt / Certbot
+- Custom Domain
+- HTTPS / TLS
+- Linux Production Server
+
+## SEO & Production
+
+- Google Search Console
+- XML Sitemap
+- robots.txt
+- Structured Data / JSON-LD
+- LocalBusiness / LegalService structured data
+- Responsive Design
+- Mobile Optimization
+- Production Monitoring
+- Database Backup
+- Lightsail Snapshots
 
 ---
 
-## DevOps & Cloud
+# 📁 Repository Structure
 
-| Technology | Purpose |
-|---|---|
-| AWS Amplify | Frontend hosting and deployment |
-| AWS Lightsail | Backend production server |
-| Docker | Application containerization |
-| Docker Compose | Production service orchestration |
-| Nginx | Reverse proxy |
-| Let's Encrypt | TLS certificate |
-| Certbot | Certificate management and renewal |
-| GitHub Actions | CI workflow |
-| Git / GitHub | Source control |
-| Namecheap DNS | Domain/DNS management |
+```text
+ashutosh-upadhyay-advocate/
+│
+├── .github/
+│   └── workflows/
+│
+├── backend/
+│   ├── src/
+│   │   ├── main/
+│   │   │   ├── java/
+│   │   │   └── resources/
+│   │   │       └── db/
+│   │   │           └── migration/
+│   │   └── test/
+│   │
+│   ├── Dockerfile
+│   ├── pom.xml
+│   ├── mvnw
+│   └── mvnw.cmd
+│
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   └── services/
+│   ├── package.json
+│   └── vite.config.ts
+│
+├── docs/
+│   ├── images/
+│   │   ├── admin-dashboard-desktop.png
+│   │   ├── homepage-desktop.png
+│   │   ├── homepage-mobile.jpeg
+│   │   ├── legal-enquiry-desktop.png
+│   │   ├── practice-areas-desktop.png
+│   │   └── request-appointment-desktop.png
+│   │
+│   ├── api.md
+│   ├── architecture.md
+│   ├── database.md
+│   ├── deployment.md
+│   ├── security.md
+│   └── PRODUCTION_RUNBOOK.md
+│
+├── docker-compose.yml
+├── docker-compose.prod.yml
+├── .gitignore
+└── README.md
+```
 
 ---
 
 # ✨ Key Features
 
-## Public Website
+## 🌐 Public Website
 
-The public application provides:
+The public application provides professional information about the advocate and available legal services.
 
-- Professional advocate profile
-- Practice-area information
-- Office and contact details
-- Responsive desktop/mobile interface
+Features include:
+
+- Professional landing page
+- Advocate profile
+- Practice area information
 - Legal enquiry submission
-- Appointment request functionality
-- Contact and WhatsApp information
-- SEO-friendly public pages
-- Structured metadata for search engines
-- Legal/professional disclaimer
+- Appointment booking
+- Contact and office information
+- Responsive navigation
+- Mobile-friendly interface
+- SEO metadata
+- Structured data
 
 ---
 
-## 🔐 Secured Admin Portal
+## 📝 Legal Enquiry Management
 
-The administrative interface supports:
+Visitors can submit structured legal enquiries containing:
 
-- Secure admin authentication
-- JWT-based authorization
-- Admin dashboard
-- Advocate profile management
-- Practice-area management
-- Enquiry management
-- Appointment management
-- Enquiry status workflow
-- Appointment status workflow
-- Audit-log visibility
-- Secure logout
+- Full name
+- Mobile number
+- Email
+- City / district
+- Matter category
+- Brief description
+- Contact consent
 
-Administrative APIs are protected under:
+The backend validates incoming requests before persistence.
+
+Administrators can review enquiries and manage their lifecycle.
+
+Example enquiry lifecycle:
 
 ```text
-/api/v1/admin/**
+New
+  │
+  ▼
+Reviewed
+  │
+  ▼
+Contacted
+  │
+  ▼
+Appointment Scheduled
+  │
+  ▼
+Closed
 ```
 
-and require authenticated administrative access.
+---
+
+## 📅 Appointment Management
+
+Visitors can request legal consultation appointments by providing:
+
+- Full name
+- Mobile number
+- Email
+- Preferred date
+- Preferred time
+- Matter category
+- Preferred communication method
+- Additional note
+- Contact consent
+
+Administrators can review and update appointment status.
+
+Example lifecycle:
+
+```text
+Requested
+    │
+    ▼
+Reviewed
+    │
+    ▼
+Confirmed
+    │
+    ▼
+Completed
+```
+
+Appointments may also be cancelled when required.
 
 ---
 
-# 🔐 Authentication Architecture
+## 🔐 Secure Administrator Portal
 
-The admin application uses stateless JWT authentication.
+The application includes a dedicated administration interface.
 
 ```text
-Admin
-   │
-   │ Username + Password
-   ▼
+/admin/login
+```
+
+Administrator features include:
+
+- Secure authentication
+- Dashboard
+- Enquiry management
+- Appointment management
+- Profile management
+- Practice area management
+- Audit logs
+- Logout
+
+The administrator portal is not exposed as an unsecured public management interface.
+
+---
+
+# 🔒 Authentication & Authorization
+
+Administrator authentication uses **Spring Security + JWT**.
+
+Authentication flow:
+
+```text
+Administrator
+     │
+     ▼
 POST /api/v1/auth/login
-   │
-   ▼
+     │
+     ▼
+Credential Validation
+     │
+     ▼
 Spring Security
-   │
-   ▼
-Credential Verification
-   │
-   ▼
+     │
+     ▼
 JWT Generated
-   │
-   ▼
-React Admin Client
-   │
-   │ Authorization: Bearer <JWT>
-   ▼
+     │
+     ▼
+Frontend Stores Authentication State
+     │
+     ▼
+Authorization: Bearer <JWT>
+     │
+     ▼
 Protected /api/v1/admin/** APIs
 ```
 
-Security principles implemented include:
+The backend uses stateless authentication.
 
-- Stateless authentication
-- BCrypt password hashing
-- Role-based administrative authorization
-- Protected administrative APIs
-- Request validation
-- CORS configuration
-- Restricted production infrastructure ports
-- Secrets excluded from source control
-- HTTPS communication
+Protected administrator APIs require an authenticated user with the appropriate administrator authority.
+
+Production credentials and JWT secrets are provided through environment variables and are never committed to source control.
 
 ---
 
-# 🌐 REST API Design
+# 🌐 REST API
 
-## Public APIs
+The backend follows versioned REST API conventions.
 
-| Method | Endpoint | Description |
-|---|---|---|
-| `GET` | `/api/v1/profile` | Retrieve advocate profile |
-| `GET` | `/api/v1/practice-areas` | Retrieve practice areas |
-| `GET` | `/api/v1/practice-areas/{slug}` | Retrieve practice-area details |
-| `POST` | `/api/v1/enquiries` | Submit legal enquiry |
-| `POST` | `/api/v1/appointments` | Request appointment |
+Base API:
+
+```text
+/api/v1
+```
+
+## Public Endpoints
+
+### Advocate Profile
+
+```http
+GET /api/v1/profile
+```
+
+Returns the public advocate profile.
+
+### Practice Areas
+
+```http
+GET /api/v1/practice-areas
+```
+
+Returns available legal practice areas.
+
+### Practice Area by Slug
+
+```http
+GET /api/v1/practice-areas/{slug}
+```
+
+Returns details for a specific practice area.
+
+### Submit Enquiry
+
+```http
+POST /api/v1/enquiries
+```
+
+Creates a legal enquiry.
+
+### Request Appointment
+
+```http
+POST /api/v1/appointments
+```
+
+Creates an appointment request.
 
 ---
 
-## Authentication
+## Authentication Endpoint
 
-| Method | Endpoint | Description |
-|---|---|---|
-| `POST` | `/api/v1/auth/login` | Authenticate administrator and issue JWT |
+```http
+POST /api/v1/auth/login
+```
+
+Authenticates the administrator and returns a JWT when valid credentials are supplied.
 
 ---
 
-## Administrative APIs
+## Protected Administrator APIs
 
-Administrative functionality is exposed through protected endpoints under:
+Administrator endpoints are available under:
 
 ```text
 /api/v1/admin/**
@@ -351,18 +454,17 @@ Administrative functionality is exposed through protected endpoints under:
 
 These APIs support management of:
 
-- Advocate profile
-- Practice areas
 - Enquiries
 - Appointments
-- Status workflows
+- Advocate profile
+- Practice areas
 - Audit information
 
 ---
 
 # 🗄️ Database Design
 
-The application uses PostgreSQL as the production relational database.
+PostgreSQL is used as the production relational database.
 
 Core tables include:
 
@@ -377,23 +479,18 @@ audit_log
 
 The persistence layer uses:
 
-```text
-Spring Data JPA
-      │
-      ▼
-Hibernate ORM
-      │
-      ▼
-PostgreSQL 18
-```
+- Spring Data JPA
+- Hibernate
+- PostgreSQL
+- Flyway
 
 ---
 
 # 🔄 Database Migration Strategy
 
-Database changes are managed using Flyway.
+Database schema changes are version-controlled using Flyway.
 
-Current production migrations:
+Current migrations include:
 
 ```text
 V1__create_initial_schema.sql
@@ -401,290 +498,163 @@ V2__seed_advocate_profile.sql
 V3__increase_advocate_profile_phone_length.sql
 ```
 
-The database reached schema version:
+Production migration rule:
+
+> Previously applied migrations are never modified.
+
+Every new database change must be introduced using a new migration:
 
 ```text
-v3
+V4__description.sql
+V5__description.sql
+V6__description.sql
 ```
 
-A key production rule followed by the project is:
-
-> Previously applied Flyway migrations are never modified. New database changes are introduced through new versioned migrations.
-
-For example:
-
-```text
-V4__new_change.sql
-V5__another_change.sql
-```
-
----
-
-# 📩 Enquiry Workflow
-
-```text
-Visitor
-   │
-   ▼
-Enquiry Form
-   │
-   ▼
-POST /api/v1/enquiries
-   │
-   ▼
-Request Validation
-   │
-   ▼
-Spring Service Layer
-   │
-   ▼
-PostgreSQL
-   │
-   ▼
-Admin Portal
-```
-
-Administrative enquiry lifecycle:
-
-```text
-New
- │
- ▼
-Reviewed
- │
- ▼
-Contacted
- │
- ▼
-Appointment Scheduled
- │
- ▼
-Closed
-```
-
-This workflow was verified through production end-to-end testing.
-
----
-
-# 📅 Appointment Workflow
-
-```text
-Visitor
-   │
-   ▼
-Appointment Form
-   │
-   ▼
-POST /api/v1/appointments
-   │
-   ▼
-Validation
-   │
-   ▼
-Service Layer
-   │
-   ▼
-PostgreSQL
-   │
-   ▼
-Admin Portal
-```
-
-Appointment status workflow includes:
-
-```text
-Requested
-Reviewed
-Confirmed
-Completed
-Cancelled
-```
-
-The appointment flow was also validated end-to-end in production.
+This ensures consistent and traceable database evolution across development, testing, and production environments.
 
 ---
 
 # 🧪 Automated Testing
 
-The backend contains automated tests across controllers, services, security, application configuration, and PostgreSQL integration.
+The backend contains automated tests across controller, service, repository, security, validation, and integration layers.
 
-The final `v1.0.0` production quality gate completed with:
+Technologies:
+
+- JUnit 5
+- Spring Boot Test
+- MockMvc
+- Testcontainers
+- PostgreSQL Testcontainer
+- JaCoCo
+
+Final production release verification:
 
 ```text
 Tests run: 40
 Failures: 0
 Errors: 0
 Skipped: 0
-```
 
-JaCoCo verification:
-
-```text
-All coverage checks have been met.
 BUILD SUCCESS
 ```
 
----
-
-## Testcontainers Integration
-
-Integration tests use Testcontainers to run tests against a real PostgreSQL container rather than relying exclusively on an in-memory database.
-
-```text
-JUnit Integration Test
-        │
-        ▼
-Testcontainers
-        │
-        ▼
-PostgreSQL Container
-        │
-        ▼
-Flyway Migrations
-        │
-        ▼
-Spring Data JPA
-```
-
-This validates application behavior against infrastructure closer to the production database environment.
+JaCoCo coverage verification is integrated into the Maven build lifecycle.
 
 ---
 
-# 🚀 Frontend Deployment
+# 🐳 Docker
 
-The frontend deployment workflow is:
+The backend and PostgreSQL database are containerized for production.
 
-```text
-React / TypeScript Change
-          │
-          ▼
-    npm run build
-          │
-          ▼
-       Git Commit
-          │
-          ▼
-       Git Push
-          │
-          ▼
-     AWS Amplify
-          │
-          ▼
-  Production Deployment
-```
-
-AWS Amplify provides production hosting for the React application and is connected to the repository deployment workflow.
-
----
-
-# 🐳 Backend Containerization
-
-The Spring Boot API is containerized using Docker.
-
-Production uses Docker Compose to operate:
+Production architecture:
 
 ```text
 Docker Compose
-     │
-     ├── advocate-api-prod
-     │        │
-     │        ▼
-     │   Spring Boot
-     │
-     └── advocate-postgres-prod
-              │
-              ▼
-         PostgreSQL 18
+│
+├── advocate-api-prod
+│     └── Spring Boot API
+│
+└── advocate-postgres-prod
+      └── PostgreSQL 18
 ```
 
-The API is not directly exposed through its internal application port to the public internet.
+Docker provides:
 
-Nginx acts as the public reverse proxy.
+- Reproducible runtime environment
+- Dependency isolation
+- Simplified deployment
+- Consistent application configuration
+- Easier production recovery
 
 ---
 
-# ☁️ AWS Production Deployment
+# ☁️ AWS Production Architecture
 
-## Frontend
+## Frontend — AWS Amplify
+
+The React application is hosted using **AWS Amplify Hosting**.
+
+Production frontend:
 
 ```text
-GitHub
-   │
-   ▼
-AWS Amplify
-   │
-   ▼
-React Production Application
+https://www.ashutoshupadhyayadvocate.com
 ```
 
-## Backend
+Amplify provides:
+
+- Frontend build pipeline
+- Static application hosting
+- Custom domain integration
+- HTTPS
+- Git-based deployment
+
+---
+
+## Backend — AWS Lightsail
+
+The Spring Boot backend runs on an AWS Lightsail Linux server.
+
+Production API:
+
+```text
+https://api.ashutoshupadhyayadvocate.com
+```
+
+Backend infrastructure:
 
 ```text
 Internet
    │
    ▼
-HTTPS :443
+AWS Lightsail Firewall
    │
    ▼
 Nginx
+   │
+   ▼
+HTTPS
    │
    ▼
 Docker
    │
-   ▼
-Spring Boot
+   ├── Spring Boot API
    │
-   ▼
-PostgreSQL
+   └── PostgreSQL
 ```
-
-Backend infrastructure runs on an AWS Lightsail instance.
 
 ---
 
-# 🔒 Production Network Security
+# 🌍 Domain & HTTPS
 
-Public production traffic is restricted to required services.
-
-| Port | Purpose | Access |
-|---|---|---|
-| `80` | HTTP | Public |
-| `443` | HTTPS | Public |
-| `22` | SSH | Restricted |
-| `8080` | Spring Boot | Not publicly exposed through Lightsail firewall |
-| `5432` | PostgreSQL | Not publicly exposed |
-
-Production credentials and secrets are maintained outside source control.
-
-Examples include:
+Production domain:
 
 ```text
-DB_PASSWORD
-ADMIN_PASSWORD
-JWT_SECRET
+ashutoshupadhyayadvocate.com
 ```
 
-Production environment files such as `.env.prod` must never be committed.
-
----
-
-# 🔐 HTTPS / TLS
-
-The production API uses:
+Canonical frontend:
 
 ```text
-Nginx
-   │
-   ▼
-Let's Encrypt Certificate
-   │
-   ▼
-HTTPS
+https://www.ashutoshupadhyayadvocate.com
 ```
 
-Certificate renewal is managed through Certbot.
+API:
 
-Renewal configuration was validated using:
+```text
+https://api.ashutoshupadhyayadvocate.com
+```
+
+The root domain redirects to the canonical `www` domain.
+
+HTTPS is configured for production traffic.
+
+Backend TLS certificates are managed using:
+
+- Nginx
+- Let's Encrypt
+- Certbot
+
+Certificate renewal can be tested using:
 
 ```bash
 sudo certbot renew --dry-run
@@ -692,17 +662,54 @@ sudo certbot renew --dry-run
 
 ---
 
-# ❤️ Production Health Monitoring
+# 🛡️ Production Security
 
-Spring Boot Actuator provides production health information.
+Security measures implemented include:
 
-Health endpoint:
+- Spring Security
+- JWT authentication
+- Stateless API security
+- Protected administrator endpoints
+- BCrypt password hashing
+- Request validation
+- Restricted CORS configuration
+- HTTPS
+- Nginx reverse proxy
+- AWS Lightsail firewall
+- Environment-based production secrets
+- `.gitignore` secret protection
+- Database not publicly exposed
+- Application port not publicly exposed
+- Sensitive Actuator endpoints protected
+- Audit logging
+
+Publicly accessible production traffic is restricted to the appropriate web ports.
+
+PostgreSQL is not directly exposed to the public internet.
+
+---
+
+# 📊 Audit Logging
+
+Administrative operations generate audit events.
+
+Audit information provides operational traceability for management actions performed through the secured administration system.
+
+The admin dashboard provides visibility into recorded audit events.
+
+---
+
+# ❤️ Health Monitoring
+
+Spring Boot Actuator provides application health monitoring.
+
+Production health endpoint:
 
 ```text
 https://api.ashutoshupadhyayadvocate.com/actuator/health
 ```
 
-Expected healthy state:
+Expected healthy response:
 
 ```json
 {
@@ -714,50 +721,45 @@ Sensitive Actuator endpoints remain protected.
 
 ---
 
-# 💾 Backup & Recovery
+# 💾 Production Backup Strategy
 
-Production-readiness work included database and infrastructure backup procedures.
+Database backups can be created directly from the production PostgreSQL container.
 
-## PostgreSQL Backup
-
-Database backups can be created from the production container using `pg_dump`.
-
-Example operational pattern:
+Example:
 
 ```bash
+mkdir -p ~/backups
+
 docker exec advocate-postgres-prod sh -c \
 'pg_dump -U "$POSTGRES_USER" "$POSTGRES_DB"' \
 > ~/backups/ashutosh_advocate_db_$(date +%Y%m%d_%H%M%S).sql
 ```
 
-## Infrastructure Backup
+Production infrastructure is additionally protected through AWS Lightsail snapshots.
 
-AWS Lightsail snapshots provide an additional recovery mechanism for the production server.
+This provides both:
 
-Backup and recovery procedures are documented in:
-
-```text
-docs/PRODUCTION_RUNBOOK.md
-```
+- Database-level backup
+- Server-level recovery capability
 
 ---
 
 # 🔎 SEO Implementation
 
-Technical SEO work includes:
+Technical SEO was implemented for the public application.
+
+Features include:
 
 - Canonical URLs
 - Page-specific metadata
-- Search-engine-friendly page titles/descriptions
-- `robots.txt`
+- robots.txt
 - XML sitemap
 - Google Search Console
-- Structured data / JSON-LD
-- LegalService structured data
+- Structured data
+- LegalService schema
+- LocalBusiness information
 - Organization information
-- Responsive/mobile optimization
-- Search indexing verification
-- Rich Results validation
+- Search-engine-friendly public routes
 
 Production sitemap:
 
@@ -765,149 +767,208 @@ Production sitemap:
 https://www.ashutoshupadhyayadvocate.com/sitemap-v2.xml
 ```
 
+Primary indexed pages:
+
+```text
+/
+ /about
+ /practice-areas
+```
+
+---
+
+# 📈 Production Performance & Quality
+
+The production website was tested using Google PageSpeed Insights.
+
+Release verification achieved strong results across:
+
+- Performance
+- Accessibility
+- Best Practices
+- SEO
+
+Desktop testing achieved full scores across the primary Lighthouse categories during final production verification, while mobile testing also achieved high performance with full Accessibility, Best Practices, and SEO scores.
+
 ---
 
 # 📱 Responsive Design
 
-The application was manually validated across multiple viewport sizes including:
+The application was production-tested across multiple viewport sizes.
+
+Verified layouts include approximately:
 
 ```text
 320 × 568
 390 × 844
 768 × 1024
 1024 × 768
+Desktop
 ```
 
-Responsive improvements included:
+Responsive behavior includes:
 
-- Flexible content sizing
+- Adaptive content layout
+- Responsive cards
+- Mobile-friendly forms
 - Mobile navigation
-- Text wrapping
-- Responsive grids
-- Image sizing
-- Form responsiveness
-- Overflow prevention
-- Tablet/desktop breakpoints
+- Responsive typography
+- Flexible images
+- Prevention of horizontal overflow
+- Responsive administrator dashboard
 
 ---
 
-# 📊 Audit Logging
+# 📸 Application Screenshots
 
-Administrative operations generate audit information to improve traceability.
+The following screenshots demonstrate the live production application across the public website, user workflows, secured administration portal, and responsive mobile interface.
 
-Audit records capture information such as:
+## 🏠 Public Homepage
 
-- Administrative action
-- Entity type
-- Entity identifier
-- Acting user
-- Timestamp
+The production homepage presents the advocate's professional profile, legal services, and direct calls to action for appointment booking and legal enquiries.
 
-This provides operational visibility for important administrative changes.
+![Public Homepage](docs/images/homepage-desktop.png)
 
 ---
 
-# ⚙️ CI / Quality Workflow
+## ⚖️ Practice Areas
 
-The project uses GitHub Actions as part of its source-control and quality workflow.
+The application presents the principal areas of legal practice supported by the website.
 
-Typical development flow:
+![Practice Areas](docs/images/practice-areas-desktop.png)
+
+---
+
+## 📝 Legal Enquiry Workflow
+
+Visitors can submit structured legal enquiries containing contact information, matter category, a brief description, validation, and explicit consent for further communication.
+
+![Legal Enquiry](docs/images/legal-enquiry-desktop.png)
+
+---
+
+## 📅 Appointment Booking
+
+The appointment workflow allows visitors to request a preferred consultation date and time, select a matter category and communication method, provide additional information, and give consent before submission.
+
+![Request Appointment](docs/images/request-appointment-desktop.png)
+
+---
+
+## 🔐 Secured Administration Dashboard
+
+The application includes a protected administration portal for managing enquiries, appointments, advocate profile information, practice areas, and audit events.
+
+![Admin Dashboard](docs/images/admin-dashboard-desktop.png)
+
+---
+
+## 📱 Responsive Mobile Experience
+
+The application was designed and production-tested for responsive behavior across mobile, tablet, and desktop viewport sizes.
+
+<p align="center">
+  <img src="docs/images/homepage-mobile.jpeg" alt="Responsive Mobile Homepage" width="360">
+</p>
+
+---
+
+# ⚖️ Legal Practice Areas
+
+The website presents professional information across areas including:
+
+- Civil Matters
+- Criminal Matters
+- POCSO Cases
+- Matrimonial & Family Matters
+- NDPS Cases
+- Negotiable Instruments / NI Act Matters
+- Revenue Matters
+- Motor Accident Claims (MACT)
+- Government Authority Matters
+
+Additional legal work may include areas such as:
+
+- Arbitration matters
+- Succession matters
+- Injunction and declaration matters
+- Recovery and execution proceedings
+- Property and land disputes
+- RTI and accountability-related matters
+
+All website content is intended to remain factual and professional and avoids unsupported comparative or outcome-based claims.
+
+---
+
+# 🚀 Production Deployment Workflow
+
+A typical production change follows:
 
 ```text
-Code Change
-    │
-    ▼
-Local Testing
-    │
-    ├── Backend: Maven verify
-    │
-    └── Frontend: Vite production build
-    │
-    ▼
-Git Commit
-    │
-    ▼
-GitHub
-    │
-    ▼
-CI / Deployment
+Requirement
+   │
+   ▼
+Local Development
+   │
+   ▼
+Backend Tests
+   │
+   ▼
+Frontend Build
+   │
+   ▼
+Git Review
+   │
+   ▼
+Commit
+   │
+   ▼
+Push to GitHub
+   │
+   ├───────────────┐
+   ▼               ▼
+AWS Amplify    AWS Lightsail
+Frontend       Backend
+   │               │
+   └───────┬───────┘
+           ▼
+     Production QA
 ```
 
 ---
 
-# 📁 Repository Structure
-
-```text
-ashutosh-upadhyay-advocate/
-│
-├── backend/
-│   ├── src/
-│   │   ├── main/
-│   │   │   ├── java/
-│   │   │   └── resources/
-│   │   │       └── db/
-│   │   │           └── migration/
-│   │   └── test/
-│   ├── Dockerfile
-│   ├── pom.xml
-│   ├── mvnw
-│   └── mvnw.cmd
-│
-├── frontend/
-│   ├── public/
-│   ├── src/
-│   ├── package.json
-│   └── vite.config.*
-│
-├── docs/
-│   ├── api.md
-│   ├── architecture.md
-│   ├── database.md
-│   ├── deployment.md
-│   ├── security.md
-│   └── PRODUCTION_RUNBOOK.md
-│
-├── .github/
-│   └── workflows/
-│
-├── docker-compose.yml
-├── docker-compose.prod.yml
-├── .gitignore
-└── README.md
-```
-
----
-
-# 💻 Local Development
+# 🧰 Local Development
 
 ## Prerequisites
 
-Recommended development environment:
+Recommended development tools:
 
-```text
-Java 25
-Maven / Maven Wrapper
-Node.js
-npm
-PostgreSQL
-Docker Desktop
-Git
+- JDK 25
+- Node.js
+- npm
+- Docker Desktop
+- PostgreSQL
+- Git
+- IntelliJ IDEA
+- Postman
+
+---
+
+## Clone Repository
+
+```bash
+git clone https://github.com/Upadhyaybn/ashutosh-upadhyay-advocate.git
+cd ashutosh-upadhyay-advocate
 ```
 
 ---
 
 ## Backend
 
-Navigate to:
+Move into the backend directory:
 
 ```bash
 cd backend
-```
-
-Run tests:
-
-```bash
-./mvnw test
 ```
 
 Windows:
@@ -916,13 +977,13 @@ Windows:
 mvnw.cmd test
 ```
 
-Run the full Maven quality gate:
+Run full verification:
 
 ```bat
 mvnw.cmd verify
 ```
 
-Run the application locally:
+Run application:
 
 ```bat
 mvnw.cmd spring-boot:run
@@ -932,7 +993,7 @@ mvnw.cmd spring-boot:run
 
 ## Frontend
 
-Navigate to:
+Move into the frontend directory:
 
 ```bash
 cd frontend
@@ -958,72 +1019,161 @@ npm run build
 
 ---
 
-# 🚢 Production Backend Deployment
+# 🔧 Production Operations
 
-Production deployment is documented in detail in:
+## Check Containers
+
+Run on the AWS Lightsail server:
+
+```bash
+docker ps
+```
+
+Expected production containers include:
+
+```text
+advocate-api-prod
+advocate-postgres-prod
+```
+
+---
+
+## Backend Logs
+
+```bash
+docker logs --tail 200 advocate-api-prod
+```
+
+Follow logs:
+
+```bash
+docker logs -f advocate-api-prod
+```
+
+---
+
+## Restart Backend
+
+```bash
+docker restart advocate-api-prod
+```
+
+---
+
+## Backend Health Check
+
+```bash
+curl -i https://api.ashutoshupadhyayadvocate.com/actuator/health
+```
+
+---
+
+## Production Backend Deployment
+
+```bash
+cd ~/ashutosh-upadhyay-advocate
+
+git pull
+
+docker compose \
+  --env-file .env.prod \
+  -f docker-compose.prod.yml \
+  up -d --build
+```
+
+---
+
+# 🔑 Environment Configuration
+
+Production configuration is provided using environment variables.
+
+Examples of configuration categories include:
+
+```text
+Database name
+Database username
+Database password
+Administrator username
+Administrator password
+JWT secret
+```
+
+Actual production secrets are intentionally excluded from this repository.
+
+Example environment templates may be committed, but real secret values must never be committed.
+
+---
+
+# 🚫 Secrets Policy
+
+The following must never be committed:
+
+- Production database passwords
+- Administrator passwords
+- JWT secrets
+- AWS credentials
+- Private certificates
+- API secrets
+- Authentication tokens
+- Private keys
+
+Environment files containing real credentials must remain excluded through `.gitignore`.
+
+---
+
+# 📖 Production Runbook
+
+Detailed production deployment, maintenance, backup, monitoring, troubleshooting, and recovery instructions are documented in:
 
 ```text
 docs/PRODUCTION_RUNBOOK.md
 ```
 
-The high-level deployment process is:
+The runbook includes guidance for:
 
-```text
-GitHub
-   │
-   ▼
-AWS Lightsail
-   │
-   ▼
-git pull
-   │
-   ▼
-Docker Compose Build
-   │
-   ▼
-Spring Boot + PostgreSQL
-   │
-   ▼
-Health Verification
-```
-
-Production code should not be manually edited directly on the server.
+- Deployment
+- Health checks
+- Logs
+- Container restart
+- Database migrations
+- Database backups
+- AWS snapshots
+- HTTPS certificates
+- Security
+- Administrator operations
+- SEO
+- Rollback
+- Testing
+- Monitoring
+- Emergency production checks
 
 ---
 
-# 🧯 Production Troubleshooting Strategy
+# 🧯 Production Troubleshooting
 
-The production troubleshooting sequence is intentionally systematic:
+Recommended troubleshooting sequence:
 
 ```text
-1. Verify frontend availability
-          │
-          ▼
-2. Verify AWS Amplify deployment
-          │
-          ▼
-3. Check API health
-          │
-          ▼
-4. Check Docker containers
-          │
-          ▼
-5. Inspect backend logs
-          │
-          ▼
-6. Verify Nginx / HTTPS
-          │
-          ▼
-7. Verify PostgreSQL
-          │
-          ▼
-8. Review recent Git changes
+1. Verify public website
+2. Verify API health endpoint
+3. Check Docker containers
+4. Inspect API logs
+5. Check PostgreSQL container
+6. Verify Nginx
+7. Verify HTTPS certificate
+8. Verify DNS
+9. Verify AWS firewall
+10. Review recent deployment changes
 ```
 
-Common operational commands include:
+Useful commands:
 
 ```bash
 docker ps
+```
+
+```bash
+docker logs --tail 200 advocate-api-prod
 ```
 
 ```bash
@@ -1031,388 +1181,299 @@ curl -i https://api.ashutoshupadhyayadvocate.com/actuator/health
 ```
 
 ```bash
-docker logs --tail 100 advocate-api-prod
+sudo certbot renew --dry-run
 ```
 
 ---
 
-# 🧠 Engineering Challenges Solved
+# 🔄 Git Workflow
 
-This project involved more than implementing CRUD functionality.
+Check changes:
 
-Some of the engineering and production problems addressed during development included:
-
-### 1. Secure Administrative Authentication
-
-Implemented Spring Security with JWT-based stateless authentication and role-protected administrative APIs.
-
-### 2. Production Database Versioning
-
-Introduced Flyway migrations so database changes remain reproducible and version controlled across environments.
-
-### 3. Real PostgreSQL Integration Testing
-
-Used Testcontainers to validate persistence and Flyway behavior against PostgreSQL rather than depending only on mocked or in-memory infrastructure.
-
-### 4. Frontend / Backend Production Integration
-
-Configured the React application to communicate securely with a separately hosted Spring Boot API while maintaining appropriate production CORS configuration.
-
-### 5. Dockerized Production Backend
-
-Containerized Spring Boot and PostgreSQL and deployed them through Docker Compose on AWS Lightsail.
-
-### 6. HTTPS Reverse Proxy
-
-Configured Nginx and Let's Encrypt/Certbot to provide secure HTTPS access to the API.
-
-### 7. Responsive UI Debugging
-
-Identified and corrected mobile horizontal-overflow and layout issues across multiple viewport sizes.
-
-### 8. Production Data Schema Evolution
-
-Introduced a new Flyway migration when an existing production field required a larger database column rather than modifying an already-applied migration.
-
-### 9. Production Backup and Recovery
-
-Implemented database backup procedures and infrastructure snapshot strategy.
-
-### 10. Search Engine Readiness
-
-Configured canonical URLs, metadata, sitemap, robots directives, structured data, Search Console, and production indexing checks.
-
----
-
-# 📚 Engineering Skills Demonstrated
-
-This project demonstrates practical experience across:
-
-### Backend Engineering
-
-- Java
-- Spring Boot
-- REST API design
-- Spring Security
-- JWT
-- JPA / Hibernate
-- Validation
-- Exception handling
-- Layered architecture
-- Audit logging
-
-### Database Engineering
-
-- PostgreSQL
-- Relational schema design
-- Flyway migrations
-- Production schema evolution
-- Database backup
-
-### Testing
-
-- JUnit
-- Mockito
-- MockMvc
-- Spring Boot integration testing
-- Testcontainers
-- JaCoCo
-
-### Frontend Engineering
-
-- React
-- TypeScript
-- REST integration
-- Responsive design
-- Routing
-- Forms and validation
-- Admin UI
-
-### DevOps / Cloud
-
-- AWS Amplify
-- AWS Lightsail
-- Docker
-- Docker Compose
-- Nginx
-- HTTPS / TLS
-- DNS
-- GitHub Actions
-- Production monitoring
-- Backup and recovery
-
-### Software Delivery
-
-- Git
-- GitHub
-- Release tagging
-- Environment configuration
-- Production troubleshooting
-- Technical documentation
-- Client requirement implementation
-
----
-
-# 📖 Production Documentation
-
-Detailed operational documentation is maintained in:
-
-```text
-docs/PRODUCTION_RUNBOOK.md
+```bash
+git status
 ```
 
-It contains production procedures for:
+Review changes:
 
-- Deployment
-- Health checks
-- Logs
-- Restart procedures
-- Database migrations
-- Database backups
-- Lightsail snapshots
-- HTTPS certificates
-- Security
-- Admin operations
-- Testing
-- Monitoring
-- Rollback guidance
-- Production change management
+```bash
+git diff
+```
+
+Stage:
+
+```bash
+git add .
+```
+
+Commit:
+
+```bash
+git commit -m "Describe the change"
+```
+
+Push:
+
+```bash
+git push origin main
+```
+
+View history:
+
+```bash
+git log --oneline
+```
 
 ---
 
 # 🏷️ Release
 
-Current stable production release:
+Current production release:
 
 ```text
 v1.0.0
 ```
 
-The release represents the first complete production baseline covering:
+The release represents the first completed production version of the application following full functional, security, responsive, infrastructure, and deployment verification.
 
-- Public website
-- Backend REST API
-- PostgreSQL database
-- Admin portal
+---
+
+# 🧠 Engineering Skills Demonstrated
+
+This project demonstrates practical experience with:
+
+## Backend Engineering
+
+- Java
+- Spring Boot
+- REST API architecture
+- Spring Security
+- JWT
+- Spring Data JPA
+- Hibernate
+- Request validation
+- Exception handling
+- Database integration
+- Audit logging
+
+## Database Engineering
+
+- PostgreSQL
+- Relational data modeling
+- Schema migration
+- Flyway
+- Production backup
+- Containerized database operation
+
+## Frontend Engineering
+
+- React
+- TypeScript
+- Vite
+- React Router
+- Axios
+- Form handling
+- API integration
+- Responsive design
+- Protected administration UI
+
+## Testing
+
+- JUnit
+- MockMvc
+- Spring Boot Test
+- Testcontainers
+- Integration testing
+- JaCoCo
+- Production end-to-end testing
+
+## Security
+
 - Authentication
-- Enquiry workflow
-- Appointment workflow
+- Authorization
+- JWT
+- BCrypt
+- CORS
+- HTTPS
+- Environment secrets
+- Firewall configuration
+- Protected management APIs
+
+## DevOps & Cloud
+
+- Docker
+- Docker Compose
+- AWS Amplify
+- AWS Lightsail
+- Nginx
+- Linux
+- DNS
+- HTTPS
+- GitHub Actions
+- Production deployment
+- Backup and recovery
+
+## Production Engineering
+
+- Monitoring
+- Health checks
+- Logs
+- Database backup
+- Server snapshots
+- SEO
+- Search Console
+- Responsive QA
+- Production troubleshooting
+- Release management
+- Technical documentation
+
+---
+
+# 💼 Portfolio Value
+
+Unlike a tutorial or demonstration-only application, this project was developed for a real client requirement and deployed as a functioning production system.
+
+It demonstrates the ability to take ownership of an application beyond coding alone:
+
+```text
+Business Requirement
+        ↓
+System Design
+        ↓
+Backend Development
+        ↓
+Frontend Development
+        ↓
+Database Design
+        ↓
+Security
+        ↓
+Automated Testing
+        ↓
+Containerization
+        ↓
+Cloud Infrastructure
+        ↓
+Domain + HTTPS
+        ↓
+Production Deployment
+        ↓
+Monitoring + Backup
+        ↓
+Production Support
+```
+
+This makes the repository a practical demonstration of **full-stack Java engineering and end-to-end production ownership**.
+
+---
+
+# 📋 Production Status
+
+| Component | Status |
+|---|---|
+| React Frontend | ✅ Live |
+| Spring Boot Backend | ✅ Live |
+| PostgreSQL | ✅ Healthy |
+| Custom Domain | ✅ Active |
+| HTTPS | ✅ Active |
+| JWT Admin Authentication | ✅ Active |
+| Legal Enquiry Workflow | ✅ Tested |
+| Appointment Workflow | ✅ Tested |
+| Admin Dashboard | ✅ Tested |
+| Audit Logging | ✅ Active |
+| Responsive Design | ✅ Verified |
+| Backend Automated Tests | ✅ 40 Passing |
+| JaCoCo Verification | ✅ Passing |
+| Docker Deployment | ✅ Active |
+| Database Backup | ✅ Verified |
+| AWS Snapshot | ✅ Verified |
+| SEO | ✅ Implemented |
+| Search Console | ✅ Configured |
+| Production Runbook | ✅ Complete |
+| Release | ✅ v1.0.0 |
+
+---
+
+# ⚖️ Professional & Legal Content
+
+The website is informational in nature.
+
+Professional details, practice areas, memberships, qualifications, contact information, and other legal-profile information should remain based on information confirmed by the client.
+
+The application intentionally avoids unsupported statements such as:
+
+- Guaranteed legal outcomes
+- “Best lawyer”
+- “No. 1 advocate”
+- Unsupported comparative claims
+- Misleading professional claims
+
+---
+
+# 🤝 Project Ownership
+
+This project was independently built end-to-end, including:
+
+- Requirements analysis
+- Architecture
+- Backend development
+- Frontend development
+- Database design
+- Security implementation
 - Testing
-- AWS deployment
+- Dockerization
+- AWS infrastructure
+- Production deployment
+- Domain configuration
 - HTTPS
 - SEO
-- Responsive design
+- Responsive testing
 - Monitoring
 - Backup
 - Documentation
+- Release management
+
+It represents a complete real-world full-stack software engineering project from initial development through production operation.
 
 ---
 
-# 🔄 Future Development Workflow
+# 📄 Documentation
 
-All changes after `v1.0.0` follow a controlled workflow:
+Additional technical documentation is available under:
 
 ```text
-Requirement
-    │
-    ▼
-Local Development
-    │
-    ▼
-Automated Tests
-    │
-    ▼
-Production Build
-    │
-    ▼
-Local Verification
-    │
-    ▼
-Git Commit / Push
-    │
-    ├───────────────┐
-    ▼               ▼
-AWS Amplify     AWS Lightsail
-Frontend        Backend
-    │               │
-    └───────┬───────┘
-            ▼
-    Production Verification
-            │
-            ▼
-        Monitoring
+docs/
 ```
 
----
-
-# 📸 Application Screenshots
-
-> Production screenshots can be added here to provide a quick visual overview for recruiters, interviewers, developers, and contributors.
-
-Recommended screenshots:
+Including:
 
 ```text
-docs/images/homepage-desktop.png
-docs/images/homepage-mobile.png
-docs/images/practice-areas.png
-docs/images/admin-dashboard.png
-docs/images/admin-enquiries.png
+api.md
+architecture.md
+database.md
+deployment.md
+security.md
+PRODUCTION_RUNBOOK.md
 ```
-
-Example Markdown after screenshots are added:
-
-```markdown
-### Public Homepage
-
-![Public Homepage](docs/images/homepage-desktop.png)
-
-### Mobile Experience
-
-![Mobile Homepage](docs/images/homepage-mobile.png)
-
-### Admin Dashboard
-
-![Admin Dashboard](docs/images/admin-dashboard.png)
-```
-
----
-
-# 🎯 Project Outcome
-
-The project progressed through the complete engineering lifecycle:
-
-```text
-Requirements
-      │
-      ▼
-Architecture
-      │
-      ▼
-Backend Development
-      │
-      ▼
-Database Design
-      │
-      ▼
-Security
-      │
-      ▼
-Frontend Development
-      │
-      ▼
-Automated Testing
-      │
-      ▼
-Dockerization
-      │
-      ▼
-AWS Infrastructure
-      │
-      ▼
-Production Deployment
-      │
-      ▼
-DNS + HTTPS
-      │
-      ▼
-SEO
-      │
-      ▼
-Production QA
-      │
-      ▼
-Security Hardening
-      │
-      ▼
-Backup + Monitoring
-      │
-      ▼
-Documentation
-      │
-      ▼
-Production Release v1.0.0
-```
-
-The result is a real production application rather than a local-only demonstration project.
-
----
-
-# ⚠️ Security Notice
-
-This repository must never contain production secrets.
-
-The following must remain outside version control:
-
-- Database passwords
-- Administrator passwords
-- JWT signing secrets
-- AWS credentials
-- Private keys
-- Production environment files
-- Certificates containing private keys
-- Any other confidential client or infrastructure credentials
-
-Example:
-
-```text
-.env
-.env.prod
-*.key
-```
-
-Secrets shown in documentation must always be placeholders rather than actual production values.
-
----
-
-# ⚖️ Professional & Content Compliance
-
-The application is intended to provide factual professional information and facilitate contact/enquiry workflows.
-
-Professional details, qualifications, memberships, practice areas, registration information, and other factual claims should be confirmed by the client before publication.
-
-The application avoids unsupported comparative or promotional claims and does not guarantee legal outcomes.
 
 ---
 
 # 👨‍💻 Developer Note
 
-This project was independently designed and implemented as a real client application with emphasis on production-grade Java backend engineering and complete software-delivery ownership.
+This repository is maintained as both a production application and a demonstration of practical full-stack engineering skills.
 
-It demonstrates the ability to take a requirement from initial design through:
+The engineering focus of the project is on:
 
-**architecture → development → security → testing → cloud deployment → production operations → maintenance.**
-
----
-
-## ⭐ Portfolio Highlights
-
-If you are reviewing this repository from an engineering perspective, the key areas to explore are:
-
-- **Java 25 / Spring Boot 4 backend architecture**
-- **Spring Security + JWT authentication**
-- **REST API design**
-- **PostgreSQL + Flyway schema management**
-- **JUnit + Testcontainers integration testing**
-- **JaCoCo quality gates**
-- **React + TypeScript frontend**
-- **Dockerized production services**
-- **AWS Amplify + AWS Lightsail deployment**
-- **Nginx + HTTPS**
-- **Production security and monitoring**
-- **SEO and responsive design**
-- **Backup, recovery, and operational documentation**
+**Java • Spring Boot • REST APIs • Spring Security • JWT • PostgreSQL • Flyway • React • TypeScript • Docker • AWS • Testing • Production Deployment**
 
 ---
 
-## 📬 Production Website
+## ⭐ Project Summary
 
-**Ashutosh Upadhyay, Advocate**
-
-🌐 **https://www.ashutoshupadhyayadvocate.com**
+> Independently engineered and deployed a production full-stack legal services web application using Java 25, Spring Boot, Spring Security, JWT, PostgreSQL, Flyway, React, TypeScript, Docker, AWS Amplify, AWS Lightsail, Nginx and HTTPS. Implemented public enquiry and appointment workflows, secured administration capabilities, database migrations, automated integration testing with Testcontainers, audit logging, responsive design, SEO, monitoring, backups, and production operational documentation.
 
 ---
 
-**Release:** `v1.0.0`  
-**Status:** 🟢 Production  
-**Architecture:** Full-Stack Web Application  
-**Primary Engineering Focus:** Java • Spring Boot • React • PostgreSQL • Docker • AWS
+**Production:** https://www.ashutoshupadhyayadvocate.com  
+**API:** https://api.ashutoshupadhyayadvocate.com  
+**Release:** `v1.0.0`

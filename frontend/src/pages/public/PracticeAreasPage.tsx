@@ -72,13 +72,13 @@ function PracticeAreasPage() {
 
       <Seo
         title="Legal Practice Areas in Siddharthnagar"
-        description="Explore legal services provided by Advocate Ashutosh Upadhyay in Siddharthnagar including civil, criminal, POCSO, matrimonial, NDPS, NI Act, revenue, MACT and government authority matters."
+        description="Explore legal services by Advocate Ashutosh Upadhyay in Siddharthnagar and Naugarh for civil, criminal, POCSO, matrimonial, NDPS, NI Act, revenue, MACT and government authority matters."
         path="/practice-areas"
       />
 
       <PageHeader
-        title="Practice Areas"
-        description="Legal consultation, case preparation and representation across a range of civil, criminal and statutory matters."
+        title="Legal Practice Areas"
+        description="Legal consultation, case preparation and representation for civil, criminal, family, revenue and statutory matters in Siddharthnagar and Naugarh."
       />
 
       <section className="section">
@@ -92,14 +92,33 @@ function PracticeAreasPage() {
             </p>
 
             <h2>
-              Legal Practice Areas
-              in Siddharthnagar
+              Advocate &amp; Lawyer
+              Practice Areas in Siddharthnagar
             </h2>
 
             <p>
-              Professional assistance is
-              available across the following
-              principal categories of legal work.
+              Advocate Ashutosh Upadhyay provides
+              legal consultation, case preparation
+              and representation across a range of
+              civil, criminal, matrimonial, revenue
+              and statutory matters in Siddharthnagar
+              and Naugarh, Uttar Pradesh.
+            </p>
+
+            <p>
+              Clients looking for an Advocate,
+              Lawyer or Vakil in Siddharthnagar
+              or Naugarh can seek legal assistance
+              depending on the nature and facts
+              of their matter.
+            </p>
+
+            <p lang="hi">
+              सिद्धार्थनगर और नौगढ़ में अधिवक्ता,
+              वकील या एडवोकेट से संबंधित कानूनी
+              सहायता विभिन्न दीवानी, फौजदारी,
+              पारिवारिक, राजस्व और अन्य कानूनी
+              मामलों में उपलब्ध है।
             </p>
 
           </div>

@@ -103,7 +103,7 @@ function HomePage() {
       advocatePhotoUrl,
 
     description:
-      "Ashutosh Upadhyay, Advocate provides legal consultation, case preparation and representation in Siddharthnagar, Uttar Pradesh across civil, criminal, family, revenue, NI Act, MACT and other legal matters.",
+      "Ashutosh Upadhyay is an Advocate and Lawyer providing legal consultation, case preparation and representation in Siddharthnagar and Naugarh, Uttar Pradesh across civil, criminal, family, revenue, NI Act, MACT and other legal matters.",
 
     telephone:
       "+91-9628395566",
@@ -132,14 +132,22 @@ function HomePage() {
         "IN",
     },
 
-    areaServed: {
+    areaServed: [
+      {
+        "@type":
+          "AdministrativeArea",
 
-      "@type":
-        "AdministrativeArea",
+        name:
+          "Siddharthnagar, Uttar Pradesh, India",
+      },
+      {
+        "@type":
+          "Place",
 
-      name:
-        "Siddharthnagar, Uttar Pradesh, India",
-    },
+        name:
+          "Naugarh, Siddharthnagar, Uttar Pradesh, India",
+      },
+    ],
 
     hasOfferCatalog: {
 
@@ -179,8 +187,8 @@ function HomePage() {
     <>
 
       <Seo
-        title="Advocate in Siddharthnagar, Uttar Pradesh"
-        description="Ashutosh Upadhyay, Advocate provides legal consultation, case preparation and representation in Siddharthnagar for civil, criminal, family, revenue, NI Act, MACT and related matters."
+        title="Advocate & Lawyer in Siddharthnagar"
+        description="Ashutosh Upadhyay is an Advocate and Lawyer in Siddharthnagar and Naugarh, providing legal consultation and representation for civil, criminal, family, revenue, NI Act, MACT and related matters."
         path="/"
         structuredData={
           structuredData
@@ -200,7 +208,7 @@ function HomePage() {
             </p>
 
             <h1>
-              Advocate in Siddharthnagar
+              Advocate &amp; Lawyer in Siddharthnagar
               for Legal Consultation
               and Representation
             </h1>
@@ -210,7 +218,8 @@ function HomePage() {
               legal consultation, legal research,
               case preparation and representation
               across a wide range of legal matters
-              in Siddharthnagar, Uttar Pradesh.
+              in Siddharthnagar and Naugarh,
+              Uttar Pradesh.
             </p>
 
             <div className="hero-actions">
@@ -247,7 +256,7 @@ function HomePage() {
 
               <img
                 src={advocatePhotoUrl}
-                alt="Ashutosh Upadhyay, Advocate in Siddharthnagar"
+                alt="Ashutosh Upadhyay, Advocate and Lawyer in Siddharthnagar"
                 loading="eager"
                 fetchPriority="high"
                 style={{
@@ -458,6 +467,45 @@ function HomePage() {
               </span>
 
             </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <section className="section">
+
+        <div className="container">
+
+          <div className="section-heading">
+
+            <p className="eyebrow">
+              Local Legal Assistance
+            </p>
+
+            <h2>
+              Advocate, Lawyer &amp; Vakil
+              in Siddharthnagar and Naugarh
+            </h2>
+
+            <p>
+              If you are looking for an Advocate,
+              Lawyer or Vakil in Siddharthnagar
+              or Naugarh, Advocate Ashutosh Upadhyay
+              provides legal consultation, case
+              preparation and representation across
+              a range of legal matters.
+            </p>
+
+            <p lang="hi">
+              सिद्धार्थनगर में अधिवक्ता, वकील या
+              एडवोकेट तथा नौगढ़ में अधिवक्ता, वकील
+              या एडवोकेट की कानूनी सहायता के लिए
+              अधिवक्ता आशुतोष उपाध्याय से संपर्क
+              किया जा सकता है।
+            </p>
 
           </div>
 

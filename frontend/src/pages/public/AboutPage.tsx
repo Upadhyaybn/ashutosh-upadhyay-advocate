@@ -66,13 +66,13 @@ function AboutPage() {
 
       <Seo
         title="About Advocate Ashutosh Upadhyay"
-        description="Learn about Advocate Ashutosh Upadhyay, associated with the Civil Siddharthnagar Bar Association, his professional journey, legal research experience and practice in Siddharthnagar, Uttar Pradesh."
+        description="Learn about Advocate Ashutosh Upadhyay, his association with the Civil Siddharthnagar Bar Association, legal experience, professional journey and practice in Siddharthnagar and Naugarh, Uttar Pradesh."
         path="/about"
       />
 
       <PageHeader
         title="About Advocate Ashutosh Upadhyay"
-        description="Professional profile, legal journey and practice experience in Siddharthnagar, Uttar Pradesh."
+        description="Professional profile, legal journey, practice experience and legal representation in Siddharthnagar and Naugarh, Uttar Pradesh."
       />
 
       <section className="section">
@@ -92,10 +92,12 @@ function AboutPage() {
               </h2>
 
               <p>
-                Ashutosh Upadhyay is associated
-                with the Civil Siddharthnagar
-                Bar Association (C.S.B.A.) and
-                practices in Siddharthnagar,
+                Ashutosh Upadhyay is an Advocate
+                associated with the Civil
+                Siddharthnagar Bar Association
+                (C.S.B.A.) and provides legal
+                consultation and representation
+                in Siddharthnagar and Naugarh,
                 Uttar Pradesh.
               </p>
 

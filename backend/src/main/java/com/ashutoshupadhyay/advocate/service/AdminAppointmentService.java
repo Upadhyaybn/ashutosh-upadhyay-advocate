@@ -69,6 +69,26 @@ public class AdminAppointmentService {
         return toResponse(appointment);
     }
 
+    @Transactional
+    public void delete(Long id) {
+
+        Appointment appointment = repository
+                .findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "Appointment not found"
+                        )
+                );
+
+        auditLogService.log(
+                "DELETE_APPOINTMENT",
+                "APPOINTMENT",
+                appointment.getId()
+        );
+
+        repository.delete(appointment);
+    }
+
     private AdminAppointmentResponse toResponse(
             Appointment appointment) {
 

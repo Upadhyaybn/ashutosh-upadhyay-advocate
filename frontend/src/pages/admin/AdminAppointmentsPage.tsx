@@ -4,6 +4,7 @@ import {
 } from "react";
 
 import {
+  deleteAppointment,
   getAdminAppointments,
   updateAppointmentStatus,
 } from "../../api/adminApi";
@@ -48,6 +49,9 @@ function AdminAppointmentsPage() {
     useState(true);
 
   const [updatingId, setUpdatingId] =
+    useState<number | null>(null);
+
+  const [deletingId, setDeletingId] =
     useState<number | null>(null);
 
   const [error, setError] =
@@ -146,6 +150,53 @@ function AdminAppointmentsPage() {
       }
     };
 
+  const handleDelete =
+    async (
+      item: AdminAppointment
+    ) => {
+
+      const confirmed =
+        window.confirm(
+          `Delete the appointment for "${item.fullName}"? This cannot be undone.`
+        );
+
+      if (!confirmed) {
+        return;
+      }
+
+      setDeletingId(item.id);
+      setError("");
+      setSuccess("");
+
+      try {
+
+        await deleteAppointment(
+          item.id
+        );
+
+        setItems((currentItems) =>
+          currentItems.filter(
+            (currentItem) =>
+              currentItem.id !== item.id
+          )
+        );
+
+        setSuccess(
+          `Appointment #${item.id} deleted successfully.`
+        );
+
+      } catch (err) {
+
+        setError(
+          getApiErrorMessage(err)
+        );
+
+      } finally {
+
+        setDeletingId(null);
+      }
+    };
+
   return (
     <div>
 
@@ -225,6 +276,7 @@ function AdminAppointmentsPage() {
                   <th>Matter</th>
                   <th>Communication</th>
                   <th>Status</th>
+                  <th>Actions</th>
                 </tr>
 
               </thead>
@@ -320,6 +372,29 @@ function AdminAppointmentsPage() {
                           </span>
 
                         )}
+
+                      </td>
+
+                      <td>
+
+                        <button
+                          type="button"
+                          className="button button-secondary"
+                          disabled={
+                            deletingId === item.id
+                          }
+                          onClick={() =>
+                            void handleDelete(
+                              item
+                            )
+                          }
+                        >
+                          {
+                            deletingId === item.id
+                              ? "Deleting..."
+                              : "Delete"
+                          }
+                        </button>
 
                       </td>
 

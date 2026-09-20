@@ -87,4 +87,44 @@ class AdminEnquiryServiceTest {
                         1L
                 );
     }
+
+    @Test
+    void shouldDeleteEnquiry() {
+
+        Enquiry enquiry = new Enquiry();
+        enquiry.setId(1L);
+
+        when(repository.findById(1L))
+                .thenReturn(Optional.of(enquiry));
+
+        service.delete(1L);
+
+        verify(auditLogService)
+                .log(
+                        "DELETE_ENQUIRY",
+                        "ENQUIRY",
+                        1L
+                );
+
+        verify(repository)
+                .delete(enquiry);
+    }
+
+    @Test
+    void shouldThrowWhenDeletingMissingEnquiry() {
+
+        when(repository.findById(99L))
+                .thenReturn(Optional.empty());
+
+        assertThrows(
+                ResourceNotFoundException.class,
+                () -> service.delete(99L)
+        );
+
+        verify(repository, never())
+                .delete(any());
+
+        verify(auditLogService, never())
+                .log(any(), any(), any());
+    }
 }

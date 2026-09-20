@@ -3,6 +3,8 @@ import {
   useState,
 } from "react";
 
+import { useTranslation } from "react-i18next";
+
 import Seo
   from "../../components/seo/Seo";
 
@@ -22,6 +24,8 @@ import type {
 } from "../../types/api";
 
 function AboutPage() {
+
+  const { t } = useTranslation();
 
   const [profile, setProfile] =
     useState<AdvocateProfile | null>(
@@ -65,14 +69,14 @@ function AboutPage() {
     <>
 
       <Seo
-        title="About Advocate Ashutosh Upadhyay"
-        description="Learn about Advocate Ashutosh Upadhyay, his association with the Civil Siddharthnagar Bar Association, legal experience, professional journey and practice in Siddharthnagar and Naugarh, Uttar Pradesh."
+        title={t("seo.about.title")}
+        description={t("seo.about.description")}
         path="/about"
       />
 
       <PageHeader
-        title="About Advocate Ashutosh Upadhyay"
-        description="Professional profile, legal journey, practice experience and legal representation in Siddharthnagar and Naugarh, Uttar Pradesh."
+        title={t("seo.about.title")}
+        description={t("about.pageHeaderDescription")}
       />
 
       <section className="section">
@@ -84,31 +88,19 @@ function AboutPage() {
             <div>
 
               <p className="eyebrow">
-                Professional Profile
+                {t("about.profile.eyebrow")}
               </p>
 
               <h2>
-                Ashutosh Upadhyay, Advocate
+                {t("about.profile.title")}
               </h2>
 
               <p>
-                Ashutosh Upadhyay is an Advocate
-                associated with the Civil
-                Siddharthnagar Bar Association
-                (C.S.B.A.) and provides legal
-                consultation and representation
-                in Siddharthnagar and Naugarh,
-                Uttar Pradesh.
+                {t("about.profile.paragraph1")}
               </p>
 
               <p>
-                His professional work includes
-                litigation, legal research,
-                interpretation of statutes,
-                drafting, procedural preparation,
-                case analysis and legal
-                representation across a range
-                of civil and criminal matters.
+                {t("about.profile.paragraph2")}
               </p>
 
             </div>
@@ -116,35 +108,34 @@ function AboutPage() {
             <aside className="info-card">
 
               <h3>
-                Professional Details
+                {t("about.details.title")}
               </h3>
 
               <dl>
 
                 <div>
-                  <dt>Association</dt>
+                  <dt>{t("about.details.association")}</dt>
                   <dd>
-                    C.S.B.A. - Civil
-                    Siddharthnagar Bar Association
+                    {t("about.details.associationValue")}
                   </dd>
                 </div>
 
                 <div>
-                  <dt>Registration No.</dt>
+                  <dt>{t("about.details.regNo")}</dt>
                   <dd>
                     UP01425/16
                   </dd>
                 </div>
 
                 <div>
-                  <dt>C.O.P. No.</dt>
+                  <dt>{t("about.details.cop")}</dt>
                   <dd>
                     R1-164510
                   </dd>
                 </div>
 
                 <div>
-                  <dt>Primary Contact</dt>
+                  <dt>{t("about.details.primaryContact")}</dt>
                   <dd>
                     <a href="tel:+919628395566">
                       +91 9628395566
@@ -153,7 +144,7 @@ function AboutPage() {
                 </div>
 
                 <div>
-                  <dt>WhatsApp</dt>
+                  <dt>{t("about.details.whatsapp")}</dt>
                   <dd>
                     <a
                       href="https://wa.me/919628395566"
@@ -166,7 +157,7 @@ function AboutPage() {
                 </div>
 
                 <div>
-                  <dt>Email</dt>
+                  <dt>{t("about.details.email")}</dt>
                   <dd>
                     <a href="mailto:ashutoshadvocate24@gmail.com">
                       ashutoshadvocate24@gmail.com
@@ -191,11 +182,11 @@ function AboutPage() {
           <div className="section-heading">
 
             <p className="eyebrow">
-              Professional Journey
+              {t("about.journey.eyebrow")}
             </p>
 
             <h2>
-              Legal Training and Practice Exposure
+              {t("about.journey.title")}
             </h2>
 
           </div>
@@ -205,16 +196,11 @@ function AboutPage() {
             <article className="service-card">
 
               <h3>
-                Judicial Preparation - Delhi
+                {t("about.journey.delhi.title")}
               </h3>
 
               <p>
-                Undertook judicial-services
-                preparation at Rahul&apos;s IAS,
-                Mukherjee Nagar, Delhi, with
-                exposure to legal research,
-                statutory interpretation,
-                procedural law and legal analysis.
+                {t("about.journey.delhi.description")}
               </p>
 
             </article>
@@ -222,17 +208,11 @@ function AboutPage() {
             <article className="service-card">
 
               <h3>
-                Lucknow Bench Exposure
+                {t("about.journey.lucknow.title")}
               </h3>
 
               <p>
-                Gained professional exposure at
-                the Lucknow Bench of the
-                Allahabad High Court under
-                CSC Mayankar Singh, Advocate
-                (Senior), including service
-                matters, contract matters,
-                mediation and procedural practice.
+                {t("about.journey.lucknow.description")}
               </p>
 
             </article>
@@ -240,18 +220,11 @@ function AboutPage() {
             <article className="service-card">
 
               <h3>
-                Civil Practice
+                {t("about.journey.civil.title")}
               </h3>
 
               <p>
-                Developed civil-practice experience
-                under Sri Gangaram Pandey,
-                including property disputes,
-                land disputes, injunctions,
-                declarations, succession,
-                NI Act matters, arbitration,
-                commercial matters and
-                consumer disputes.
+                {t("about.journey.civil.description")}
               </p>
 
             </article>
@@ -259,16 +232,11 @@ function AboutPage() {
             <article className="service-card">
 
               <h3>
-                Criminal Practice
+                {t("about.journey.criminal.title")}
               </h3>
 
               <p>
-                Gained practical understanding
-                of criminal litigation through
-                guidance from Sri Suresh Singh,
-                Sri Sanjay Srivastava and
-                Sri Gajendranath Pandey,
-                Advocates.
+                {t("about.journey.criminal.description")}
               </p>
 
             </article>
@@ -286,20 +254,15 @@ function AboutPage() {
           <div className="section-heading">
 
             <p className="eyebrow">
-              Professional Approach
+              {t("about.approach.eyebrow")}
             </p>
 
             <h2>
-              Research, Analysis and Preparation
+              {t("about.approach.title")}
             </h2>
 
             <p>
-              The practice approach focuses on
-              understanding facts, studying
-              applicable law, analysing legal
-              issues, preparing the matter
-              carefully and presenting the lawful
-              case before the appropriate forum.
+              {t("about.approach.description")}
             </p>
 
           </div>
@@ -311,7 +274,7 @@ function AboutPage() {
       {loading && (
         <section className="section">
           <div className="container">
-            <p>Loading profile...</p>
+            <p>{t("common.loadingProfile")}</p>
           </div>
         </section>
       )}
@@ -337,7 +300,7 @@ function AboutPage() {
               <div className="section-heading">
 
                 <p className="eyebrow">
-                  Current Professional Profile
+                  {t("about.currentProfile.eyebrow")}
                 </p>
 
                 <h2>

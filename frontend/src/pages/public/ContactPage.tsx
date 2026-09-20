@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 import Seo
   from "../../components/seo/Seo";
 
@@ -14,18 +16,20 @@ import {
 
 function ContactPage() {
 
+  const { t } = useTranslation();
+
   return (
     <>
 
       <Seo
-        title="Contact Advocate Ashutosh Upadhyay"
-        description="Contact Advocate Ashutosh Upadhyay for legal consultation, enquiries and appointment requests in Siddharthnagar and Naugarh, Uttar Pradesh."
+        title={t("seo.contact.title")}
+        description={t("seo.contact.description")}
         path="/contact"
       />
 
       <PageHeader
-        title="Contact Advocate Ashutosh Upadhyay"
-        description="Contact the advocate for legal consultation, legal enquiries or appointment requests in Siddharthnagar and Naugarh, Uttar Pradesh."
+        title={t("seo.contact.title")}
+        description={t("contact.pageHeaderDescription")}
       />
 
       <section className="section">
@@ -35,30 +39,25 @@ function ContactPage() {
           <div className="info-card">
 
             <p className="eyebrow">
-              Office Location
+              {t("contact.location.eyebrow")}
             </p>
 
             <h2>
-              Advocate Office in Siddharthnagar
+              {t("contact.location.title")}
             </h2>
 
             <p>
-              Near Hanuman Mandir,
-              Civil Court Premises
+              {t("contact.location.addressLine1")}
             </p>
 
             <p>
-              Siddharthnagar,
+              {t("contact.location.addressLine2")}
               <br />
-              Uttar Pradesh 272207, India
+              {t("contact.location.addressLine3")}
             </p>
 
             <p>
-              The office provides a point of
-              contact for legal consultation
-              and representation for clients
-              in Siddharthnagar, Naugarh and
-              nearby areas.
+              {t("contact.location.description")}
             </p>
 
           </div>
@@ -66,17 +65,15 @@ function ContactPage() {
           <div className="info-card">
 
             <p className="eyebrow">
-              Legal Assistance
+              {t("contact.assistance.eyebrow")}
             </p>
 
             <h2>
-              Enquiry &amp; Appointment
+              {t("contact.assistance.title")}
             </h2>
 
             <p>
-              You can submit your legal enquiry
-              or request an appointment with
-              Advocate Ashutosh Upadhyay online.
+              {t("contact.assistance.description")}
             </p>
 
             <div className="stacked-actions">
@@ -85,14 +82,14 @@ function ContactPage() {
                 className="button button-primary"
                 to={ROUTES.ENQUIRY}
               >
-                Submit Enquiry
+                {t("contact.assistance.submitEnquiry")}
               </Link>
 
               <Link
                 className="button button-secondary"
                 to={ROUTES.APPOINTMENT}
               >
-                Request Appointment
+                {t("contact.assistance.requestAppointment")}
               </Link>
 
             </div>

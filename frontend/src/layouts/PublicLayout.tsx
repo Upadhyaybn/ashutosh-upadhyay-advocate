@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Outlet } from "react-router";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
@@ -42,9 +42,27 @@ function PublicLayout() {
   const [isDisclaimerOpen, setIsDisclaimerOpen] =
     useState(false);
 
+  /*
+   * Guards against React StrictMode's development-only double
+   * invocation of mount effects. Without this, the effect below can
+   * run twice: the first run marks the disclaimer seen in
+   * sessionStorage and opens it; the second run then reads that same
+   * flag back as "already seen" and skips opening it. Refs (unlike
+   * state) survive both runs, so checking one here makes the
+   * initialization run exactly once.
+   */
+  const hasInitializedDisclaimer =
+    useRef(false);
+
   useEffect(() => {
 
     function showDisclaimerOnFirstVisit() {
+
+      if (hasInitializedDisclaimer.current) {
+        return;
+      }
+
+      hasInitializedDisclaimer.current = true;
 
       if (hasSeenDisclaimerThisSession()) {
         return;

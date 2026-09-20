@@ -11,6 +11,16 @@ import Seo
 import PageHeader
   from "../../components/common/PageHeader";
 
+import ContactAction
+  from "../../components/common/ContactAction";
+
+import {
+  CONTACT_INFO,
+  mailtoHref,
+  telHref,
+  whatsappHref,
+} from "../../config/contactInfo";
+
 import {
   getProfile,
 } from "../../api/publicApi";
@@ -135,33 +145,38 @@ function AboutPage() {
                 </div>
 
                 <div>
-                  <dt>{t("about.details.primaryContact")}</dt>
+                  <dt>{t("common.contact.primaryContact")}</dt>
                   <dd>
-                    <a href="tel:+919628395566">
-                      +91 9628395566
-                    </a>
+                    <ContactAction
+                      type="phone"
+                      label={t("common.contact.primaryContact")}
+                      value={CONTACT_INFO.primaryPhoneDisplay}
+                      href={telHref(CONTACT_INFO.primaryPhoneDigits)}
+                    />
                   </dd>
                 </div>
 
                 <div>
-                  <dt>{t("about.details.whatsapp")}</dt>
+                  <dt>{t("common.contact.whatsapp")}</dt>
                   <dd>
-                    <a
-                      href="https://wa.me/919628395566"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      +91 9628395566
-                    </a>
+                    <ContactAction
+                      type="whatsapp"
+                      label={t("common.contact.whatsapp")}
+                      value={CONTACT_INFO.whatsappDisplay}
+                      href={whatsappHref(CONTACT_INFO.whatsappDigits)}
+                    />
                   </dd>
                 </div>
 
                 <div>
-                  <dt>{t("about.details.email")}</dt>
+                  <dt>{t("common.contact.email")}</dt>
                   <dd>
-                    <a href="mailto:ashutoshadvocate24@gmail.com">
-                      ashutoshadvocate24@gmail.com
-                    </a>
+                    <ContactAction
+                      type="email"
+                      label={t("common.contact.email")}
+                      value={CONTACT_INFO.email}
+                      href={mailtoHref(CONTACT_INFO.email)}
+                    />
                   </dd>
                 </div>
 

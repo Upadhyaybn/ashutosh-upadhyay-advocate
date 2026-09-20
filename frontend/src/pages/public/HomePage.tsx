@@ -9,6 +9,16 @@ import { useTranslation } from "react-i18next";
 import Seo
   from "../../components/seo/Seo";
 
+import ContactAction
+  from "../../components/common/ContactAction";
+
+import {
+  CONTACT_INFO,
+  mailtoHref,
+  telHref,
+  whatsappHref,
+} from "../../config/contactInfo";
+
 import {
   ROUTES,
 } from "../../routes/routePaths";
@@ -109,10 +119,10 @@ function HomePage() {
       "Ashutosh Upadhyay is an Advocate and Lawyer providing legal consultation, case preparation and representation in Siddharthnagar and Naugarh, Uttar Pradesh across civil, criminal, family, revenue, NI Act, MACT and other legal matters.",
 
     telephone:
-      "+91-9628395566",
+      CONTACT_INFO.primaryPhoneDigits,
 
     email:
-      "ashutoshadvocate24@gmail.com",
+      CONTACT_INFO.email,
 
     address: {
 
@@ -736,16 +746,15 @@ function HomePage() {
             <article className="service-card">
 
               <h3>
-                {t("home.contactSection.primaryContact")}
+                {t("common.contact.primaryContact")}
               </h3>
 
-              <p>
-
-                <a href="tel:+919628395566">
-                  +91 9628395566
-                </a>
-
-              </p>
+              <ContactAction
+                type="phone"
+                label={t("common.contact.primaryContact")}
+                value={CONTACT_INFO.primaryPhoneDisplay}
+                href={telHref(CONTACT_INFO.primaryPhoneDigits)}
+              />
 
             </article>
 
@@ -753,16 +762,15 @@ function HomePage() {
             <article className="service-card">
 
               <h3>
-                {t("home.contactSection.alternateContact")}
+                {t("common.contact.alternateContact")}
               </h3>
 
-              <p>
-
-                <a href="tel:+919565875651">
-                  +91 9565875651
-                </a>
-
-              </p>
+              <ContactAction
+                type="phone"
+                label={t("common.contact.alternateContact")}
+                value={CONTACT_INFO.alternatePhoneDisplay}
+                href={telHref(CONTACT_INFO.alternatePhoneDigits)}
+              />
 
             </article>
 
@@ -770,20 +778,15 @@ function HomePage() {
             <article className="service-card">
 
               <h3>
-                {t("home.contactSection.whatsapp")}
+                {t("common.contact.whatsapp")}
               </h3>
 
-              <p>
-
-                <a
-                  href="https://wa.me/919628395566"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  +91 9628395566
-                </a>
-
-              </p>
+              <ContactAction
+                type="whatsapp"
+                label={t("common.contact.whatsapp")}
+                value={CONTACT_INFO.whatsappDisplay}
+                href={whatsappHref(CONTACT_INFO.whatsappDigits)}
+              />
 
             </article>
 
@@ -791,18 +794,15 @@ function HomePage() {
             <article className="service-card">
 
               <h3>
-                {t("home.contactSection.email")}
+                {t("common.contact.email")}
               </h3>
 
-              <p>
-
-                <a
-                  href="mailto:ashutoshadvocate24@gmail.com"
-                >
-                  ashutoshadvocate24@gmail.com
-                </a>
-
-              </p>
+              <ContactAction
+                type="email"
+                label={t("common.contact.email")}
+                value={CONTACT_INFO.email}
+                href={mailtoHref(CONTACT_INFO.email)}
+              />
 
             </article>
 

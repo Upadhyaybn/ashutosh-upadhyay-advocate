@@ -39,6 +39,16 @@ export const updateEnquiryStatus =
     return response.data;
   };
 
+export const deleteEnquiry =
+  async (
+    id: number
+  ): Promise<void> => {
+
+    await apiClient.delete(
+      `/api/v1/admin/enquiries/${id}`
+    );
+  };
+
 export const getAdminAppointments =
   async (): Promise<AdminAppointment[]> => {
 
@@ -63,6 +73,16 @@ export const updateAppointmentStatus =
       );
 
     return response.data;
+  };
+
+export const deleteAppointment =
+  async (
+    id: number
+  ): Promise<void> => {
+
+    await apiClient.delete(
+      `/api/v1/admin/appointments/${id}`
+    );
   };
 
 export const getAdminProfile =

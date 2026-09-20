@@ -63,4 +63,17 @@ public class AdminEnquiryController {
                 service.updateStatus(id, request)
         );
     }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Delete an enquiry")
+    public ResponseEntity<Void> delete(
+            @PathVariable Long id) {
+
+        service.delete(id);
+
+        return ResponseEntity
+                .noContent()
+                .build();
+    }
 }

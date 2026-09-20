@@ -208,7 +208,14 @@ function AboutPage() {
 
           <div className="card-grid">
 
-            <article className="service-card">
+            <article className="service-card journey-card">
+
+              <span
+                className="journey-card-number"
+                aria-hidden="true"
+              >
+                01
+              </span>
 
               <h3>
                 {t("about.journey.delhi.title")}
@@ -220,7 +227,14 @@ function AboutPage() {
 
             </article>
 
-            <article className="service-card">
+            <article className="service-card journey-card">
+
+              <span
+                className="journey-card-number"
+                aria-hidden="true"
+              >
+                02
+              </span>
 
               <h3>
                 {t("about.journey.lucknow.title")}
@@ -232,7 +246,14 @@ function AboutPage() {
 
             </article>
 
-            <article className="service-card">
+            <article className="service-card journey-card">
+
+              <span
+                className="journey-card-number"
+                aria-hidden="true"
+              >
+                03
+              </span>
 
               <h3>
                 {t("about.journey.civil.title")}
@@ -244,7 +265,14 @@ function AboutPage() {
 
             </article>
 
-            <article className="service-card">
+            <article className="service-card journey-card">
+
+              <span
+                className="journey-card-number"
+                aria-hidden="true"
+              >
+                04
+              </span>
 
               <h3>
                 {t("about.journey.criminal.title")}

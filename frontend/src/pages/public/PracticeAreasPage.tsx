@@ -179,7 +179,7 @@ function PracticeAreasPage() {
 
       </section>
 
-      <section className="section section-muted">
+      <section className="section section-ink">
 
         <div className="container">
 

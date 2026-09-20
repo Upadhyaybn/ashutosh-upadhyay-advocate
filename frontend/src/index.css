@@ -297,12 +297,33 @@ h3 {
 }
 
 .main-nav a {
-  font-size: 0.94rem;
+  position: relative;
+
+  font-size: var(--text-nav);
   font-weight: 600;
+
+  transition: color 0.15s ease;
+}
+
+.main-nav a:hover {
+  color: var(--color-primary);
 }
 
 .main-nav a.active {
   color: var(--primary);
+}
+
+.main-nav a.active::after {
+  content: "";
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+
+  height: 2px;
+
+  background: var(--color-gold);
 }
 
 .main-nav .nav-primary {
@@ -310,9 +331,19 @@ h3 {
 
   color: white;
 
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
 
   background: var(--primary);
+
+  transition: background-color 0.15s ease;
+}
+
+.main-nav .nav-primary:hover {
+  background: var(--color-primary-dark);
+}
+
+.main-nav .nav-primary.active::after {
+  content: none;
 }
 
 .language-switcher {
@@ -1050,9 +1081,9 @@ textarea {
 /* Footer */
 
 .site-footer {
-  color: #ddd;
+  color: rgba(255, 255, 255, 0.75);
 
-  background: #21191b;
+  background: var(--color-ink);
 }
 
 .footer-grid {
@@ -1077,6 +1108,16 @@ textarea {
   gap: 10px;
 }
 
+.footer-links a,
+.footer-link-button {
+  transition: color 0.15s ease;
+}
+
+.footer-links a:hover,
+.footer-link-button:hover {
+  color: var(--color-gold);
+}
+
 .footer-link-button {
   justify-self: start;
 
@@ -1088,10 +1129,6 @@ textarea {
   color: inherit;
   font-size: inherit;
   text-align: left;
-}
-
-.footer-link-button:hover {
-  text-decoration: underline;
 }
 
 .footer-bottom {
@@ -1311,6 +1348,11 @@ textarea {
   .main-nav a:hover,
   .main-nav a.active {
     background: var(--surface-muted, rgba(0, 0, 0, 0.04));
+  }
+
+  .main-nav a.active::after {
+    /* Drawer uses a block background highlight instead of an underline. */
+    content: none;
   }
 
   .main-nav .nav-primary {

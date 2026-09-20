@@ -248,62 +248,19 @@ function HomePage() {
 
             </div>
 
-            <div className="hero-credentials">
-
-              <span>
-                {t("home.hero.cardAssociation")}
-              </span>
-
-              <span
-                className="hero-credentials-divider"
-                aria-hidden="true"
-              >
-                •
-              </span>
-
-              <span>
-                {t("home.hero.regNo")}
-              </span>
-
-              <span
-                className="hero-credentials-divider"
-                aria-hidden="true"
-              >
-                •
-              </span>
-
-              <span>
-                {t("home.hero.copNo")}
-              </span>
-
-            </div>
-
           </div>
 
 
           <div className="hero-card">
 
-            <div
-              style={{
-                width: "100%",
-                marginBottom: "24px",
-                overflow: "hidden",
-                borderRadius: "16px",
-              }}
-            >
+            <div className="hero-photo-frame">
 
               <img
+                className="hero-photo"
                 src={advocatePhotoUrl}
                 alt="Ashutosh Upadhyay, Advocate and Lawyer in Siddharthnagar"
                 loading="eager"
                 fetchPriority="high"
-                style={{
-                  display: "block",
-                  width: "100%",
-                  height: "360px",
-                  objectFit: "cover",
-                  objectPosition: "center top",
-                }}
                 onError={(event) => {
 
                   if (
@@ -326,27 +283,31 @@ function HomePage() {
             </div>
 
 
-            <div className="hero-card-badge">
-              {t("home.hero.cardBadge")}
+            <div className="hero-card-caption">
+
+              <span className="hero-card-badge">
+                {t("home.hero.cardBadge")}
+              </span>
+
+              <h2>
+                Ashutosh Upadhyay
+              </h2>
+
+              <p>
+                {t("home.hero.cardAssociation")}
+              </p>
+
+              <hr />
+
+              <p>
+                {t("home.hero.regNo")}
+              </p>
+
+              <p>
+                {t("home.hero.copNo")}
+              </p>
+
             </div>
-
-            <h2>
-              Ashutosh Upadhyay
-            </h2>
-
-            <p>
-              {t("home.hero.cardAssociation")}
-            </p>
-
-            <hr />
-
-            <p>
-              {t("home.hero.regNo")}
-            </p>
-
-            <p>
-              {t("home.hero.copNo")}
-            </p>
 
           </div>
 
@@ -534,7 +495,7 @@ function HomePage() {
       </section>
 
 
-      <section className="section">
+      <section className="section section-muted">
 
         <div className="container">
 
@@ -615,7 +576,7 @@ function HomePage() {
       </section>
 
 
-      <section className="section section-muted">
+      <section className="section section-charcoal">
 
         <div className="container">
 
@@ -761,7 +722,7 @@ function HomePage() {
       </section>
 
 
-      <section className="section">
+      <section className="section section-muted">
 
         <div className="container">
 

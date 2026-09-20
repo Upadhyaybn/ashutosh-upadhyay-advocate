@@ -216,7 +216,15 @@ function EnquiryPage() {
               <div className="form-grid">
 
                 <label>
-                  {t("enquiry.form.fullName")}
+                  <span className="form-label-text">
+                    {t("enquiry.form.fullName")}
+                    <span
+                      className="required-mark"
+                      aria-hidden="true"
+                    >
+                      {" "}*
+                    </span>
+                  </span>
 
                   <input
                     type="text"
@@ -229,13 +237,20 @@ function EnquiryPage() {
                 </label>
 
                 <label>
-                  {t("enquiry.form.mobile")}
+                  <span className="form-label-text">
+                    {t("enquiry.form.mobile")}
+                    <span
+                      className="required-mark"
+                      aria-hidden="true"
+                    >
+                      {" "}*
+                    </span>
+                  </span>
 
                   <input
                     type="tel"
                     name="mobile"
                     inputMode="numeric"
-                    placeholder={t("enquiry.form.mobilePlaceholder")}
                     maxLength={11}
                     required
                   />
@@ -310,7 +325,15 @@ function EnquiryPage() {
               </div>
 
               <label>
-                {t("enquiry.form.description")}
+                <span className="form-label-text">
+                  {t("enquiry.form.description")}
+                  <span
+                    className="required-mark"
+                    aria-hidden="true"
+                  >
+                    {" "}*
+                  </span>
+                </span>
 
                 <textarea
                   name="description"

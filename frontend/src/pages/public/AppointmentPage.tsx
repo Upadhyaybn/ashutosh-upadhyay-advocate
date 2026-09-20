@@ -279,7 +279,15 @@ function AppointmentPage() {
               <div className="form-grid">
 
                 <label>
-                  {t("appointment.form.fullName")}
+                  <span className="form-label-text">
+                    {t("appointment.form.fullName")}
+                    <span
+                      className="required-mark"
+                      aria-hidden="true"
+                    >
+                      {" "}*
+                    </span>
+                  </span>
 
                   <input
                     type="text"
@@ -292,13 +300,20 @@ function AppointmentPage() {
                 </label>
 
                 <label>
-                  {t("appointment.form.mobile")}
+                  <span className="form-label-text">
+                    {t("appointment.form.mobile")}
+                    <span
+                      className="required-mark"
+                      aria-hidden="true"
+                    >
+                      {" "}*
+                    </span>
+                  </span>
 
                   <input
                     type="tel"
                     name="mobile"
                     inputMode="numeric"
-                    placeholder={t("appointment.form.mobilePlaceholder")}
                     maxLength={11}
                     required
                   />
@@ -320,7 +335,15 @@ function AppointmentPage() {
                 </label>
 
                 <label>
-                  {t("appointment.form.category")}
+                  <span className="form-label-text">
+                    {t("appointment.form.category")}
+                    <span
+                      className="required-mark"
+                      aria-hidden="true"
+                    >
+                      {" "}*
+                    </span>
+                  </span>
 
                   <select
                     name="matterCategory"

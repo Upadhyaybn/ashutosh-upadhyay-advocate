@@ -247,6 +247,9 @@
     "successFallback": "Your appointment request has been submitted successfully.",
     "errorTitle": "Unable to submit appointment",
     "invalidMobile": "Please enter a valid 10-digit Indian mobile number.",
+    "invalidDate": "Please select a preferred date.",
+    "noDateSelected": "No date selected",
+    "noTimeSelected": "No specific time (any time is fine)",
     "form": {
       "fullName": "Full Name",
       "mobile": "Mobile Number",

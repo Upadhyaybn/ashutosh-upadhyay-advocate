@@ -17,6 +17,8 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -122,5 +124,45 @@ class AdminAppointmentServiceTest {
                         "APPOINTMENT",
                         1L
                 );
+    }
+
+    @Test
+    void shouldDeleteAppointment() {
+
+        Appointment appointment = new Appointment();
+        appointment.setId(1L);
+
+        when(repository.findById(1L))
+                .thenReturn(Optional.of(appointment));
+
+        service.delete(1L);
+
+        verify(auditLogService)
+                .log(
+                        "DELETE_APPOINTMENT",
+                        "APPOINTMENT",
+                        1L
+                );
+
+        verify(repository)
+                .delete(appointment);
+    }
+
+    @Test
+    void shouldThrowWhenDeletingMissingAppointment() {
+
+        when(repository.findById(99L))
+                .thenReturn(Optional.empty());
+
+        assertThrows(
+                ResourceNotFoundException.class,
+                () -> service.delete(99L)
+        );
+
+        verify(repository, never())
+                .delete(any());
+
+        verify(auditLogService, never())
+                .log(any(), any(), any());
     }
 }

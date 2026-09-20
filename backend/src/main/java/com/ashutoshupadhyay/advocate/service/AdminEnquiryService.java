@@ -70,6 +70,26 @@ public class AdminEnquiryService {
         return toResponse(enquiry);
     }
 
+    @Transactional
+    public void delete(Long id) {
+
+        Enquiry enquiry = repository
+                .findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "Enquiry not found"
+                        )
+                );
+
+        auditLogService.log(
+                "DELETE_ENQUIRY",
+                "ENQUIRY",
+                enquiry.getId()
+        );
+
+        repository.delete(enquiry);
+    }
+
     private AdminEnquiryResponse toResponse(
             Enquiry enquiry) {
 

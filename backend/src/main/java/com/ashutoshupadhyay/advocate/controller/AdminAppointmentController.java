@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -60,5 +61,18 @@ public class AdminAppointmentController {
         return ResponseEntity.ok(
                 service.updateStatus(id, request)
         );
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Delete an appointment")
+    public ResponseEntity<Void> delete(
+            @PathVariable Long id) {
+
+        service.delete(id);
+
+        return ResponseEntity
+                .noContent()
+                .build();
     }
 }

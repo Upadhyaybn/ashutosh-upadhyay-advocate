@@ -4,6 +4,7 @@ import {
 } from "react";
 
 import {
+  deleteEnquiry,
   getAdminEnquiries,
   updateEnquiryStatus,
 } from "../../api/adminApi";
@@ -48,14 +49,20 @@ function AdminEnquiriesPage() {
   const [updatingId, setUpdatingId] =
     useState<number | null>(null);
 
+  const [deletingId, setDeletingId] =
+    useState<number | null>(null);
+
   const [error, setError] =
     useState("");
 
   const [success, setSuccess] =
     useState("");
 
-  const loadEnquiries =
-    async () => {
+  useEffect(() => {
+
+    let ignore = false;
+
+    async function loadEnquiries() {
 
       try {
 
@@ -64,23 +71,31 @@ function AdminEnquiriesPage() {
         const data =
           await getAdminEnquiries();
 
-        setItems(data);
+        if (!ignore) {
+          setItems(data);
+        }
 
       } catch (err) {
 
-        setError(
-          getApiErrorMessage(err)
-        );
+        if (!ignore) {
+          setError(
+            getApiErrorMessage(err)
+          );
+        }
 
       } finally {
 
-        setLoading(false);
+        if (!ignore) {
+          setLoading(false);
+        }
       }
-    };
-
-  useEffect(() => {
+    }
 
     void loadEnquiries();
+
+    return () => {
+      ignore = true;
+    };
 
   }, []);
 
@@ -130,6 +145,53 @@ function AdminEnquiriesPage() {
       } finally {
 
         setUpdatingId(null);
+      }
+    };
+
+  const handleDelete =
+    async (
+      item: AdminEnquiry
+    ) => {
+
+      const confirmed =
+        window.confirm(
+          `Delete the enquiry from "${item.fullName}"? This cannot be undone.`
+        );
+
+      if (!confirmed) {
+        return;
+      }
+
+      setDeletingId(item.id);
+      setError("");
+      setSuccess("");
+
+      try {
+
+        await deleteEnquiry(
+          item.id
+        );
+
+        setItems((currentItems) =>
+          currentItems.filter(
+            (currentItem) =>
+              currentItem.id !== item.id
+          )
+        );
+
+        setSuccess(
+          `Enquiry #${item.id} deleted successfully.`
+        );
+
+      } catch (err) {
+
+        setError(
+          getApiErrorMessage(err)
+        );
+
+      } finally {
+
+        setDeletingId(null);
       }
     };
 
@@ -210,6 +272,7 @@ function AdminEnquiriesPage() {
                   <th>Category</th>
                   <th>Description</th>
                   <th>Status</th>
+                  <th>Actions</th>
                 </tr>
 
               </thead>
@@ -289,6 +352,29 @@ function AdminEnquiriesPage() {
                           </span>
 
                         )}
+
+                      </td>
+
+                      <td>
+
+                        <button
+                          type="button"
+                          className="button button-secondary"
+                          disabled={
+                            deletingId === item.id
+                          }
+                          onClick={() =>
+                            void handleDelete(
+                              item
+                            )
+                          }
+                        >
+                          {
+                            deletingId === item.id
+                              ? "Deleting..."
+                              : "Delete"
+                          }
+                        </button>
 
                       </td>
 

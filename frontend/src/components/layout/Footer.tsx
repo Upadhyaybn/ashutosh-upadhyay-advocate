@@ -2,7 +2,13 @@ import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
 import { ROUTES } from "../../routes/routePaths";
 
-function Footer() {
+interface FooterProps {
+  onOpenDisclaimer: () => void;
+}
+
+function Footer({
+  onOpenDisclaimer,
+}: FooterProps) {
   const { t } = useTranslation();
   const year = new Date().getFullYear();
 
@@ -36,6 +42,14 @@ function Footer() {
             <Link to={ROUTES.APPOINTMENT}>
               {t("common.footer.appointment")}
             </Link>
+
+            <button
+              type="button"
+              className="footer-link-button"
+              onClick={onOpenDisclaimer}
+            >
+              {t("disclaimer.footerLink")}
+            </button>
           </div>
         </div>
 

@@ -3,11 +3,9 @@ package com.ashutoshupadhyay.advocate.controller;
 import com.ashutoshupadhyay.advocate.config.CorsConfig;
 import com.ashutoshupadhyay.advocate.config.JwtConfig;
 import com.ashutoshupadhyay.advocate.config.SecurityConfig;
-import com.ashutoshupadhyay.advocate.dto.response.AdminEnquiryResponse;
-import com.ashutoshupadhyay.advocate.enums.EnquiryStatus;
 import com.ashutoshupadhyay.advocate.security.CustomAccessDeniedHandler;
 import com.ashutoshupadhyay.advocate.security.CustomAuthenticationEntryPoint;
-import com.ashutoshupadhyay.advocate.service.AdminEnquiryService;
+import com.ashutoshupadhyay.advocate.service.AdminAppointmentService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
@@ -17,15 +15,11 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.List;
-
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /*
@@ -36,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Boot's default (CSRF-enabled) security which would otherwise mask
  * a real 401/204 behind a false 403.
  */
-@WebMvcTest(AdminEnquiryController.class)
+@WebMvcTest(AdminAppointmentController.class)
 @Import({
         SecurityConfig.class,
         JwtConfig.class,
@@ -50,13 +44,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                 "security.jwt.issuer=ashutosh-upadhyay-advocate-api",
         }
 )
-class AdminEnquiryControllerSecurityTest {
+class AdminAppointmentControllerSecurityTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockitoBean
-    private AdminEnquiryService service;
+    private AdminAppointmentService service;
 
     @Test
     void shouldRejectAdminEndpointWithoutAuthentication()
@@ -64,59 +58,11 @@ class AdminEnquiryControllerSecurityTest {
 
         mockMvc.perform(
                         get(
-                                "/api/v1/admin/enquiries"
+                                "/api/v1/admin/appointments"
                         )
                 )
                 .andExpect(
                         status().isUnauthorized()
-                );
-    }
-
-    @Test
-    @WithMockUser(
-            username = "admin",
-            roles = "ADMIN"
-    )
-    void shouldAllowAdminUser()
-            throws Exception {
-
-        AdminEnquiryResponse response =
-                new AdminEnquiryResponse(
-                        1L,
-                        "Test User",
-                        "9876543210",
-                        "test@example.com",
-                        "Siddharthnagar",
-                        "Civil Matter",
-                        "Testing secured admin API",
-                        EnquiryStatus.NEW,
-                        true,
-                        null,
-                        null
-                );
-
-        when(service.getAll())
-                .thenReturn(
-                        List.of(response)
-                );
-
-        mockMvc.perform(
-                        get(
-                                "/api/v1/admin/enquiries"
-                        )
-                )
-                .andExpect(
-                        status().isOk()
-                )
-                .andExpect(
-                        jsonPath("$[0].id")
-                                .value(1)
-                )
-                .andExpect(
-                        jsonPath("$[0].fullName")
-                                .value(
-                                        "Test User"
-                                )
                 );
     }
 
@@ -126,7 +72,7 @@ class AdminEnquiryControllerSecurityTest {
 
         mockMvc.perform(
                         delete(
-                                "/api/v1/admin/enquiries/1"
+                                "/api/v1/admin/appointments/1"
                         )
                 )
                 .andExpect(
@@ -147,7 +93,7 @@ class AdminEnquiryControllerSecurityTest {
 
         mockMvc.perform(
                         delete(
-                                "/api/v1/admin/enquiries/1"
+                                "/api/v1/admin/appointments/1"
                         )
                 )
                 .andExpect(
@@ -163,7 +109,7 @@ class AdminEnquiryControllerSecurityTest {
             username = "admin",
             roles = "ADMIN"
     )
-    void shouldAllowAdminToDeleteEnquiry()
+    void shouldAllowAdminToDeleteAppointment()
             throws Exception {
 
         doNothing()
@@ -172,7 +118,7 @@ class AdminEnquiryControllerSecurityTest {
 
         mockMvc.perform(
                         delete(
-                                "/api/v1/admin/enquiries/1"
+                                "/api/v1/admin/appointments/1"
                         )
                 )
                 .andExpect(

@@ -8,6 +8,12 @@ import type {
 
 import { useTranslation } from "react-i18next";
 
+import { DayPicker } from "react-day-picker";
+import { format } from "date-fns";
+import { enIN } from "date-fns/locale/en-IN";
+import { hi } from "date-fns/locale/hi";
+import "react-day-picker/style.css";
+
 import Seo
   from "../../components/seo/Seo";
 
@@ -39,9 +45,33 @@ function normalizeMobile(
   return digits;
 }
 
+function generateTimeSlots(): string[] {
+
+  const slots: string[] = [];
+
+  for (let hour = 10; hour <= 18; hour++) {
+
+    slots.push(
+      `${String(hour).padStart(2, "0")}:00`
+    );
+
+    if (hour !== 18) {
+      slots.push(
+        `${String(hour).padStart(2, "0")}:30`
+      );
+    }
+  }
+
+  return slots;
+}
+
+const TIME_SLOTS = generateTimeSlots();
+
+const TODAY = new Date();
+
 function AppointmentPage() {
 
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const [submitting, setSubmitting] =
     useState(false);
@@ -52,10 +82,11 @@ function AppointmentPage() {
   const [error, setError] =
     useState("");
 
-  const today =
-    new Date()
-      .toISOString()
-      .split("T")[0];
+  const [selectedDate, setSelectedDate] =
+    useState<Date | undefined>(undefined);
+
+  const [selectedTime, setSelectedTime] =
+    useState("");
 
   const handleSubmit =
     async (
@@ -93,16 +124,20 @@ function AppointmentPage() {
         return;
       }
 
-      const preferredTime =
-        String(
-          formData.get(
-            "preferredTime"
-          ) || ""
+      if (!selectedDate) {
+
+        setError(
+          t("appointment.invalidDate")
         );
 
+        setSubmitting(false);
+
+        return;
+      }
+
       const formattedTime =
-        preferredTime
-          ? `${preferredTime}:00`
+        selectedTime
+          ? `${selectedTime}:00`
           : "";
 
       try {
@@ -127,10 +162,9 @@ function AppointmentPage() {
               ).trim(),
 
             preferredDate:
-              String(
-                formData.get(
-                  "preferredDate"
-                )
+              format(
+                selectedDate,
+                "yyyy-MM-dd"
               ),
 
             preferredTime:
@@ -169,6 +203,8 @@ function AppointmentPage() {
         );
 
         currentForm.reset();
+        setSelectedDate(undefined);
+        setSelectedTime("");
 
       } catch (err) {
 
@@ -284,28 +320,6 @@ function AppointmentPage() {
                 </label>
 
                 <label>
-                  {t("appointment.form.preferredDate")}
-
-                  <input
-                    type="date"
-                    name="preferredDate"
-                    min={today}
-                    required
-                  />
-
-                </label>
-
-                <label>
-                  {t("appointment.form.preferredTime")}
-
-                  <input
-                    type="time"
-                    name="preferredTime"
-                  />
-
-                </label>
-
-                <label>
                   {t("appointment.form.category")}
 
                   <select
@@ -369,6 +383,92 @@ function AppointmentPage() {
                   </select>
 
                 </label>
+
+              </div>
+
+              <div className="scheduling-grid">
+
+                <div className="scheduling-field">
+
+                  <p className="scheduling-label">
+                    {t("appointment.form.preferredDate")}
+                  </p>
+
+                  <div className="appointment-datepicker">
+
+                    <DayPicker
+                      mode="single"
+                      selected={selectedDate}
+                      onSelect={setSelectedDate}
+                      disabled={{ before: TODAY }}
+                      locale={
+                        i18n.language === "hi"
+                          ? hi
+                          : enIN
+                      }
+                      required={false}
+                    />
+
+                  </div>
+
+                  <p className="scheduling-selected-value">
+                    {selectedDate
+                      ? format(
+                          selectedDate,
+                          "PPP"
+                        )
+                      : t("appointment.noDateSelected")}
+                  </p>
+
+                </div>
+
+                <div className="scheduling-field">
+
+                  <p className="scheduling-label">
+                    {t("appointment.form.preferredTime")}
+                  </p>
+
+                  <div
+                    className="time-slot-grid"
+                    role="group"
+                    aria-label={t("appointment.form.preferredTime")}
+                  >
+
+                    {TIME_SLOTS.map((slot) => (
+
+                      <button
+                        key={slot}
+                        type="button"
+                        className={
+                          selectedTime === slot
+                            ? "time-slot is-selected"
+                            : "time-slot"
+                        }
+                        aria-pressed={
+                          selectedTime === slot
+                        }
+                        onClick={() =>
+                          setSelectedTime(
+                            (current) =>
+                              current === slot
+                                ? ""
+                                : slot
+                          )
+                        }
+                      >
+                        {slot}
+                      </button>
+
+                    ))}
+
+                  </div>
+
+                  <p className="scheduling-selected-value">
+                    {selectedTime ||
+                      t("appointment.noTimeSelected")}
+                  </p>
+
+                </div>
 
               </div>
 

@@ -5,7 +5,9 @@
       "about": "About",
       "practiceAreas": "Practice Areas",
       "contact": "Contact",
-      "bookAppointment": "Book Appointment"
+      "bookAppointment": "Book Appointment",
+      "openMenu": "Open menu",
+      "closeMenu": "Close menu"
     },
     "footer": {
       "tagline": "Advocate practicing at District Court, Siddharthnagar, Uttar Pradesh.",

@@ -60,7 +60,7 @@ interface ChatMessage {
   descriptor: ChatMessageDescriptor;
 }
 
-const AUTO_OPEN_DELAY_MS = 2500;
+const AUTO_OPEN_DELAY_MS = 3000;
 const AUTO_OPEN_SESSION_KEY =
   "advocate-chat-auto-opened";
 
@@ -161,7 +161,20 @@ function TypingIndicator() {
   );
 }
 
-function ChatWidget() {
+interface ChatWidgetProps {
+  /*
+   * Gates the auto-open timer - e.g. a host layout that shows a
+   * disclaimer first can hold this false until the visitor has
+   * dismissed it, so the chat doesn't pop up on top of (or racing)
+   * another notice. Defaults to true so ChatWidget still auto-opens
+   * normally when used on its own, with nothing else to wait for.
+   */
+  readyForAutoOpen?: boolean;
+}
+
+function ChatWidget({
+  readyForAutoOpen = true,
+}: ChatWidgetProps) {
 
   const { t } = useTranslation();
   const panelId = useId();
@@ -292,6 +305,10 @@ function ChatWidget() {
 
   useEffect(() => {
 
+    if (!readyForAutoOpen) {
+      return undefined;
+    }
+
     if (hasAutoOpenedThisSession()) {
       return undefined;
     }
@@ -306,10 +323,11 @@ function ChatWidget() {
 
     return () => window.clearTimeout(timer);
 
-    // Runs once on mount only - an intentional
-    // one-time auto-open, not tied to prop/state changes.
+    // Only re-runs when readyForAutoOpen flips (e.g. a disclaimer
+    // being dismissed) - intentionally not depending on `greet`
+    // itself, which is recreated every render.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [readyForAutoOpen]);
 
   const handleQuickReply = (
     intent: ChatIntentId

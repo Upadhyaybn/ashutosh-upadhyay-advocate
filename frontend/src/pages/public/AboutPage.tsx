@@ -14,6 +14,9 @@ import PageHeader
 import ContactAction
   from "../../components/common/ContactAction";
 
+import Skeleton
+  from "../../components/common/Skeleton";
+
 import {
   CONTACT_INFO,
   mailtoHref,
@@ -315,9 +318,21 @@ function AboutPage() {
       </section>
 
       {loading && (
-        <section className="section">
+        <section
+          className="section section-muted"
+          role="status"
+        >
           <div className="container">
-            <p>{t("common.loadingProfile")}</p>
+            <span className="visually-hidden">
+              {t("common.loadingProfile")}
+            </span>
+            <div className="section-heading">
+              <Skeleton className="skeleton-eyebrow" />
+              <Skeleton className="skeleton-heading" />
+              <Skeleton className="skeleton-text" />
+              <Skeleton className="skeleton-text" />
+              <Skeleton className="skeleton-text" />
+            </div>
           </div>
         </section>
       )}

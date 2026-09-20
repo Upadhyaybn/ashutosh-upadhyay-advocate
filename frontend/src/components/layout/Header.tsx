@@ -20,6 +20,9 @@ function Header() {
   const [isMenuOpen, setIsMenuOpen] =
     useState(false);
 
+  const [isScrolled, setIsScrolled] =
+    useState(false);
+
   const [
     menuTrackedPathname,
     setMenuTrackedPathname,
@@ -73,8 +76,51 @@ function Header() {
 
   }, [isMenuOpen]);
 
+  useEffect(() => {
+
+    let ticking = false;
+
+    const updateScrolled = () => {
+
+      setIsScrolled(window.scrollY > 24);
+      ticking = false;
+    };
+
+    const handleScroll = () => {
+
+      if (ticking) {
+        return;
+      }
+
+      ticking = true;
+
+      window.requestAnimationFrame(updateScrolled);
+    };
+
+    window.addEventListener(
+      "scroll",
+      handleScroll,
+      { passive: true }
+    );
+
+    return () => {
+
+      window.removeEventListener(
+        "scroll",
+        handleScroll
+      );
+    };
+
+  }, []);
+
   return (
-    <header className="site-header">
+    <header
+      className={
+        isScrolled
+          ? "site-header is-scrolled"
+          : "site-header"
+      }
+    >
       <div className="container header-content">
         <NavLink to={ROUTES.HOME} className="brand">
           <span className="brand-title">

@@ -12,6 +12,9 @@ import Seo
 import ContactAction
   from "../../components/common/ContactAction";
 
+import PracticeAreaIcon
+  from "../../components/common/PracticeAreaIcon";
+
 import {
   CONTACT_INFO,
   mailtoHref,
@@ -383,6 +386,10 @@ function HomePage() {
                   key={area.id}
                   className="service-card"
                 >
+
+                  <PracticeAreaIcon
+                    name={area.title}
+                  />
 
                   <h3>
                     {t(

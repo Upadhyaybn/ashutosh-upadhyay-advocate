@@ -6,6 +6,8 @@ import type {
   FormEvent,
 } from "react";
 
+import { useTranslation } from "react-i18next";
+
 import Seo
   from "../../components/seo/Seo";
 
@@ -38,6 +40,8 @@ function normalizeMobile(
 }
 
 function EnquiryPage() {
+
+  const { t } = useTranslation();
 
   const [submitting, setSubmitting] =
     useState(false);
@@ -76,7 +80,7 @@ function EnquiryPage() {
       if (!/^[6-9]\d{9}$/.test(mobile)) {
 
         setError(
-          "Please enter a valid 10-digit Indian mobile number."
+          t("enquiry.invalidMobile")
         );
 
         setSubmitting(false);
@@ -134,7 +138,7 @@ function EnquiryPage() {
 
         setSuccess(
           response.message ||
-          "Your enquiry has been submitted successfully."
+          t("enquiry.successFallback")
         );
 
         currentForm.reset();
@@ -155,15 +159,15 @@ function EnquiryPage() {
     <>
 
       <Seo
-        title="Submit a Legal Enquiry"
-        description="Submit a legal enquiry to Advocate Ashutosh Upadhyay regarding a legal matter in Siddharthnagar, Uttar Pradesh."
+        title={t("seo.enquiry.title")}
+        description={t("seo.enquiry.description")}
         path="/enquiry"
         index={false}
       />
 
       <PageHeader
-        title="Legal Enquiry"
-        description="Share a brief description of your legal concern."
+        title={t("enquiry.pageTitle")}
+        description={t("enquiry.pageDescription")}
       />
 
       <section className="section">
@@ -175,7 +179,7 @@ function EnquiryPage() {
             <div className="success-message">
 
               <h2>
-                Enquiry Submitted
+                {t("enquiry.successTitle")}
               </h2>
 
               <p>
@@ -191,7 +195,7 @@ function EnquiryPage() {
             <div className="error-message">
 
               <strong>
-                Unable to submit enquiry
+                {t("enquiry.errorTitle")}
               </strong>
 
               <p>
@@ -212,7 +216,7 @@ function EnquiryPage() {
               <div className="form-grid">
 
                 <label>
-                  Full Name
+                  {t("enquiry.form.fullName")}
 
                   <input
                     type="text"
@@ -225,25 +229,25 @@ function EnquiryPage() {
                 </label>
 
                 <label>
-                  Mobile Number
+                  {t("enquiry.form.mobile")}
 
                   <input
                     type="tel"
                     name="mobile"
                     inputMode="numeric"
-                    placeholder="Enter 10-digit mobile number"
+                    placeholder={t("enquiry.form.mobilePlaceholder")}
                     maxLength={11}
                     required
                   />
 
                   <small>
-                    Enter a 10-digit Indian mobile number.
+                    {t("enquiry.form.mobileHint")}
                   </small>
 
                 </label>
 
                 <label>
-                  Email
+                  {t("enquiry.form.email")}
 
                   <input
                     type="email"
@@ -253,7 +257,7 @@ function EnquiryPage() {
                 </label>
 
                 <label>
-                  City / District
+                  {t("enquiry.form.cityDistrict")}
 
                   <input
                     type="text"
@@ -264,7 +268,7 @@ function EnquiryPage() {
                 </label>
 
                 <label>
-                  Matter Category
+                  {t("enquiry.form.category")}
 
                   <select
                     name="category"
@@ -272,31 +276,31 @@ function EnquiryPage() {
                   >
 
                     <option value="">
-                      Select category
+                      {t("enquiry.form.selectCategory")}
                     </option>
 
                     <option value="Civil Matter">
-                      Civil Matter
+                      {t("enquiry.form.categoryCivil")}
                     </option>
 
                     <option value="Criminal Matter">
-                      Criminal Matter
+                      {t("enquiry.form.categoryCriminal")}
                     </option>
 
                     <option value="Family Matter">
-                      Family Matter
+                      {t("enquiry.form.categoryFamily")}
                     </option>
 
                     <option value="Property Matter">
-                      Property Matter
+                      {t("enquiry.form.categoryProperty")}
                     </option>
 
                     <option value="Consumer Matter">
-                      Consumer Matter
+                      {t("enquiry.form.categoryConsumer")}
                     </option>
 
                     <option value="Other">
-                      Other
+                      {t("enquiry.form.categoryOther")}
                     </option>
 
                   </select>
@@ -306,7 +310,7 @@ function EnquiryPage() {
               </div>
 
               <label>
-                Brief Description
+                {t("enquiry.form.description")}
 
                 <textarea
                   name="description"
@@ -318,9 +322,7 @@ function EnquiryPage() {
               </label>
 
               <p className="form-notice">
-                Please avoid sharing highly confidential
-                documents or sensitive personal information
-                through this enquiry form.
+                {t("enquiry.form.notice")}
               </p>
 
               <label className="checkbox-label">
@@ -332,8 +334,7 @@ function EnquiryPage() {
                 />
 
                 <span>
-                  I consent to being contacted
-                  regarding this enquiry.
+                  {t("enquiry.form.consent")}
                 </span>
 
               </label>
@@ -346,8 +347,8 @@ function EnquiryPage() {
 
                 {
                   submitting
-                    ? "Submitting..."
-                    : "Submit Enquiry"
+                    ? t("enquiry.form.submitting")
+                    : t("enquiry.form.submit")
                 }
 
               </button>

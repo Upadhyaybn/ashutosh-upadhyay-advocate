@@ -1,7 +1,12 @@
 import { NavLink } from "react-router";
+import { useTranslation } from "react-i18next";
+
 import { ROUTES } from "../../routes/routePaths";
+import LanguageSwitcher from "../common/LanguageSwitcher";
 
 function Header() {
+  const { t } = useTranslation();
+
   return (
     <header className="site-header">
       <div className="container header-content">
@@ -17,27 +22,29 @@ function Header() {
 
         <nav className="main-nav" aria-label="Main navigation">
           <NavLink to={ROUTES.HOME}>
-            Home
+            {t("common.nav.home")}
           </NavLink>
 
           <NavLink to={ROUTES.ABOUT}>
-            About
+            {t("common.nav.about")}
           </NavLink>
 
           <NavLink to={ROUTES.PRACTICE_AREAS}>
-            Practice Areas
+            {t("common.nav.practiceAreas")}
           </NavLink>
 
           <NavLink to={ROUTES.CONTACT}>
-            Contact
+            {t("common.nav.contact")}
           </NavLink>
 
           <NavLink
             to={ROUTES.APPOINTMENT}
             className="nav-primary"
           >
-            Book Appointment
+            {t("common.nav.bookAppointment")}
           </NavLink>
+
+          <LanguageSwitcher />
         </nav>
       </div>
     </header>

@@ -196,6 +196,40 @@ h3 {
   background: var(--primary);
 }
 
+.language-switcher {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.language-option {
+  padding: 4px 6px;
+
+  border: none;
+  background: none;
+
+  color: var(--muted);
+  cursor: pointer;
+
+  border-radius: 6px;
+}
+
+.language-option:hover {
+  color: var(--primary);
+}
+
+.language-option.is-active {
+  color: var(--primary);
+  background: var(--primary-light, rgba(0, 0, 0, 0.05));
+}
+
+.language-divider {
+  color: var(--border);
+}
+
 /* Hero */
 
 .hero {

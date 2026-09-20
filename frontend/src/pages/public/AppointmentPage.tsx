@@ -6,6 +6,8 @@ import type {
   FormEvent,
 } from "react";
 
+import { useTranslation } from "react-i18next";
+
 import Seo
   from "../../components/seo/Seo";
 
@@ -38,6 +40,8 @@ function normalizeMobile(
 }
 
 function AppointmentPage() {
+
+  const { t } = useTranslation();
 
   const [submitting, setSubmitting] =
     useState(false);
@@ -81,7 +85,7 @@ function AppointmentPage() {
       if (!/^[6-9]\d{9}$/.test(mobile)) {
 
         setError(
-          "Please enter a valid 10-digit Indian mobile number."
+          t("appointment.invalidMobile")
         );
 
         setSubmitting(false);
@@ -161,7 +165,7 @@ function AppointmentPage() {
 
         setSuccess(
           response.message ||
-          "Your appointment request has been submitted successfully."
+          t("appointment.successFallback")
         );
 
         currentForm.reset();
@@ -182,15 +186,15 @@ function AppointmentPage() {
     <>
 
       <Seo
-        title="Request Legal Consultation Appointment"
-        description="Request an appointment with Advocate Ashutosh Upadhyay for legal consultation in Siddharthnagar, Uttar Pradesh."
+        title={t("seo.appointment.title")}
+        description={t("seo.appointment.description")}
         path="/appointment"
         index={false}
       />
 
       <PageHeader
-        title="Request Appointment"
-        description="Request a preferred date and time for legal consultation."
+        title={t("appointment.pageTitle")}
+        description={t("appointment.pageDescription")}
       />
 
       <section className="section">
@@ -202,7 +206,7 @@ function AppointmentPage() {
             <div className="success-message">
 
               <h2>
-                Appointment Requested
+                {t("appointment.successTitle")}
               </h2>
 
               <p>
@@ -218,7 +222,7 @@ function AppointmentPage() {
             <div className="error-message">
 
               <strong>
-                Unable to submit appointment
+                {t("appointment.errorTitle")}
               </strong>
 
               <p>
@@ -239,7 +243,7 @@ function AppointmentPage() {
               <div className="form-grid">
 
                 <label>
-                  Full Name
+                  {t("appointment.form.fullName")}
 
                   <input
                     type="text"
@@ -252,25 +256,25 @@ function AppointmentPage() {
                 </label>
 
                 <label>
-                  Mobile Number
+                  {t("appointment.form.mobile")}
 
                   <input
                     type="tel"
                     name="mobile"
                     inputMode="numeric"
-                    placeholder="Enter 10-digit mobile number"
+                    placeholder={t("appointment.form.mobilePlaceholder")}
                     maxLength={11}
                     required
                   />
 
                   <small>
-                    Enter a 10-digit Indian mobile number.
+                    {t("appointment.form.mobileHint")}
                   </small>
 
                 </label>
 
                 <label>
-                  Email
+                  {t("appointment.form.email")}
 
                   <input
                     type="email"
@@ -280,7 +284,7 @@ function AppointmentPage() {
                 </label>
 
                 <label>
-                  Preferred Date
+                  {t("appointment.form.preferredDate")}
 
                   <input
                     type="date"
@@ -292,7 +296,7 @@ function AppointmentPage() {
                 </label>
 
                 <label>
-                  Preferred Time
+                  {t("appointment.form.preferredTime")}
 
                   <input
                     type="time"
@@ -302,7 +306,7 @@ function AppointmentPage() {
                 </label>
 
                 <label>
-                  Matter Category
+                  {t("appointment.form.category")}
 
                   <select
                     name="matterCategory"
@@ -311,31 +315,31 @@ function AppointmentPage() {
                   >
 
                     <option value="">
-                      Select category
+                      {t("appointment.form.selectCategory")}
                     </option>
 
                     <option value="Civil Matter">
-                      Civil Matter
+                      {t("appointment.form.categoryCivil")}
                     </option>
 
                     <option value="Criminal Matter">
-                      Criminal Matter
+                      {t("appointment.form.categoryCriminal")}
                     </option>
 
                     <option value="Family Matter">
-                      Family Matter
+                      {t("appointment.form.categoryFamily")}
                     </option>
 
                     <option value="Property Matter">
-                      Property Matter
+                      {t("appointment.form.categoryProperty")}
                     </option>
 
                     <option value="Consumer Matter">
-                      Consumer Matter
+                      {t("appointment.form.categoryConsumer")}
                     </option>
 
                     <option value="Other">
-                      Other
+                      {t("appointment.form.categoryOther")}
                     </option>
 
                   </select>
@@ -343,7 +347,7 @@ function AppointmentPage() {
                 </label>
 
                 <label>
-                  Preferred Communication
+                  {t("appointment.form.communicationMethod")}
 
                   <select
                     name="communicationMethod"
@@ -351,15 +355,15 @@ function AppointmentPage() {
                   >
 
                     <option value="PHONE">
-                      Phone
+                      {t("appointment.form.commPhone")}
                     </option>
 
                     <option value="WHATSAPP">
-                      WhatsApp
+                      {t("appointment.form.commWhatsapp")}
                     </option>
 
                     <option value="EMAIL">
-                      Email
+                      {t("appointment.form.commEmail")}
                     </option>
 
                   </select>
@@ -369,7 +373,7 @@ function AppointmentPage() {
               </div>
 
               <label>
-                Short Note
+                {t("appointment.form.shortNote")}
 
                 <textarea
                   name="shortNote"
@@ -388,8 +392,7 @@ function AppointmentPage() {
                 />
 
                 <span>
-                  I consent to being contacted
-                  regarding this appointment.
+                  {t("appointment.form.consent")}
                 </span>
 
               </label>
@@ -402,8 +405,8 @@ function AppointmentPage() {
 
                 {
                   submitting
-                    ? "Submitting..."
-                    : "Request Appointment"
+                    ? t("appointment.form.submitting")
+                    : t("appointment.form.submit")
                 }
 
               </button>

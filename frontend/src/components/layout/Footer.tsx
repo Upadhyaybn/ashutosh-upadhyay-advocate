@@ -1,7 +1,9 @@
 import { Link } from "react-router";
+import { useTranslation } from "react-i18next";
 import { ROUTES } from "../../routes/routePaths";
 
 function Footer() {
+  const { t } = useTranslation();
   const year = new Date().getFullYear();
 
   return (
@@ -11,48 +13,49 @@ function Footer() {
           <h3>Ashutosh Upadhyay</h3>
 
           <p>
-            Advocate practicing at District Court,
-            Siddharthnagar, Uttar Pradesh.
+            {t("common.footer.tagline")}
           </p>
         </div>
 
         <div>
-          <h4>Quick Links</h4>
+          <h4>{t("common.footer.quickLinks")}</h4>
 
           <div className="footer-links">
-            <Link to={ROUTES.ABOUT}>About</Link>
+            <Link to={ROUTES.ABOUT}>
+              {t("common.footer.about")}
+            </Link>
 
             <Link to={ROUTES.PRACTICE_AREAS}>
-              Practice Areas
+              {t("common.footer.practiceAreas")}
             </Link>
 
             <Link to={ROUTES.ENQUIRY}>
-              Legal Enquiry
+              {t("common.footer.legalEnquiry")}
             </Link>
 
             <Link to={ROUTES.APPOINTMENT}>
-              Appointment
+              {t("common.footer.appointment")}
             </Link>
           </div>
         </div>
 
         <div>
-          <h4>Office</h4>
+          <h4>{t("common.footer.office")}</h4>
 
          <p>
-             Near Hanuman Mandir, Civil Court Premises
+             {t("common.footer.officeLine1")}
          </p>
 
          <p>
-             Siddharthnagar, Uttar Pradesh 272207, India
+             {t("common.footer.officeLine2")}
          </p>
         </div>
       </div>
 
       <div className="footer-bottom">
         <div className="container">
-          © {year} Ashutosh Upadhyay Advocate.
-          All rights reserved.
+          © {year} Ashutosh Upadhyay Advocate.{" "}
+          {t("common.footer.rightsReserved")}
         </div>
       </div>
     </footer>

@@ -4,6 +4,7 @@ import {
 } from "react";
 
 import { Link } from "react-router";
+import { useTranslation } from "react-i18next";
 
 import Seo
   from "../../components/seo/Seo";
@@ -30,6 +31,8 @@ const FALLBACK_PHOTO_URL =
 
 
 function HomePage() {
+
+  const { t } = useTranslation();
 
   const [profile, setProfile] =
     useState<AdvocateProfile | null>(null);
@@ -187,8 +190,8 @@ function HomePage() {
     <>
 
       <Seo
-        title="Advocate & Lawyer in Siddharthnagar"
-        description="Ashutosh Upadhyay is an Advocate and Lawyer in Siddharthnagar and Naugarh, providing legal consultation and representation for civil, criminal, family, revenue, NI Act, MACT and related matters."
+        title={t("seo.home.title")}
+        description={t("seo.home.description")}
         path="/"
         structuredData={
           structuredData
@@ -203,23 +206,15 @@ function HomePage() {
           <div className="hero-content">
 
             <p className="eyebrow">
-              C.S.B.A. • Civil Siddharthnagar
-              Bar Association
+              {t("home.hero.eyebrow")}
             </p>
 
             <h1>
-              Advocate &amp; Lawyer in Siddharthnagar
-              for Legal Consultation
-              and Representation
+              {t("home.hero.title")}
             </h1>
 
             <p className="hero-description">
-              Ashutosh Upadhyay, Advocate provides
-              legal consultation, legal research,
-              case preparation and representation
-              across a wide range of legal matters
-              in Siddharthnagar and Naugarh,
-              Uttar Pradesh.
+              {t("home.hero.description")}
             </p>
 
             <div className="hero-actions">
@@ -228,14 +223,14 @@ function HomePage() {
                 className="button button-primary"
                 to={ROUTES.APPOINTMENT}
               >
-                Book Appointment
+                {t("home.hero.bookAppointment")}
               </Link>
 
               <Link
                 className="button button-secondary"
                 to={ROUTES.ENQUIRY}
               >
-                Submit Enquiry
+                {t("home.hero.submitEnquiry")}
               </Link>
 
             </div>
@@ -289,7 +284,7 @@ function HomePage() {
 
 
             <div className="hero-card-badge">
-              Advocate
+              {t("home.hero.cardBadge")}
             </div>
 
             <h2>
@@ -297,19 +292,17 @@ function HomePage() {
             </h2>
 
             <p>
-              C.S.B.A.
-              (Civil Siddharthnagar
-              Bar Association)
+              {t("home.hero.cardAssociation")}
             </p>
 
             <hr />
 
             <p>
-              Reg. No.: UP01425/16
+              {t("home.hero.regNo")}
             </p>
 
             <p>
-              C.O.P. No.: R1-164510
+              {t("home.hero.copNo")}
             </p>
 
           </div>
@@ -326,18 +319,15 @@ function HomePage() {
           <div className="section-heading">
 
             <p className="eyebrow">
-              Legal Services
+              {t("home.practiceAreas.eyebrow")}
             </p>
 
             <h2>
-              Practice Areas
+              {t("home.practiceAreas.title")}
             </h2>
 
             <p>
-              Legal assistance and representation
-              across civil, criminal, matrimonial,
-              revenue, accident-claim and other
-              legal matters.
+              {t("home.practiceAreas.description")}
             </p>
 
           </div>
@@ -355,11 +345,17 @@ function HomePage() {
                 >
 
                   <h3>
-                    {area.title}
+                    {t(
+                      `practiceAreaItems.${area.id}.title`,
+                      { defaultValue: area.title }
+                    )}
                   </h3>
 
                   <p>
-                    {area.description}
+                    {t(
+                      `practiceAreaItems.${area.id}.description`,
+                      { defaultValue: area.description }
+                    )}
                   </p>
 
                 </article>
@@ -375,7 +371,7 @@ function HomePage() {
               className="button button-secondary"
               to={ROUTES.PRACTICE_AREAS}
             >
-              View All Practice Areas
+              {t("home.practiceAreas.viewAll")}
             </Link>
 
           </div>
@@ -392,20 +388,15 @@ function HomePage() {
           <div>
 
             <p className="eyebrow">
-              Professional Approach
+              {t("home.approach.eyebrow")}
             </p>
 
             <h2>
-              Research, Preparation
-              and Representation
+              {t("home.approach.title")}
             </h2>
 
             <p>
-              Legal matters are approached through
-              careful understanding of facts,
-              interpretation of applicable law,
-              legal research, procedural preparation
-              and responsible representation.
+              {t("home.approach.description")}
             </p>
 
           </div>
@@ -420,8 +411,7 @@ function HomePage() {
               </strong>
 
               <span>
-                Understand facts,
-                documents and legal issues
+                {t("home.approach.step1")}
               </span>
 
             </div>
@@ -434,8 +424,7 @@ function HomePage() {
               </strong>
 
               <span>
-                Research statutes,
-                procedure and legal principles
+                {t("home.approach.step2")}
               </span>
 
             </div>
@@ -448,8 +437,7 @@ function HomePage() {
               </strong>
 
               <span>
-                Prepare pleadings,
-                applications and strategy
+                {t("home.approach.step3")}
               </span>
 
             </div>
@@ -462,8 +450,7 @@ function HomePage() {
               </strong>
 
               <span>
-                Represent the lawful case
-                before the appropriate forum
+                {t("home.approach.step4")}
               </span>
 
             </div>
@@ -482,29 +469,15 @@ function HomePage() {
           <div className="section-heading">
 
             <p className="eyebrow">
-              Local Legal Assistance
+              {t("home.localAssistance.eyebrow")}
             </p>
 
             <h2>
-              Advocate, Lawyer &amp; Vakil
-              in Siddharthnagar and Naugarh
+              {t("home.localAssistance.title")}
             </h2>
 
             <p>
-              If you are looking for an Advocate,
-              Lawyer or Vakil in Siddharthnagar
-              or Naugarh, Advocate Ashutosh Upadhyay
-              provides legal consultation, case
-              preparation and representation across
-              a range of legal matters.
-            </p>
-
-            <p lang="hi">
-              सिद्धार्थनगर में अधिवक्ता, वकील या
-              एडवोकेट तथा नौगढ़ में अधिवक्ता, वकील
-              या एडवोकेट की कानूनी सहायता के लिए
-              अधिवक्ता आशुतोष उपाध्याय से संपर्क
-              किया जा सकता है।
+              {t("home.localAssistance.description")}
             </p>
 
           </div>
@@ -521,18 +494,15 @@ function HomePage() {
           <div className="section-heading">
 
             <p className="eyebrow">
-              Professional Details
+              {t("home.professionalDetails.eyebrow")}
             </p>
 
             <h2>
-              Advocate Ashutosh Upadhyay
+              {t("home.professionalDetails.title")}
             </h2>
 
             <p>
-              Professional practice associated
-              with the Civil Siddharthnagar
-              Bar Association, Siddharthnagar,
-              Uttar Pradesh.
+              {t("home.professionalDetails.description")}
             </p>
 
           </div>
@@ -543,13 +513,11 @@ function HomePage() {
             <article className="service-card">
 
               <h3>
-                Association
+                {t("home.professionalDetails.association")}
               </h3>
 
               <p>
-                C.S.B.A.
-                (Civil Siddharthnagar
-                Bar Association)
+                {t("home.professionalDetails.associationValue")}
               </p>
 
             </article>
@@ -558,7 +526,7 @@ function HomePage() {
             <article className="service-card">
 
               <h3>
-                Registration Number
+                {t("home.professionalDetails.regNo")}
               </h3>
 
               <p>
@@ -571,7 +539,7 @@ function HomePage() {
             <article className="service-card">
 
               <h3>
-                Certificate of Practice
+                {t("home.professionalDetails.cop")}
               </h3>
 
               <p>
@@ -584,13 +552,11 @@ function HomePage() {
             <article className="service-card">
 
               <h3>
-                Professional Focus
+                {t("home.professionalDetails.focus")}
               </h3>
 
               <p>
-                Litigation, legal research,
-                drafting, case preparation
-                and representation.
+                {t("home.professionalDetails.focusValue")}
               </p>
 
             </article>
@@ -609,17 +575,15 @@ function HomePage() {
           <div className="section-heading">
 
             <p className="eyebrow">
-              Major Legal Practice Areas
+              {t("home.matters.eyebrow")}
             </p>
 
             <h2>
-              Legal Matters Handled
+              {t("home.matters.title")}
             </h2>
 
             <p>
-              Professional assistance is available
-              across the following principal
-              categories of legal work.
+              {t("home.matters.description")}
             </p>
 
           </div>
@@ -630,14 +594,11 @@ function HomePage() {
             <article className="service-card">
 
               <h3>
-                Civil Matters
+                {t("home.matters.civil.title")}
               </h3>
 
               <p>
-                Civil suits, injunctions,
-                declarations, recovery,
-                execution, property,
-                succession and related matters.
+                {t("home.matters.civil.description")}
               </p>
 
             </article>
@@ -646,13 +607,11 @@ function HomePage() {
             <article className="service-card">
 
               <h3>
-                Criminal Matters
+                {t("home.matters.criminal.title")}
               </h3>
 
               <p>
-                Criminal trials, complaints,
-                procedural matters and related
-                criminal proceedings.
+                {t("home.matters.criminal.description")}
               </p>
 
             </article>
@@ -661,13 +620,11 @@ function HomePage() {
             <article className="service-card">
 
               <h3>
-                POCSO Cases
+                {t("home.matters.pocso.title")}
               </h3>
 
               <p>
-                Professional assistance and
-                representation in proceedings
-                under the POCSO Act.
+                {t("home.matters.pocso.description")}
               </p>
 
             </article>
@@ -676,13 +633,11 @@ function HomePage() {
             <article className="service-card">
 
               <h3>
-                Matrimonial &amp; Family Matters
+                {t("home.matters.matrimonial.title")}
               </h3>
 
               <p>
-                Matrimonial disputes,
-                maintenance, domestic violence
-                and related family-law matters.
+                {t("home.matters.matrimonial.description")}
               </p>
 
             </article>
@@ -691,13 +646,11 @@ function HomePage() {
             <article className="service-card">
 
               <h3>
-                NDPS Cases
+                {t("home.matters.ndps.title")}
               </h3>
 
               <p>
-                Professional assistance and
-                representation in proceedings
-                under the NDPS Act.
+                {t("home.matters.ndps.description")}
               </p>
 
             </article>
@@ -706,14 +659,11 @@ function HomePage() {
             <article className="service-card">
 
               <h3>
-                NI Act Matters
+                {t("home.matters.niAct.title")}
               </h3>
 
               <p>
-                Cheque-related disputes,
-                cheque bounce cases and
-                proceedings under the
-                Negotiable Instruments Act.
+                {t("home.matters.niAct.description")}
               </p>
 
             </article>
@@ -722,14 +672,11 @@ function HomePage() {
             <article className="service-card">
 
               <h3>
-                Revenue Matters
+                {t("home.matters.revenue.title")}
               </h3>
 
               <p>
-                Partition, mutation, demarcation,
-                boundary disputes, revenue records
-                and proceedings before revenue
-                authorities.
+                {t("home.matters.revenue.description")}
               </p>
 
             </article>
@@ -738,13 +685,11 @@ function HomePage() {
             <article className="service-card">
 
               <h3>
-                Motor Accident Claims
+                {t("home.matters.mact.title")}
               </h3>
 
               <p>
-                Representation before MACT
-                in accident compensation,
-                injury, death and related claims.
+                {t("home.matters.mact.description")}
               </p>
 
             </article>
@@ -753,15 +698,11 @@ function HomePage() {
             <article className="service-card">
 
               <h3>
-                Government Authority Matters
+                {t("home.matters.government.title")}
               </h3>
 
               <p>
-                Legal assistance concerning
-                unlawful or arbitrary actions
-                of police, revenue departments,
-                district administration and
-                other public authorities.
+                {t("home.matters.government.description")}
               </p>
 
             </article>
@@ -780,12 +721,11 @@ function HomePage() {
           <div className="section-heading">
 
             <p className="eyebrow">
-              Contact
+              {t("home.contactSection.eyebrow")}
             </p>
 
             <h2>
-              Contact Advocate
-              Ashutosh Upadhyay
+              {t("home.contactSection.title")}
             </h2>
 
           </div>
@@ -796,7 +736,7 @@ function HomePage() {
             <article className="service-card">
 
               <h3>
-                Primary Contact
+                {t("home.contactSection.primaryContact")}
               </h3>
 
               <p>
@@ -813,7 +753,7 @@ function HomePage() {
             <article className="service-card">
 
               <h3>
-                Alternate Contact
+                {t("home.contactSection.alternateContact")}
               </h3>
 
               <p>
@@ -830,7 +770,7 @@ function HomePage() {
             <article className="service-card">
 
               <h3>
-                WhatsApp
+                {t("home.contactSection.whatsapp")}
               </h3>
 
               <p>
@@ -851,7 +791,7 @@ function HomePage() {
             <article className="service-card">
 
               <h3>
-                Email
+                {t("home.contactSection.email")}
               </h3>
 
               <p>
@@ -880,12 +820,11 @@ function HomePage() {
           <div>
 
             <h2>
-              Need Legal Assistance?
+              {t("home.cta.title")}
             </h2>
 
             <p>
-              Submit a legal enquiry or
-              request an appointment.
+              {t("home.cta.description")}
             </p>
 
           </div>
@@ -895,7 +834,7 @@ function HomePage() {
             className="button button-light"
             to={ROUTES.APPOINTMENT}
           >
-            Request Appointment
+            {t("home.cta.action")}
           </Link>
 
         </div>

@@ -1,0 +1,276 @@
+{
+  "common": {
+    "nav": {
+      "home": "Home",
+      "about": "About",
+      "practiceAreas": "Practice Areas",
+      "contact": "Contact",
+      "bookAppointment": "Book Appointment"
+    },
+    "footer": {
+      "tagline": "Advocate practicing at District Court, Siddharthnagar, Uttar Pradesh.",
+      "quickLinks": "Quick Links",
+      "about": "About",
+      "practiceAreas": "Practice Areas",
+      "legalEnquiry": "Legal Enquiry",
+      "appointment": "Appointment",
+      "office": "Office",
+      "officeLine1": "Near Hanuman Mandir, Civil Court Premises",
+      "officeLine2": "Siddharthnagar, Uttar Pradesh 272207, India",
+      "rightsReserved": "All rights reserved."
+    },
+    "language": {
+      "english": "English",
+      "hindi": "हिन्दी",
+      "switchLabel": "Switch language"
+    },
+    "loadingProfile": "Loading profile...",
+    "submitting": "Submitting..."
+  },
+  "seo": {
+    "home": {
+      "title": "Advocate & Lawyer in Siddharthnagar",
+      "description": "Ashutosh Upadhyay is an Advocate and Lawyer in Siddharthnagar and Naugarh, providing legal consultation and representation for civil, criminal, family, revenue, NI Act, MACT and related matters."
+    },
+    "about": {
+      "title": "About Advocate Ashutosh Upadhyay",
+      "description": "Learn about Advocate Ashutosh Upadhyay, his association with the Civil Siddharthnagar Bar Association, legal experience, professional journey and practice in Siddharthnagar and Naugarh, Uttar Pradesh."
+    },
+    "contact": {
+      "title": "Contact Advocate Ashutosh Upadhyay",
+      "description": "Contact Advocate Ashutosh Upadhyay for legal consultation, enquiries and appointment requests in Siddharthnagar and Naugarh, Uttar Pradesh."
+    },
+    "practiceAreas": {
+      "title": "Legal Practice Areas in Siddharthnagar",
+      "description": "Explore legal services by Advocate Ashutosh Upadhyay in Siddharthnagar and Naugarh for civil, criminal, POCSO, matrimonial, NDPS, NI Act, revenue, MACT and government authority matters."
+    },
+    "enquiry": {
+      "title": "Submit a Legal Enquiry",
+      "description": "Submit a legal enquiry to Advocate Ashutosh Upadhyay regarding a legal matter in Siddharthnagar, Uttar Pradesh."
+    },
+    "appointment": {
+      "title": "Request Legal Consultation Appointment",
+      "description": "Request an appointment with Advocate Ashutosh Upadhyay for legal consultation in Siddharthnagar, Uttar Pradesh."
+    }
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "C.S.B.A. • Civil Siddharthnagar Bar Association",
+      "title": "Advocate & Lawyer in Siddharthnagar for Legal Consultation and Representation",
+      "description": "Ashutosh Upadhyay, Advocate provides legal consultation, legal research, case preparation and representation across a wide range of legal matters in Siddharthnagar and Naugarh, Uttar Pradesh.",
+      "bookAppointment": "Book Appointment",
+      "submitEnquiry": "Submit Enquiry",
+      "cardBadge": "Advocate",
+      "cardAssociation": "C.S.B.A. (Civil Siddharthnagar Bar Association)",
+      "regNo": "Reg. No.: UP01425/16",
+      "copNo": "C.O.P. No.: R1-164510"
+    },
+    "practiceAreas": {
+      "eyebrow": "Legal Services",
+      "title": "Practice Areas",
+      "description": "Legal assistance and representation across civil, criminal, matrimonial, revenue, accident-claim and other legal matters.",
+      "viewAll": "View All Practice Areas"
+    },
+    "approach": {
+      "eyebrow": "Professional Approach",
+      "title": "Research, Preparation and Representation",
+      "description": "Legal matters are approached through careful understanding of facts, interpretation of applicable law, legal research, procedural preparation and responsible representation.",
+      "step1": "Understand facts, documents and legal issues",
+      "step2": "Research statutes, procedure and legal principles",
+      "step3": "Prepare pleadings, applications and strategy",
+      "step4": "Represent the lawful case before the appropriate forum"
+    },
+    "localAssistance": {
+      "eyebrow": "Local Legal Assistance",
+      "title": "Advocate, Lawyer & Vakil in Siddharthnagar and Naugarh",
+      "description": "If you are looking for an Advocate, Lawyer or Vakil in Siddharthnagar or Naugarh, Advocate Ashutosh Upadhyay provides legal consultation, case preparation and representation across a range of legal matters."
+    },
+    "professionalDetails": {
+      "eyebrow": "Professional Details",
+      "title": "Advocate Ashutosh Upadhyay",
+      "description": "Professional practice associated with the Civil Siddharthnagar Bar Association, Siddharthnagar, Uttar Pradesh.",
+      "association": "Association",
+      "associationValue": "C.S.B.A. (Civil Siddharthnagar Bar Association)",
+      "regNo": "Registration Number",
+      "cop": "Certificate of Practice",
+      "focus": "Professional Focus",
+      "focusValue": "Litigation, legal research, drafting, case preparation and representation."
+    },
+    "matters": {
+      "eyebrow": "Major Legal Practice Areas",
+      "title": "Legal Matters Handled",
+      "description": "Professional assistance is available across the following principal categories of legal work.",
+      "civil": { "title": "Civil Matters", "description": "Civil suits, injunctions, declarations, recovery, execution, property, succession and related matters." },
+      "criminal": { "title": "Criminal Matters", "description": "Criminal trials, complaints, procedural matters and related criminal proceedings." },
+      "pocso": { "title": "POCSO Cases", "description": "Professional assistance and representation in proceedings under the POCSO Act." },
+      "matrimonial": { "title": "Matrimonial & Family Matters", "description": "Matrimonial disputes, maintenance, domestic violence and related family-law matters." },
+      "ndps": { "title": "NDPS Cases", "description": "Professional assistance and representation in proceedings under the NDPS Act." },
+      "niAct": { "title": "NI Act Matters", "description": "Cheque-related disputes, cheque bounce cases and proceedings under the Negotiable Instruments Act." },
+      "revenue": { "title": "Revenue Matters", "description": "Partition, mutation, demarcation, boundary disputes, revenue records and proceedings before revenue authorities." },
+      "mact": { "title": "Motor Accident Claims", "description": "Representation before MACT in accident compensation, injury, death and related claims." },
+      "government": { "title": "Government Authority Matters", "description": "Legal assistance concerning unlawful or arbitrary actions of police, revenue departments, district administration and other public authorities." }
+    },
+    "contactSection": {
+      "eyebrow": "Contact",
+      "title": "Contact Advocate Ashutosh Upadhyay",
+      "primaryContact": "Primary Contact",
+      "alternateContact": "Alternate Contact",
+      "whatsapp": "WhatsApp",
+      "email": "Email"
+    },
+    "cta": {
+      "title": "Need Legal Assistance?",
+      "description": "Submit a legal enquiry or request an appointment.",
+      "action": "Request Appointment"
+    }
+  },
+  "about": {
+    "pageHeaderDescription": "Professional profile, legal journey, practice experience and legal representation in Siddharthnagar and Naugarh, Uttar Pradesh.",
+    "profile": {
+      "eyebrow": "Professional Profile",
+      "title": "Ashutosh Upadhyay, Advocate",
+      "paragraph1": "Ashutosh Upadhyay is an Advocate associated with the Civil Siddharthnagar Bar Association (C.S.B.A.) and provides legal consultation and representation in Siddharthnagar and Naugarh, Uttar Pradesh.",
+      "paragraph2": "His professional work includes litigation, legal research, interpretation of statutes, drafting, procedural preparation, case analysis and legal representation across a range of civil and criminal matters."
+    },
+    "details": {
+      "title": "Professional Details",
+      "association": "Association",
+      "associationValue": "C.S.B.A. - Civil Siddharthnagar Bar Association",
+      "regNo": "Registration No.",
+      "cop": "C.O.P. No.",
+      "primaryContact": "Primary Contact",
+      "whatsapp": "WhatsApp",
+      "email": "Email"
+    },
+    "journey": {
+      "eyebrow": "Professional Journey",
+      "title": "Legal Training and Practice Exposure",
+      "delhi": { "title": "Judicial Preparation - Delhi", "description": "Undertook judicial-services preparation at Rahul's IAS, Mukherjee Nagar, Delhi, with exposure to legal research, statutory interpretation, procedural law and legal analysis." },
+      "lucknow": { "title": "Lucknow Bench Exposure", "description": "Gained professional exposure at the Lucknow Bench of the Allahabad High Court under CSC Mayankar Singh, Advocate (Senior), including service matters, contract matters, mediation and procedural practice." },
+      "civil": { "title": "Civil Practice", "description": "Developed civil-practice experience under Sri Gangaram Pandey, including property disputes, land disputes, injunctions, declarations, succession, NI Act matters, arbitration, commercial matters and consumer disputes." },
+      "criminal": { "title": "Criminal Practice", "description": "Gained practical understanding of criminal litigation through guidance from Sri Suresh Singh, Sri Sanjay Srivastava and Sri Gajendranath Pandey, Advocates." }
+    },
+    "approach": {
+      "eyebrow": "Professional Approach",
+      "title": "Research, Analysis and Preparation",
+      "description": "The practice approach focuses on understanding facts, studying applicable law, analysing legal issues, preparing the matter carefully and presenting the lawful case before the appropriate forum."
+    },
+    "currentProfile": {
+      "eyebrow": "Current Professional Profile"
+    }
+  },
+  "contact": {
+    "pageHeaderDescription": "Contact the advocate for legal consultation, legal enquiries or appointment requests in Siddharthnagar and Naugarh, Uttar Pradesh.",
+    "location": {
+      "eyebrow": "Office Location",
+      "title": "Advocate Office in Siddharthnagar",
+      "addressLine1": "Near Hanuman Mandir, Civil Court Premises",
+      "addressLine2": "Siddharthnagar,",
+      "addressLine3": "Uttar Pradesh 272207, India",
+      "description": "The office provides a point of contact for legal consultation and representation for clients in Siddharthnagar, Naugarh and nearby areas."
+    },
+    "assistance": {
+      "eyebrow": "Legal Assistance",
+      "title": "Enquiry & Appointment",
+      "description": "You can submit your legal enquiry or request an appointment with Advocate Ashutosh Upadhyay online.",
+      "submitEnquiry": "Submit Enquiry",
+      "requestAppointment": "Request Appointment"
+    }
+  },
+  "practiceAreasPage": {
+    "pageHeaderTitle": "Legal Practice Areas",
+    "pageHeaderDescription": "Legal consultation, case preparation and representation for civil, criminal, family, revenue and statutory matters in Siddharthnagar and Naugarh.",
+    "intro": {
+      "eyebrow": "Legal Services",
+      "title": "Advocate & Lawyer Practice Areas in Siddharthnagar",
+      "paragraph1": "Advocate Ashutosh Upadhyay provides legal consultation, case preparation and representation across a range of civil, criminal, matrimonial, revenue and statutory matters in Siddharthnagar and Naugarh, Uttar Pradesh.",
+      "paragraph2": "Clients looking for an Advocate, Lawyer or Vakil in Siddharthnagar or Naugarh can seek legal assistance depending on the nature and facts of their matter."
+    },
+    "loading": "Loading latest practice areas...",
+    "loadError": "Live practice-area data is currently unavailable. Core practice areas are shown below.",
+    "fallbackDescription": "Legal consultation available.",
+    "note": {
+      "eyebrow": "Important Note",
+      "title": "Legal Matters Depend on Their Individual Facts",
+      "description": "The information on this page describes broad areas of practice. The legal remedy, forum and procedure applicable to a matter depend on its individual facts, documents and applicable law."
+    }
+  },
+  "practiceAreaItems": {
+    "1": { "title": "Civil Matters", "description": "Civil suits, injunctions, declarations, ejectment, recovery, execution, SCC matters, tenancy, specific performance, succession, arbitration, land and property disputes, partition, title, possession and related civil matters." },
+    "2": { "title": "Criminal Matters", "description": "Professional assistance in sessions trials, warrant trials, summons trials, summary trials and other substantive and procedural criminal-law matters." },
+    "3": { "title": "POCSO Cases", "description": "Professional assistance and legal representation in proceedings arising under the Protection of Children from Sexual Offences Act, 2012." },
+    "4": { "title": "Matrimonial & Family Matters", "description": "Matrimonial disputes, maintenance proceedings, domestic violence proceedings, family disputes and related matrimonial and family-law matters." },
+    "5": { "title": "NDPS Cases", "description": "Professional assistance and legal representation in proceedings arising under the Narcotic Drugs and Psychotropic Substances Act, 1985." },
+    "6": { "title": "Negotiable Instruments / NI Act", "description": "Cheque-related matters, cheque bounce cases and other proceedings arising under the Negotiable Instruments Act." },
+    "7": { "title": "Revenue Matters", "description": "Partition, map partition, declaratory suits, boundary disputes, correction of revenue records, mutation, Khatauni, demarcation, injunctions and other proceedings before revenue authorities." },
+    "8": { "title": "Motor Accident Claims (MACT)", "description": "Representation before the Motor Accident Claims Tribunal in accident compensation, injury, death, property damage, insurance and related legally maintainable claims." },
+    "9": { "title": "Government Authority Matters", "description": "Legal assistance concerning unlawful or arbitrary actions of police, revenue departments, district administration and other State or Central Government authorities, including RTI and accountability-related matters." }
+  },
+  "enquiry": {
+    "pageTitle": "Legal Enquiry",
+    "pageDescription": "Share a brief description of your legal concern.",
+    "successTitle": "Enquiry Submitted",
+    "successFallback": "Your enquiry has been submitted successfully.",
+    "errorTitle": "Unable to submit enquiry",
+    "invalidMobile": "Please enter a valid 10-digit Indian mobile number.",
+    "form": {
+      "fullName": "Full Name",
+      "mobile": "Mobile Number",
+      "mobilePlaceholder": "Enter 10-digit mobile number",
+      "mobileHint": "Enter a 10-digit Indian mobile number.",
+      "email": "Email",
+      "cityDistrict": "City / District",
+      "category": "Matter Category",
+      "selectCategory": "Select category",
+      "categoryCivil": "Civil Matter",
+      "categoryCriminal": "Criminal Matter",
+      "categoryFamily": "Family Matter",
+      "categoryProperty": "Property Matter",
+      "categoryConsumer": "Consumer Matter",
+      "categoryOther": "Other",
+      "description": "Brief Description",
+      "notice": "Please avoid sharing highly confidential documents or sensitive personal information through this enquiry form.",
+      "consent": "I consent to being contacted regarding this enquiry.",
+      "submit": "Submit Enquiry",
+      "submitting": "Submitting..."
+    }
+  },
+  "appointment": {
+    "pageTitle": "Request Appointment",
+    "pageDescription": "Request a preferred date and time for legal consultation.",
+    "successTitle": "Appointment Requested",
+    "successFallback": "Your appointment request has been submitted successfully.",
+    "errorTitle": "Unable to submit appointment",
+    "invalidMobile": "Please enter a valid 10-digit Indian mobile number.",
+    "form": {
+      "fullName": "Full Name",
+      "mobile": "Mobile Number",
+      "mobilePlaceholder": "Enter 10-digit mobile number",
+      "mobileHint": "Enter a 10-digit Indian mobile number.",
+      "email": "Email",
+      "preferredDate": "Preferred Date",
+      "preferredTime": "Preferred Time",
+      "category": "Matter Category",
+      "selectCategory": "Select category",
+      "categoryCivil": "Civil Matter",
+      "categoryCriminal": "Criminal Matter",
+      "categoryFamily": "Family Matter",
+      "categoryProperty": "Property Matter",
+      "categoryConsumer": "Consumer Matter",
+      "categoryOther": "Other",
+      "communicationMethod": "Preferred Communication",
+      "commPhone": "Phone",
+      "commWhatsapp": "WhatsApp",
+      "commEmail": "Email",
+      "shortNote": "Short Note",
+      "consent": "I consent to being contacted regarding this appointment.",
+      "submit": "Request Appointment",
+      "submitting": "Submitting..."
+    }
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "The page you requested does not exist.",
+    "returnHome": "Return Home"
+  }
+}

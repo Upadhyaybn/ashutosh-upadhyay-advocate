@@ -245,6 +245,36 @@ function HomePage() {
 
             </div>
 
+            <div className="hero-credentials">
+
+              <span>
+                {t("home.hero.cardAssociation")}
+              </span>
+
+              <span
+                className="hero-credentials-divider"
+                aria-hidden="true"
+              >
+                •
+              </span>
+
+              <span>
+                {t("home.hero.regNo")}
+              </span>
+
+              <span
+                className="hero-credentials-divider"
+                aria-hidden="true"
+              >
+                •
+              </span>
+
+              <span>
+                {t("home.hero.copNo")}
+              </span>
+
+            </div>
+
           </div>
 
 
@@ -391,7 +421,7 @@ function HomePage() {
       </section>
 
 
-      <section className="section section-muted">
+      <section className="section section-ink">
 
         <div className="container trust-grid">
 

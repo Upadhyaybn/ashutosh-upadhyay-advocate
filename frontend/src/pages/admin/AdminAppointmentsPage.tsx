@@ -56,8 +56,11 @@ function AdminAppointmentsPage() {
   const [success, setSuccess] =
     useState("");
 
-  const loadAppointments =
-    async () => {
+  useEffect(() => {
+
+    let ignore = false;
+
+    async function loadAppointments() {
 
       try {
 
@@ -66,23 +69,31 @@ function AdminAppointmentsPage() {
         const data =
           await getAdminAppointments();
 
-        setItems(data);
+        if (!ignore) {
+          setItems(data);
+        }
 
       } catch (err) {
 
-        setError(
-          getApiErrorMessage(err)
-        );
+        if (!ignore) {
+          setError(
+            getApiErrorMessage(err)
+          );
+        }
 
       } finally {
 
-        setLoading(false);
+        if (!ignore) {
+          setLoading(false);
+        }
       }
-    };
-
-  useEffect(() => {
+    }
 
     void loadAppointments();
+
+    return () => {
+      ignore = true;
+    };
 
   }, []);
 

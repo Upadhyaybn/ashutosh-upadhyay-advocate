@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Outlet } from "react-router";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
+import ChatWidget from "../components/chat/ChatWidget";
 import DisclaimerModal from "../components/common/DisclaimerModal";
 
 const DISCLAIMER_SESSION_KEY =
@@ -43,13 +44,24 @@ function PublicLayout() {
     useState(false);
 
   /*
+   * Gates the chatbot's auto-open timer so it only starts counting
+   * down once the disclaimer (if shown) has been dismissed - never
+   * racing it or popping up underneath it. True immediately when
+   * there's nothing to wait for (already seen this session).
+   */
+  const [isDisclaimerHandled, setIsDisclaimerHandled] =
+    useState(false);
+
+  /*
    * Guards against React StrictMode's development-only double
    * invocation of mount effects. Without this, the effect below can
    * run twice: the first run marks the disclaimer seen in
    * sessionStorage and opens it; the second run then reads that same
-   * flag back as "already seen" and skips opening it. Refs (unlike
-   * state) survive both runs, so checking one here makes the
-   * initialization run exactly once.
+   * flag back as "already seen" and immediately marks it handled,
+   * letting the chatbot's timer start right alongside the disclaimer
+   * instead of after it's dismissed. Refs (unlike state) survive both
+   * runs, so checking one here makes the initialization run exactly
+   * once.
    */
   const hasInitializedDisclaimer =
     useRef(false);
@@ -65,6 +77,7 @@ function PublicLayout() {
       hasInitializedDisclaimer.current = true;
 
       if (hasSeenDisclaimerThisSession()) {
+        setIsDisclaimerHandled(true);
         return;
       }
 
@@ -75,6 +88,12 @@ function PublicLayout() {
     showDisclaimerOnFirstVisit();
 
   }, []);
+
+  const handleCloseDisclaimer = () => {
+
+    setIsDisclaimerOpen(false);
+    setIsDisclaimerHandled(true);
+  };
 
   return (
     <div className="app-shell">
@@ -92,9 +111,11 @@ function PublicLayout() {
 
       <DisclaimerModal
         isOpen={isDisclaimerOpen}
-        onClose={() =>
-          setIsDisclaimerOpen(false)
-        }
+        onClose={handleCloseDisclaimer}
+      />
+
+      <ChatWidget
+        readyForAutoOpen={isDisclaimerHandled}
       />
     </div>
   );

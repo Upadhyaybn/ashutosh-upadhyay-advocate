@@ -6,6 +6,16 @@ import Seo
 import PageHeader
   from "../../components/common/PageHeader";
 
+import ContactAction
+  from "../../components/common/ContactAction";
+
+import {
+  CONTACT_INFO,
+  mailtoHref,
+  telHref,
+  whatsappHref,
+} from "../../config/contactInfo";
+
 import {
   Link,
 } from "react-router";
@@ -93,6 +103,90 @@ function ContactPage() {
               </Link>
 
             </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <section className="section section-muted">
+
+        <div className="container">
+
+          <div className="section-heading">
+
+            <p className="eyebrow">
+              {t("contact.methods.eyebrow")}
+            </p>
+
+            <h2>
+              {t("contact.methods.title")}
+            </h2>
+
+          </div>
+
+          <div className="card-grid">
+
+            <article className="service-card">
+
+              <h3>
+                {t("common.contact.primaryContact")}
+              </h3>
+
+              <ContactAction
+                type="phone"
+                label={t("common.contact.primaryContact")}
+                value={CONTACT_INFO.primaryPhoneDisplay}
+                href={telHref(CONTACT_INFO.primaryPhoneDigits)}
+              />
+
+            </article>
+
+            <article className="service-card">
+
+              <h3>
+                {t("common.contact.alternateContact")}
+              </h3>
+
+              <ContactAction
+                type="phone"
+                label={t("common.contact.alternateContact")}
+                value={CONTACT_INFO.alternatePhoneDisplay}
+                href={telHref(CONTACT_INFO.alternatePhoneDigits)}
+              />
+
+            </article>
+
+            <article className="service-card">
+
+              <h3>
+                {t("common.contact.whatsapp")}
+              </h3>
+
+              <ContactAction
+                type="whatsapp"
+                label={t("common.contact.whatsapp")}
+                value={CONTACT_INFO.whatsappDisplay}
+                href={whatsappHref(CONTACT_INFO.whatsappDigits)}
+              />
+
+            </article>
+
+            <article className="service-card">
+
+              <h3>
+                {t("common.contact.email")}
+              </h3>
+
+              <ContactAction
+                type="email"
+                label={t("common.contact.email")}
+                value={CONTACT_INFO.email}
+                href={mailtoHref(CONTACT_INFO.email)}
+              />
+
+            </article>
 
           </div>
 

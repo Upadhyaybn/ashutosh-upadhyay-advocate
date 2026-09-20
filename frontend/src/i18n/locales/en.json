@@ -25,7 +25,13 @@
       "switchLabel": "Switch language"
     },
     "loadingProfile": "Loading profile...",
-    "submitting": "Submitting..."
+    "submitting": "Submitting...",
+    "contact": {
+      "primaryContact": "Primary Contact",
+      "alternateContact": "Alternate Contact",
+      "whatsapp": "WhatsApp",
+      "email": "Email"
+    }
   },
   "seo": {
     "home": {
@@ -112,11 +118,7 @@
     },
     "contactSection": {
       "eyebrow": "Contact",
-      "title": "Contact Advocate Ashutosh Upadhyay",
-      "primaryContact": "Primary Contact",
-      "alternateContact": "Alternate Contact",
-      "whatsapp": "WhatsApp",
-      "email": "Email"
+      "title": "Contact Advocate Ashutosh Upadhyay"
     },
     "cta": {
       "title": "Need Legal Assistance?",
@@ -137,10 +139,7 @@
       "association": "Association",
       "associationValue": "C.S.B.A. - Civil Siddharthnagar Bar Association",
       "regNo": "Registration No.",
-      "cop": "C.O.P. No.",
-      "primaryContact": "Primary Contact",
-      "whatsapp": "WhatsApp",
-      "email": "Email"
+      "cop": "C.O.P. No."
     },
     "journey": {
       "eyebrow": "Professional Journey",
@@ -175,6 +174,10 @@
       "description": "You can submit your legal enquiry or request an appointment with Advocate Ashutosh Upadhyay online.",
       "submitEnquiry": "Submit Enquiry",
       "requestAppointment": "Request Appointment"
+    },
+    "methods": {
+      "eyebrow": "Direct Contact",
+      "title": "Call, WhatsApp or Email"
     }
   },
   "practiceAreasPage": {

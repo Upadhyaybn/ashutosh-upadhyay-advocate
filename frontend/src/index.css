@@ -1,5 +1,25 @@
+/*
+ * Self-hosted Inter (variable weight, Latin subset only - this site's
+ * English copy doesn't need Latin-Extended/Cyrillic/Greek). Devanagari
+ * (Hindi) text renders via the system Devanagari stack regardless,
+ * since Inter doesn't cover that script. font-display: swap avoids
+ * blocking first paint; system-ui renders immediately and Inter swaps
+ * in once loaded, so there's no layout-blocking cost.
+ */
+@font-face {
+  font-family: "Inter Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("/fonts/inter-variable-latin.woff2") format("woff2-variations");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+    U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+}
+
 :root {
   font-family:
+    "Inter Variable",
     Inter,
     system-ui,
     -apple-system,
@@ -7,30 +27,87 @@
     "Segoe UI",
     sans-serif;
 
-  color: #1c2530;
-  background: #f8f7f4;
+  color: var(--color-text-primary);
+  background: var(--color-ivory);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
 
-  --primary: #6d1f2a;
-  --primary-dark: #4f151e;
-  --gold: #b28b43;
+  /*
+   * Design tokens (2026 UI/UX modernization).
+   * Legacy variable names below are kept as aliases pointing at the
+   * new tokens, so every existing declaration in this file keeps
+   * working unchanged during the page-by-page migration - this is
+   * purely additive, nothing is removed yet.
+   */
 
-  --text: #202733;
-  --muted: #667085;
+  /* Color - core */
+  --color-ink: #171316;
+  --color-charcoal: #2b2f36;
+  --color-primary: #6d1f2a;
+  --color-primary-dark: #4a1017;
+  --color-gold: #a9822f;
+  --color-gold-soft: #f4ece2;
+  --color-ivory: #f9f7f2;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f2efe8;
+  --color-text-primary: #1c2026;
+  --color-text-secondary: #5b6472;
+  --color-border: #e6e2d8;
+  --color-success: #1f7a4d;
+  --color-warning: #b3701c;
+  --color-error: #b3261e;
 
-  --background: #f8f7f4;
-  --surface: #ffffff;
-  --surface-muted: #f0eee9;
+  /* Spacing (8px base) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
 
-  --border: #e4e1db;
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-full: 999px;
 
-  --shadow:
-    0 14px 40px
-    rgba(18, 24, 40, 0.08);
+  /* Shadows (layered elevation) */
+  --shadow-sm:
+    0 1px 2px rgba(23, 19, 22, 0.06),
+    0 1px 1px rgba(23, 19, 22, 0.04);
+  --shadow-md:
+    0 8px 24px rgba(23, 19, 22, 0.08);
+  --shadow-lg:
+    0 20px 48px rgba(23, 19, 22, 0.14);
+  --shadow-focus:
+    0 0 0 3px rgba(109, 31, 42, 0.18);
 
-  --radius: 14px;
+  /* Typography scale - fluid via clamp(), applied incrementally */
+  --text-eyebrow: 0.75rem;
+  --text-meta: 0.8125rem;
+  --text-nav: 0.9375rem;
+  --text-label: 0.875rem;
+  --text-h4: clamp(1.125rem, 1rem + 0.5vw, 1.25rem);
+  --text-h3: clamp(1.25rem, 1.1rem + 0.7vw, 1.5rem);
+  --text-h2: clamp(1.75rem, 1.4rem + 1.5vw, 2.25rem);
+  --text-h1: clamp(2.25rem, 1.6rem + 3vw, 3.5rem);
+  --text-display: clamp(2.5rem, 1.8rem + 3.5vw, 4rem);
+
+  /* Legacy aliases - existing rules in this file reference these */
+  --primary: var(--color-primary);
+  --primary-dark: var(--color-primary-dark);
+
+  --text: var(--color-text-primary);
+  --muted: var(--color-text-secondary);
+
+  --background: var(--color-ivory);
+  --surface-muted: var(--color-surface-alt);
+
+  --border: var(--color-border);
 
   line-height: 1.5;
   font-weight: 400;
@@ -42,6 +119,25 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+/*
+ * Global catch-all: shorten every transition/animation to
+ * effectively nothing for visitors who prefer reduced motion,
+ * regardless of which component introduced it. Component-specific
+ * prefers-reduced-motion overrides elsewhere in this file (chat,
+ * modal) layer on top of this, not instead of it.
+ */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 body {
@@ -64,6 +160,21 @@ svg,
 video,
 canvas {
   max-width: 100%;
+}
+
+.visually-hidden {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+
+  border: 0;
 }
 
 .container,
@@ -106,6 +217,24 @@ select {
 
 button {
   cursor: pointer;
+}
+
+/*
+ * Baseline visible-keyboard-focus indicator for every interactive
+ * element site-wide. :focus-visible (not :focus) so it only shows for
+ * keyboard/assistive-tech navigation, not every mouse click.
+ * Individual components (buttons, inputs, cards-as-links) may layer
+ * their own richer focus treatment on top of this.
+ */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
 }
 
 h1,
@@ -151,6 +280,12 @@ h3 {
   justify-content: space-between;
 
   gap: 30px;
+
+  transition: min-height 0.25s ease;
+}
+
+.site-header.is-scrolled .header-content {
+  min-height: 58px;
 }
 
 .brand {
@@ -178,12 +313,33 @@ h3 {
 }
 
 .main-nav a {
-  font-size: 0.94rem;
+  position: relative;
+
+  font-size: var(--text-nav);
   font-weight: 600;
+
+  transition: color 0.15s ease;
+}
+
+.main-nav a:hover {
+  color: var(--color-primary);
 }
 
 .main-nav a.active {
   color: var(--primary);
+}
+
+.main-nav a.active::after {
+  content: "";
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+
+  height: 2px;
+
+  background: var(--color-gold);
 }
 
 .main-nav .nav-primary {
@@ -191,9 +347,19 @@ h3 {
 
   color: white;
 
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
 
   background: var(--primary);
+
+  transition: background-color 0.15s ease;
+}
+
+.main-nav .nav-primary:hover {
+  background: var(--color-primary-dark);
+}
+
+.main-nav .nav-primary.active::after {
+  content: none;
 }
 
 .language-switcher {
@@ -282,13 +448,15 @@ h3 {
 .hero {
   padding: 90px 0;
 
+  /* A restrained warm-gold glow anchored top-right, not a loud
+     multi-stop gradient blob - the signature accent, used sparingly. */
   background:
-    linear-gradient(
-      135deg,
-      #f7f3ec 0%,
-      #ffffff 50%,
-      #efe8dc 100%
-    );
+    radial-gradient(
+      ellipse 900px 520px at 88% -12%,
+      rgba(169, 130, 47, 0.12),
+      transparent 60%
+    ),
+    var(--color-ivory);
 }
 
 .hero-grid {
@@ -308,30 +476,32 @@ h3 {
 
   margin-bottom: 24px;
 
-  font-size:
-    clamp(2.4rem, 5vw, 4.5rem);
+  font-size: var(--text-display);
+  font-weight: 800;
+  letter-spacing: -0.02em;
 
-  color: #22181a;
+  color: var(--color-ink);
 }
 
 .eyebrow {
   margin-bottom: 14px;
 
-  color: var(--primary);
+  color: var(--color-primary);
 
-  font-size: 0.78rem;
-  font-weight: 800;
+  font-size: var(--text-eyebrow);
+  font-weight: 700;
 
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
 .hero-description {
   max-width: 690px;
 
-  color: var(--muted);
+  color: var(--color-text-primary);
 
   font-size: 1.1rem;
+  line-height: 1.65;
 }
 
 .hero-actions {
@@ -346,13 +516,28 @@ h3 {
   padding: 38px;
 
   border:
-    1px solid rgba(178, 139, 67, 0.3);
+    1px solid rgba(169, 130, 47, 0.3);
 
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
 
-  background: #fff;
+  background: var(--color-surface);
 
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow-lg);
+}
+
+.hero-photo-frame {
+  overflow: hidden;
+  margin-bottom: 24px;
+  border-radius: var(--radius-md);
+}
+
+.hero-photo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+
+  object-fit: cover;
+  object-position: center top;
 }
 
 .hero-card-badge {
@@ -362,13 +547,30 @@ h3 {
 
   padding: 7px 12px;
 
-  border-radius: 999px;
+  border-radius: var(--radius-full);
 
-  background: #f4ece2;
-  color: var(--primary);
+  background: var(--color-gold-soft);
+  color: var(--color-primary);
 
-  font-size: 0.78rem;
-  font-weight: 800;
+  font-size: var(--text-eyebrow);
+  font-weight: 700;
+}
+
+.hero-card-caption h2 {
+  margin-bottom: 8px;
+  font-size: var(--text-h4);
+  color: var(--color-ink);
+}
+
+.hero-card-caption p {
+  margin-bottom: 8px;
+  color: var(--color-text-primary);
+}
+
+.hero-card-caption hr {
+  margin: 14px 0;
+  border: none;
+  border-top: 1px solid var(--color-border);
 }
 
 /* Buttons */
@@ -385,9 +587,29 @@ h3 {
   border:
     1px solid transparent;
 
-  border-radius: 9px;
+  border-radius: var(--radius-md);
 
+  font-size: var(--text-nav);
   font-weight: 700;
+
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.button:active {
+  transform: translateY(1px);
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.button:disabled:active {
+  transform: none;
 }
 
 .button-primary {
@@ -407,9 +629,22 @@ h3 {
   background: transparent;
 }
 
+.button-secondary:hover {
+  background: var(--color-gold-soft);
+}
+
 .button-light {
   background: #fff;
   color: var(--primary);
+}
+
+.button-danger {
+  color: white;
+  background: var(--color-error);
+}
+
+.button-danger:hover {
+  background: #8f1e18;
 }
 
 /* Sections */
@@ -418,8 +653,143 @@ h3 {
   padding: 80px 0;
 }
 
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(18px);
+
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+}
+
+.scroll-reveal.is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes skeleton-shimmer {
+
+  0% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0 50%;
+  }
+}
+
+.skeleton {
+  display: block;
+
+  width: 100%;
+  height: 1em;
+
+  border-radius: var(--radius-sm);
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--color-surface-alt) 25%,
+      var(--color-border) 37%,
+      var(--color-surface-alt) 63%
+    );
+
+  background-size: 400% 100%;
+
+  animation: skeleton-shimmer 1.4s ease infinite;
+}
+
+.skeleton-eyebrow {
+  width: 160px;
+  height: 0.75rem;
+
+  margin-bottom: 10px;
+}
+
+.skeleton-heading {
+  width: 60%;
+  height: 1.75rem;
+
+  margin-bottom: 16px;
+}
+
+.skeleton-text {
+  height: 0.95rem;
+
+  margin-bottom: 10px;
+}
+
+.skeleton-text:last-child {
+  width: 75%;
+  margin-bottom: 0;
+}
+
 .section-muted {
   background: var(--surface-muted);
+}
+
+/*
+ * Deliberate dark "anchor" bands - used sparingly (at most once or
+ * twice per page) to create visual rhythm, per the design plan.
+ * .section-ink is the deepest/most emphatic; .section-charcoal a
+ * slightly lighter dark alternative. Any card placed inside one of
+ * these picks up a readable dark-surface treatment automatically.
+ */
+.section-ink,
+.section-charcoal {
+  color: white;
+}
+
+.section-ink {
+  background: var(--color-ink);
+}
+
+.section-charcoal {
+  background: var(--color-charcoal);
+}
+
+.section-ink .eyebrow,
+.section-charcoal .eyebrow {
+  color: var(--color-gold);
+}
+
+.section-ink h2,
+.section-ink h3,
+.section-ink h4,
+.section-charcoal h2,
+.section-charcoal h3,
+.section-charcoal h4 {
+  color: white;
+}
+
+.section-ink p,
+.section-charcoal p {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.section-ink .service-card,
+.section-ink .info-card,
+.section-charcoal .service-card,
+.section-charcoal .info-card {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.section-ink .service-card:hover,
+.section-charcoal .service-card:hover {
+  border-color: var(--color-gold);
+}
+
+.section-ink .service-card h2,
+.section-ink .service-card h3,
+.section-charcoal .service-card h2,
+.section-charcoal .service-card h3 {
+  color: white;
+}
+
+.section-ink .service-card p,
+.section-charcoal .service-card p {
+  color: rgba(255, 255, 255, 0.72);
 }
 
 .section-heading {
@@ -428,7 +798,17 @@ h3 {
 }
 
 .section-heading h2 {
-  font-size: 2.2rem;
+  font-size: var(--text-h2);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.section-heading p {
+  margin-top: 12px;
+  margin-bottom: 0;
+
+  font-size: 1.05rem;
+  line-height: 1.6;
 }
 
 .card-grid {
@@ -445,18 +825,47 @@ h3 {
 .form-card,
 .dashboard-card,
 .admin-info-panel {
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
 
-  background: var(--surface);
+  background: var(--color-surface);
 
-  box-shadow:
-    0 8px 24px
-    rgba(18, 24, 40, 0.04);
+  box-shadow: var(--shadow-sm);
+
+  transition:
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.service-card:hover {
+  border-color: var(--color-gold);
+  box-shadow: var(--shadow-md);
 }
 
 .service-card {
   padding: 27px;
+}
+
+.practice-area-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 44px;
+  height: 44px;
+
+  margin-bottom: 14px;
+
+  border-radius: var(--radius-sm);
+
+  color: var(--color-primary);
+  background: var(--color-gold-soft);
+}
+
+.section-ink .practice-area-icon,
+.section-charcoal .practice-area-icon {
+  color: var(--color-gold);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .service-card h2,
@@ -466,7 +875,31 @@ h3 {
 
 .service-card p {
   margin-bottom: 0;
-  color: var(--muted);
+  color: var(--color-text-primary);
+}
+
+.journey-card {
+  position: relative;
+  padding-top: 46px;
+  overflow: hidden;
+}
+
+.journey-card-number {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+
+  font-size: 2.25rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+
+  color: rgba(23, 19, 22, 0.08);
+}
+
+.section-ink .journey-card-number,
+.section-charcoal .journey-card-number {
+  color: rgba(255, 255, 255, 0.12);
 }
 
 .contact-action {
@@ -546,6 +979,16 @@ h3 {
     color: var(--primary-dark);
 }
 
+.section-ink .trust-points div,
+.section-charcoal .trust-points div {
+  border-bottom-color: rgba(255, 255, 255, 0.14);
+}
+
+.section-ink .trust-points strong,
+.section-charcoal .trust-points strong {
+  color: var(--color-gold);
+}
+
 .cta-section {
   padding: 55px 0;
 
@@ -573,22 +1016,27 @@ h3 {
 .page-header {
   padding: 65px 0;
 
-  background: #efe8dc;
+  background: var(--color-gold-soft);
 }
 
 .page-header h1 {
   margin-bottom: 12px;
 
-  font-size: 2.8rem;
+  font-size: var(--text-h1);
+  font-weight: 800;
+  letter-spacing: -0.02em;
 
-  color: var(--primary-dark);
+  color: var(--color-primary-dark);
 }
 
 .page-header p {
   max-width: 700px;
   margin-bottom: 0;
 
-  color: var(--muted);
+  color: var(--color-text-primary);
+
+  font-size: 1.05rem;
+  line-height: 1.6;
 }
 
 /* Content */
@@ -604,11 +1052,19 @@ h3 {
 }
 
 .content-grid p {
-  color: var(--muted);
+  color: var(--color-text-primary);
+  line-height: 1.65;
 }
 
 .info-card {
   padding: 30px;
+
+  border-top: 3px solid var(--color-gold);
+  box-shadow: var(--shadow-md);
+}
+
+.info-card h3 {
+  color: var(--color-primary-dark);
 }
 
 .info-card dl {
@@ -653,6 +1109,8 @@ h3 {
 
 .form-card {
   padding: 32px;
+
+  box-shadow: var(--shadow-md);
 }
 
 .form-grid {
@@ -675,6 +1133,10 @@ h3 {
   font-weight: 700;
 }
 
+.required-mark {
+  color: var(--color-error);
+}
+
 input,
 select,
 textarea {
@@ -682,26 +1144,31 @@ textarea {
 
   padding: 12px 14px;
 
-  color: var(--text);
+  color: var(--color-text-primary);
 
   border:
-    1px solid #cbc7c0;
+    1px solid var(--color-border);
 
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
 
-  background: white;
+  background: var(--color-surface);
 
   outline: none;
+
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 input:focus,
 select:focus,
-textarea:focus {
-  border-color: var(--primary);
-
-  box-shadow:
-    0 0 0 3px
-    rgba(109, 31, 42, 0.1);
+textarea:focus,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-focus);
+  outline: none;
 }
 
 textarea {
@@ -739,10 +1206,10 @@ textarea {
 
   padding: 22px;
 
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
 
-  background: var(--surface-muted);
+  background: var(--color-surface-alt);
 }
 
 .scheduling-label {
@@ -758,20 +1225,20 @@ textarea {
 
   font-size: 0.9rem;
   font-weight: 600;
-  color: var(--primary-dark);
+  color: var(--color-primary-dark);
 }
 
 .appointment-datepicker {
   padding: 14px;
 
-  border: 1px solid var(--border);
-  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
 
-  background: white;
+  background: var(--color-surface);
 
-  --rdp-accent-color: var(--primary);
-  --rdp-accent-background-color: #f4ece2;
-  --rdp-today-color: var(--gold);
+  --rdp-accent-color: var(--color-primary);
+  --rdp-accent-background-color: var(--color-gold-soft);
+  --rdp-today-color: var(--color-gold);
 }
 
 .time-slot-grid {
@@ -787,53 +1254,72 @@ textarea {
 
   padding: 4px;
 
-  border: 1px solid var(--border);
-  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
 
-  background: white;
+  background: var(--color-surface);
 }
 
 .time-slot {
   padding: 9px 6px;
 
-  border: 1px solid var(--border);
-  border-radius: 7px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
 
-  background: white;
-  color: var(--text);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
 
   font-size: 0.86rem;
   font-weight: 600;
+
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease,
+    color 0.15s ease;
 }
 
 .time-slot:hover {
-  border-color: var(--primary);
+  border-color: var(--color-primary);
 }
 
 .time-slot.is-selected {
-  border-color: var(--primary);
+  border-color: var(--color-primary);
 
-  background: var(--primary);
+  background: var(--color-primary);
   color: white;
 }
 
-.success-message {
+.success-message,
+.error-message {
   padding: 34px;
 
-  border:
-    1px solid #b6d8c5;
+  border-radius: var(--radius-md);
+}
 
-  border-radius: var(--radius);
+.success-message {
+  border: 1px solid rgba(31, 122, 77, 0.3);
+  background: rgba(31, 122, 77, 0.08);
+}
 
-  background: #edf8f1;
+.success-message h2 {
+  color: var(--color-success);
+}
+
+.error-message {
+  border: 1px solid rgba(179, 38, 30, 0.3);
+  background: rgba(179, 38, 30, 0.08);
+}
+
+.error-message strong {
+  color: var(--color-error);
 }
 
 /* Footer */
 
 .site-footer {
-  color: #ddd;
+  color: rgba(255, 255, 255, 0.75);
 
-  background: #21191b;
+  background: var(--color-ink);
 }
 
 .footer-grid {
@@ -858,6 +1344,16 @@ textarea {
   gap: 10px;
 }
 
+.footer-links a,
+.footer-link-button {
+  transition: color 0.15s ease;
+}
+
+.footer-links a:hover,
+.footer-link-button:hover {
+  color: var(--color-gold);
+}
+
 .footer-link-button {
   justify-self: start;
 
@@ -869,10 +1365,6 @@ textarea {
   color: inherit;
   font-size: inherit;
   text-align: left;
-}
-
-.footer-link-button:hover {
-  text-decoration: underline;
 }
 
 .footer-bottom {
@@ -902,7 +1394,7 @@ textarea {
 
   color: #fff;
 
-  background: #231c1e;
+  background: var(--color-ink);
 }
 
 .admin-brand {
@@ -922,9 +1414,13 @@ textarea {
 .admin-sidebar nav a {
   padding: 12px;
 
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
 
   color: #d8d3d5;
+
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
 }
 
 .admin-sidebar nav a.active,
@@ -964,20 +1460,20 @@ textarea {
 }
 
 .dashboard-card span {
-  color: var(--muted);
+  color: var(--color-text-secondary);
 }
 
 .dashboard-card strong {
   font-size: 2rem;
 
-  color: var(--primary);
+  color: var(--color-primary);
 }
 
 .admin-info-panel {
   margin-top: 24px;
   padding: 24px;
 
-  color: var(--muted);
+  color: var(--color-text-secondary);
 }
 
 /* Admin Login */
@@ -1003,11 +1499,11 @@ textarea {
 
   padding: 38px;
 
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
 
-  background: white;
+  background: var(--color-surface);
 
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow-lg);
 }
 
 .admin-login-card h1 {
@@ -1021,6 +1517,10 @@ textarea {
 
   display: grid;
   place-content: center;
+  justify-items: center;
+
+  max-width: 440px;
+  margin: 0 auto;
 
   padding: 40px;
 
@@ -1030,9 +1530,19 @@ textarea {
 .not-found-page h1 {
   margin-bottom: 5px;
 
-  color: var(--primary);
+  color: var(--color-ink);
+  font-size: var(--text-display);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
 
-  font-size: 5rem;
+.not-found-page p {
+  margin-bottom: 10px;
+  color: var(--color-text-secondary);
+}
+
+.not-found-page .button {
+  margin-top: 12px;
 }
 
 /* Responsive */
@@ -1092,6 +1602,11 @@ textarea {
   .main-nav a:hover,
   .main-nav a.active {
     background: var(--surface-muted, rgba(0, 0, 0, 0.04));
+  }
+
+  .main-nav a.active::after {
+    /* Drawer uses a block background highlight instead of an underline. */
+    content: none;
   }
 
   .main-nav .nav-primary {
@@ -1170,7 +1685,6 @@ textarea {
 
   .hero h1 {
     max-width: 100%;
-    font-size: clamp(2rem, 10vw, 3rem);
     overflow-wrap: anywhere;
     word-break: normal;
   }
@@ -1183,11 +1697,6 @@ textarea {
   .hero-card {
     width: 100%;
     max-width: 100%;
-    padding: 24px;
-  }
-
-  .hero-card img {
-    height: clamp(260px, 90vw, 360px) !important;
   }
 
   .hero-actions {
@@ -1207,16 +1716,11 @@ textarea {
     margin-bottom: 28px;
   }
 
-  .section-heading h2 {
-    font-size: clamp(1.75rem, 7vw, 2.2rem);
-  }
-
   .page-header {
     padding: 48px 0;
   }
 
   .page-header h1 {
-    font-size: clamp(2rem, 9vw, 2.8rem);
     overflow-wrap: anywhere;
   }
 
@@ -1314,23 +1818,13 @@ textarea {
     padding: 40px 0;
   }
 
-  .hero h1 {
-    font-size: clamp(1.9rem, 10.5vw, 2.55rem);
-  }
-
   .eyebrow {
-    font-size: 0.72rem;
     letter-spacing: 0.12em;
     overflow-wrap: anywhere;
   }
 
   .hero-card {
-    padding: 18px;
     border-radius: 16px;
-  }
-
-  .hero-card img {
-    height: clamp(240px, 92vw, 330px) !important;
   }
 
   .hero-actions {
@@ -1374,10 +1868,6 @@ textarea {
 
   .brand-title {
     font-size: 1rem;
-  }
-
-  .hero h1 {
-    font-size: 1.85rem;
   }
 
   .hero-card {
@@ -1441,11 +1931,11 @@ body.modal-open {
   width: min(94vw, 600px);
   max-height: 80vh;
 
-  border-radius: var(--radius);
+  border-radius: var(--radius-lg);
   overflow: hidden;
 
-  background: white;
-  box-shadow: var(--shadow);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-lg);
 
   animation: modal-panel-in 0.22s ease;
 }
@@ -1459,14 +1949,14 @@ body.modal-open {
 
   padding: 24px 24px 16px;
 
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .modal-header h2 {
   margin: 0;
 
-  font-size: 1.4rem;
-  color: var(--primary-dark);
+  font-size: var(--text-h3);
+  color: var(--color-primary-dark);
 }
 
 .modal-close-button {
@@ -1478,16 +1968,20 @@ body.modal-open {
   height: 32px;
   flex-shrink: 0;
 
-  border: 1px solid var(--border);
+  border: 1px solid var(--color-border);
   border-radius: 50%;
 
-  background: white;
-  color: var(--text);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+
+  transition:
+    border-color 0.15s ease,
+    color 0.15s ease;
 }
 
 .modal-close-button:hover {
-  border-color: var(--primary);
-  color: var(--primary);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
 }
 
 .modal-body {
@@ -1496,7 +1990,8 @@ body.modal-open {
 }
 
 .modal-body p {
-  color: var(--muted);
+  color: var(--color-text-primary);
+  line-height: 1.6;
 }
 
 .modal-body p:last-child {
@@ -1509,7 +2004,7 @@ body.modal-open {
 
   padding: 16px 24px;
 
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--color-border);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1539,14 +2034,14 @@ body.modal-open {
   border: none;
   border-radius: 50%;
 
-  background: var(--primary);
+  background: var(--color-primary);
   color: white;
 
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow-lg);
 }
 
 .chat-launcher:hover {
-  background: var(--primary-dark);
+  background: var(--color-primary-dark);
 }
 
 @keyframes chat-launcher-pulse {
@@ -1595,12 +2090,12 @@ body.modal-open {
   width: min(92vw, 360px);
   max-height: min(70vh, 520px);
 
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
   overflow: hidden;
 
-  background: white;
-  box-shadow: var(--shadow);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-lg);
 
   animation: chat-panel-in 0.22s ease;
 }
@@ -1619,8 +2114,8 @@ body.modal-open {
   background:
     linear-gradient(
       120deg,
-      var(--primary-dark),
-      var(--primary)
+      var(--color-primary-dark),
+      var(--color-primary)
     );
 }
 
@@ -1669,7 +2164,7 @@ body.modal-open {
 
   padding: 10px 12px;
 
-  border-radius: 12px;
+  border-radius: var(--radius-md);
 
   font-size: 0.9rem;
 }
@@ -1687,8 +2182,8 @@ body.modal-open {
 
   border-bottom-left-radius: 2px;
 
-  background: var(--surface-muted);
-  color: var(--text);
+  background: var(--color-surface-alt);
+  color: var(--color-text-primary);
 }
 
 .chat-message-user {
@@ -1696,7 +2191,7 @@ body.modal-open {
 
   border-bottom-right-radius: 2px;
 
-  background: var(--primary);
+  background: var(--color-primary);
   color: white;
 }
 
@@ -1712,8 +2207,8 @@ body.modal-open {
   background:
     linear-gradient(
       100deg,
-      var(--primary),
-      var(--gold)
+      var(--color-primary),
+      var(--color-gold)
     );
 
   -webkit-background-clip: text;
@@ -1724,7 +2219,7 @@ body.modal-open {
 .chat-message-greeting-prompt {
   font-size: 0.96rem;
   font-weight: 700;
-  color: var(--primary-dark);
+  color: var(--color-primary-dark);
 }
 
 .chat-message-typing {
@@ -1742,7 +2237,7 @@ body.modal-open {
 
   border-radius: 50%;
 
-  background: var(--muted);
+  background: var(--color-text-secondary);
 
   animation:
     chat-typing-bounce 1.1s
@@ -1787,7 +2282,7 @@ body.modal-open {
 
 .chat-contact-actions .contact-action {
   margin-left: 0;
-  color: var(--primary-dark);
+  color: var(--color-primary-dark);
 }
 
 .chat-practice-area-list {

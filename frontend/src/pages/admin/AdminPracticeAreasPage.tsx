@@ -629,7 +629,7 @@ function AdminPracticeAreasPage() {
 
                           <button
                             type="button"
-                            className="button button-secondary"
+                            className="button button-danger"
                             onClick={() =>
                               void handleDelete(
                                 item

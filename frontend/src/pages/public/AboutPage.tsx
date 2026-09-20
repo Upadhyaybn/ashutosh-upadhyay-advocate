@@ -14,6 +14,9 @@ import PageHeader
 import ContactAction
   from "../../components/common/ContactAction";
 
+import Skeleton
+  from "../../components/common/Skeleton";
+
 import {
   CONTACT_INFO,
   mailtoHref,
@@ -208,7 +211,14 @@ function AboutPage() {
 
           <div className="card-grid">
 
-            <article className="service-card">
+            <article className="service-card journey-card">
+
+              <span
+                className="journey-card-number"
+                aria-hidden="true"
+              >
+                01
+              </span>
 
               <h3>
                 {t("about.journey.delhi.title")}
@@ -220,7 +230,14 @@ function AboutPage() {
 
             </article>
 
-            <article className="service-card">
+            <article className="service-card journey-card">
+
+              <span
+                className="journey-card-number"
+                aria-hidden="true"
+              >
+                02
+              </span>
 
               <h3>
                 {t("about.journey.lucknow.title")}
@@ -232,7 +249,14 @@ function AboutPage() {
 
             </article>
 
-            <article className="service-card">
+            <article className="service-card journey-card">
+
+              <span
+                className="journey-card-number"
+                aria-hidden="true"
+              >
+                03
+              </span>
 
               <h3>
                 {t("about.journey.civil.title")}
@@ -244,7 +268,14 @@ function AboutPage() {
 
             </article>
 
-            <article className="service-card">
+            <article className="service-card journey-card">
+
+              <span
+                className="journey-card-number"
+                aria-hidden="true"
+              >
+                04
+              </span>
 
               <h3>
                 {t("about.journey.criminal.title")}
@@ -287,9 +318,21 @@ function AboutPage() {
       </section>
 
       {loading && (
-        <section className="section">
+        <section
+          className="section section-muted"
+          role="status"
+        >
           <div className="container">
-            <p>{t("common.loadingProfile")}</p>
+            <span className="visually-hidden">
+              {t("common.loadingProfile")}
+            </span>
+            <div className="section-heading">
+              <Skeleton className="skeleton-eyebrow" />
+              <Skeleton className="skeleton-heading" />
+              <Skeleton className="skeleton-text" />
+              <Skeleton className="skeleton-text" />
+              <Skeleton className="skeleton-text" />
+            </div>
           </div>
         </section>
       )}

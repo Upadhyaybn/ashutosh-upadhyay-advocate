@@ -11,6 +11,12 @@ import Seo
 import PageHeader
   from "../../components/common/PageHeader";
 
+import PracticeAreaIcon
+  from "../../components/common/PracticeAreaIcon";
+
+import Skeleton
+  from "../../components/common/Skeleton";
+
 import {
   getPracticeAreas,
 } from "../../api/publicApi";
@@ -110,8 +116,11 @@ function PracticeAreasPage() {
           </div>
 
           {loading && (
-            <p>
-              {t("practiceAreasPage.loading")}
+            <p role="status">
+              <span className="visually-hidden">
+                {t("practiceAreasPage.loading")}
+              </span>
+              <Skeleton className="skeleton-eyebrow" />
             </p>
           )}
 
@@ -130,6 +139,10 @@ function PracticeAreasPage() {
                     key={area.id}
                     className="service-card"
                   >
+
+                    <PracticeAreaIcon
+                      name={area.name}
+                    />
 
                     <h2>
                       {area.name}
@@ -153,6 +166,10 @@ function PracticeAreasPage() {
                       key={area.id}
                       className="service-card"
                     >
+
+                      <PracticeAreaIcon
+                        name={area.title}
+                      />
 
                       <h2>
                         {t(
@@ -179,7 +196,7 @@ function PracticeAreasPage() {
 
       </section>
 
-      <section className="section section-muted">
+      <section className="section section-ink">
 
         <div className="container">
 

@@ -4,6 +4,7 @@ import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import ChatWidget from "../components/chat/ChatWidget";
 import DisclaimerModal from "../components/common/DisclaimerModal";
+import { useScrollReveal } from "../hooks/useScrollReveal";
 
 const DISCLAIMER_SESSION_KEY =
   "advocate-disclaimer-shown";
@@ -39,6 +40,8 @@ function markDisclaimerSeen(): void {
 }
 
 function PublicLayout() {
+
+  useScrollReveal();
 
   const [isDisclaimerOpen, setIsDisclaimerOpen] =
     useState(false);

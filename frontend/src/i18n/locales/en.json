@@ -221,7 +221,6 @@
     "form": {
       "fullName": "Full Name",
       "mobile": "Mobile Number",
-      "mobilePlaceholder": "Enter 10-digit mobile number",
       "mobileHint": "Enter a 10-digit Indian mobile number.",
       "email": "Email",
       "cityDistrict": "City / District",
@@ -253,7 +252,6 @@
     "form": {
       "fullName": "Full Name",
       "mobile": "Mobile Number",
-      "mobilePlaceholder": "Enter 10-digit mobile number",
       "mobileHint": "Enter a 10-digit Indian mobile number.",
       "email": "Email",
       "preferredDate": "Preferred Date",

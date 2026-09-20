@@ -272,5 +272,15 @@
     "title": "Page Not Found",
     "description": "The page you requested does not exist.",
     "returnHome": "Return Home"
+  },
+  "disclaimer": {
+    "footerLink": "Legal Disclaimer",
+    "title": "Legal Disclaimer",
+    "acknowledge": "I Understand",
+    "paragraph1": "The information provided on this website is for general informational purposes only and does not constitute legal advice.",
+    "paragraph2": "Viewing or using this website, submitting an enquiry, or booking an appointment does not, by itself, create an advocate-client relationship between you and Advocate Ashutosh Upadhyay.",
+    "paragraph3": "The applicable law, procedure and outcome of any legal matter depend on its own specific facts and documents. You should seek advice appropriate to your own circumstances before acting on any information found on this website.",
+    "paragraph4": "The website assistant (chatbot) is an automated tool that provides general website information only. It does not provide legal advice and does not represent the advocate.",
+    "paragraph5": "Communication sent through this website - including the enquiry form, appointment form, email or WhatsApp - is not end-to-end encrypted and carries the general privacy and security limitations of electronic communication. Please avoid sharing highly confidential information until you have spoken with the advocate directly."
   }
 }

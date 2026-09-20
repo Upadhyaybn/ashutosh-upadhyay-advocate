@@ -681,6 +681,23 @@ textarea {
   gap: 10px;
 }
 
+.footer-link-button {
+  justify-self: start;
+
+  padding: 0;
+
+  border: none;
+  background: none;
+
+  color: inherit;
+  font-size: inherit;
+  text-align: left;
+}
+
+.footer-link-button:hover {
+  text-decoration: underline;
+}
+
 .footer-bottom {
   padding: 18px 0;
 
@@ -1151,5 +1168,134 @@ textarea {
   .form-card,
   .admin-login-card {
     padding: 20px 16px;
+  }
+
+  .modal-panel {
+    max-height: 85vh;
+  }
+}
+
+/* Modal */
+
+body.modal-open {
+  overflow: hidden;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+
+  background: rgba(15, 15, 20, 0.5);
+}
+
+@keyframes modal-panel-in {
+
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modal-panel {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  width: min(94vw, 600px);
+  max-height: 80vh;
+
+  border-radius: var(--radius);
+  overflow: hidden;
+
+  background: white;
+  box-shadow: var(--shadow);
+
+  animation: modal-panel-in 0.22s ease;
+}
+
+.modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 16px;
+
+  padding: 24px 24px 16px;
+
+  border-bottom: 1px solid var(--border);
+}
+
+.modal-header h2 {
+  margin: 0;
+
+  font-size: 1.4rem;
+  color: var(--primary-dark);
+}
+
+.modal-close-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+
+  border: 1px solid var(--border);
+  border-radius: 50%;
+
+  background: white;
+  color: var(--text);
+}
+
+.modal-close-button:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.modal-body {
+  padding: 20px 24px;
+  overflow-y: auto;
+}
+
+.modal-body p {
+  color: var(--muted);
+}
+
+.modal-body p:last-child {
+  margin-bottom: 0;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+
+  padding: 16px 24px;
+
+  border-top: 1px solid var(--border);
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .modal-panel {
+    animation: none;
   }
 }

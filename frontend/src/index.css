@@ -100,20 +100,14 @@
   /* Legacy aliases - existing rules in this file reference these */
   --primary: var(--color-primary);
   --primary-dark: var(--color-primary-dark);
-  --gold: var(--color-gold);
 
   --text: var(--color-text-primary);
   --muted: var(--color-text-secondary);
 
   --background: var(--color-ivory);
-  --surface: var(--color-surface);
   --surface-muted: var(--color-surface-alt);
 
   --border: var(--color-border);
-
-  --shadow: var(--shadow-md);
-
-  --radius: var(--radius-md);
 
   line-height: 1.5;
   font-weight: 400;

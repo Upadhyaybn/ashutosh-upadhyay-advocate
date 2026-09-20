@@ -1242,7 +1242,7 @@ textarea {
 
   color: #fff;
 
-  background: #231c1e;
+  background: var(--color-ink);
 }
 
 .admin-brand {
@@ -1262,9 +1262,13 @@ textarea {
 .admin-sidebar nav a {
   padding: 12px;
 
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
 
   color: #d8d3d5;
+
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
 }
 
 .admin-sidebar nav a.active,
@@ -1304,20 +1308,20 @@ textarea {
 }
 
 .dashboard-card span {
-  color: var(--muted);
+  color: var(--color-text-secondary);
 }
 
 .dashboard-card strong {
   font-size: 2rem;
 
-  color: var(--primary);
+  color: var(--color-primary);
 }
 
 .admin-info-panel {
   margin-top: 24px;
   padding: 24px;
 
-  color: var(--muted);
+  color: var(--color-text-secondary);
 }
 
 /* Admin Login */
@@ -1343,11 +1347,11 @@ textarea {
 
   padding: 38px;
 
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
 
-  background: white;
+  background: var(--color-surface);
 
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow-lg);
 }
 
 .admin-login-card h1 {

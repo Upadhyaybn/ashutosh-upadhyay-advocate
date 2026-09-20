@@ -379,7 +379,7 @@ function AdminAppointmentsPage() {
 
                         <button
                           type="button"
-                          className="button button-secondary"
+                          className="button button-danger"
                           disabled={
                             deletingId === item.id
                           }

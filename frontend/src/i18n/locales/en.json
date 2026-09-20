@@ -275,5 +275,37 @@
     "title": "Page Not Found",
     "description": "The page you requested does not exist.",
     "returnHome": "Return Home"
+  },
+  "chat": {
+    "launcherOpen": "Chat with website assistant",
+    "launcherClose": "Close chat",
+    "title": "Website Assistant",
+    "disclaimer": "Automated assistant - not the advocate.",
+    "timeGreeting": {
+      "morning": "Good Morning",
+      "afternoon": "Good Afternoon",
+      "evening": "Good Evening"
+    },
+    "greeting": "I'm your website assistant. How may I help you today?",
+    "greetingPrompt": "Are you looking for:",
+    "typingLabel": "Assistant is typing",
+    "inputPlaceholder": "Type your question...",
+    "send": "Send",
+    "quickReplies": {
+      "enquiry": "Submit an enquiry",
+      "appointment": "Book an appointment",
+      "contact": "Contact options",
+      "practiceAreas": "Practice areas"
+    },
+    "responses": {
+      "enquiry": "You can submit a legal enquiry describing your matter using our online enquiry form. It only takes a minute.",
+      "appointment": "You can request a preferred date and time for a consultation using our online appointment form.",
+      "contact": "You can reach us directly using any of the options below:",
+      "practiceAreasIntro": "We handle the following practice areas:",
+      "fallback": "This automated assistant provides general website information only. For advice regarding your specific legal matter, please contact Advocate Ashutosh Upadhyay."
+    },
+    "goToEnquiry": "Go to enquiry form",
+    "goToAppointment": "Go to appointment form",
+    "goToPracticeAreas": "View all practice areas"
   }
 }

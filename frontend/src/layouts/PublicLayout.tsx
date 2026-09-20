@@ -1,6 +1,7 @@
 import { Outlet } from "react-router";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
+import ChatWidget from "../components/chat/ChatWidget";
 
 function PublicLayout() {
   return (
@@ -12,6 +13,8 @@ function PublicLayout() {
       </main>
 
       <Footer />
+
+      <ChatWidget />
     </div>
   );
 }

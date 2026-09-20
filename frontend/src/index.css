@@ -1,5 +1,25 @@
+/*
+ * Self-hosted Inter (variable weight, Latin subset only - this site's
+ * English copy doesn't need Latin-Extended/Cyrillic/Greek). Devanagari
+ * (Hindi) text renders via the system Devanagari stack regardless,
+ * since Inter doesn't cover that script. font-display: swap avoids
+ * blocking first paint; system-ui renders immediately and Inter swaps
+ * in once loaded, so there's no layout-blocking cost.
+ */
+@font-face {
+  font-family: "Inter Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("/fonts/inter-variable-latin.woff2") format("woff2-variations");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+    U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+}
+
 :root {
   font-family:
+    "Inter Variable",
     Inter,
     system-ui,
     -apple-system,
@@ -7,30 +27,92 @@
     "Segoe UI",
     sans-serif;
 
-  color: #1c2530;
-  background: #f8f7f4;
+  color: var(--color-text-primary);
+  background: var(--color-ivory);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
 
-  --primary: #6d1f2a;
-  --primary-dark: #4f151e;
-  --gold: #b28b43;
+  /*
+   * Design tokens (2026 UI/UX modernization).
+   * Legacy variable names below are kept as aliases pointing at the
+   * new tokens, so every existing declaration in this file keeps
+   * working unchanged during the page-by-page migration - this is
+   * purely additive, nothing is removed yet.
+   */
 
-  --text: #202733;
-  --muted: #667085;
+  /* Color - core */
+  --color-ink: #171316;
+  --color-charcoal: #2b2f36;
+  --color-primary: #6d1f2a;
+  --color-primary-dark: #4a1017;
+  --color-gold: #a9822f;
+  --color-gold-soft: #f4ece2;
+  --color-ivory: #f9f7f2;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f2efe8;
+  --color-text-primary: #1c2026;
+  --color-text-secondary: #5b6472;
+  --color-border: #e6e2d8;
+  --color-success: #1f7a4d;
+  --color-warning: #b3701c;
+  --color-error: #b3261e;
 
-  --background: #f8f7f4;
-  --surface: #ffffff;
-  --surface-muted: #f0eee9;
+  /* Spacing (8px base) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
 
-  --border: #e4e1db;
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-full: 999px;
 
-  --shadow:
-    0 14px 40px
-    rgba(18, 24, 40, 0.08);
+  /* Shadows (layered elevation) */
+  --shadow-sm:
+    0 1px 2px rgba(23, 19, 22, 0.06),
+    0 1px 1px rgba(23, 19, 22, 0.04);
+  --shadow-md:
+    0 8px 24px rgba(23, 19, 22, 0.08);
+  --shadow-lg:
+    0 20px 48px rgba(23, 19, 22, 0.14);
+  --shadow-focus:
+    0 0 0 3px rgba(109, 31, 42, 0.18);
 
-  --radius: 14px;
+  /* Typography scale - fluid via clamp(), applied incrementally */
+  --text-eyebrow: 0.75rem;
+  --text-meta: 0.8125rem;
+  --text-nav: 0.9375rem;
+  --text-label: 0.875rem;
+  --text-h4: clamp(1.125rem, 1rem + 0.5vw, 1.25rem);
+  --text-h3: clamp(1.25rem, 1.1rem + 0.7vw, 1.5rem);
+  --text-h2: clamp(1.75rem, 1.4rem + 1.5vw, 2.25rem);
+  --text-h1: clamp(2.25rem, 1.6rem + 3vw, 3.5rem);
+
+  /* Legacy aliases - existing rules in this file reference these */
+  --primary: var(--color-primary);
+  --primary-dark: var(--color-primary-dark);
+  --gold: var(--color-gold);
+
+  --text: var(--color-text-primary);
+  --muted: var(--color-text-secondary);
+
+  --background: var(--color-ivory);
+  --surface: var(--color-surface);
+  --surface-muted: var(--color-surface-alt);
+
+  --border: var(--color-border);
+
+  --shadow: var(--shadow-md);
+
+  --radius: var(--radius-md);
 
   line-height: 1.5;
   font-weight: 400;
@@ -42,6 +124,25 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+/*
+ * Global catch-all: shorten every transition/animation to
+ * effectively nothing for visitors who prefer reduced motion,
+ * regardless of which component introduced it. Component-specific
+ * prefers-reduced-motion overrides elsewhere in this file (chat,
+ * modal) layer on top of this, not instead of it.
+ */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 body {
@@ -106,6 +207,24 @@ select {
 
 button {
   cursor: pointer;
+}
+
+/*
+ * Baseline visible-keyboard-focus indicator for every interactive
+ * element site-wide. :focus-visible (not :focus) so it only shows for
+ * keyboard/assistive-tech navigation, not every mouse click.
+ * Individual components (buttons, inputs, cards-as-links) may layer
+ * their own richer focus treatment on top of this.
+ */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
 }
 
 h1,
@@ -317,12 +436,12 @@ h3 {
 .eyebrow {
   margin-bottom: 14px;
 
-  color: var(--primary);
+  color: var(--color-primary);
 
-  font-size: 0.78rem;
-  font-weight: 800;
+  font-size: var(--text-eyebrow);
+  font-weight: 700;
 
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
@@ -385,9 +504,20 @@ h3 {
   border:
     1px solid transparent;
 
-  border-radius: 9px;
+  border-radius: var(--radius-md);
 
+  font-size: var(--text-nav);
   font-weight: 700;
+
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.button:active {
+  transform: translateY(1px);
 }
 
 .button-primary {
@@ -407,9 +537,22 @@ h3 {
   background: transparent;
 }
 
+.button-secondary:hover {
+  background: var(--color-gold-soft);
+}
+
 .button-light {
   background: #fff;
   color: var(--primary);
+}
+
+.button-danger {
+  color: white;
+  background: var(--color-error);
+}
+
+.button-danger:hover {
+  background: #8f1e18;
 }
 
 /* Sections */
@@ -422,13 +565,77 @@ h3 {
   background: var(--surface-muted);
 }
 
+/*
+ * Deliberate dark "anchor" bands - used sparingly (at most once or
+ * twice per page) to create visual rhythm, per the design plan.
+ * .section-ink is the deepest/most emphatic; .section-charcoal a
+ * slightly lighter dark alternative. Any card placed inside one of
+ * these picks up a readable dark-surface treatment automatically.
+ */
+.section-ink,
+.section-charcoal {
+  color: white;
+}
+
+.section-ink {
+  background: var(--color-ink);
+}
+
+.section-charcoal {
+  background: var(--color-charcoal);
+}
+
+.section-ink .eyebrow,
+.section-charcoal .eyebrow {
+  color: var(--color-gold);
+}
+
+.section-ink h2,
+.section-ink h3,
+.section-ink h4,
+.section-charcoal h2,
+.section-charcoal h3,
+.section-charcoal h4 {
+  color: white;
+}
+
+.section-ink p,
+.section-charcoal p {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.section-ink .service-card,
+.section-ink .info-card,
+.section-charcoal .service-card,
+.section-charcoal .info-card {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.section-ink .service-card:hover,
+.section-charcoal .service-card:hover {
+  border-color: var(--color-gold);
+}
+
+.section-ink .service-card h2,
+.section-ink .service-card h3,
+.section-charcoal .service-card h2,
+.section-charcoal .service-card h3 {
+  color: white;
+}
+
+.section-ink .service-card p,
+.section-charcoal .service-card p {
+  color: rgba(255, 255, 255, 0.72);
+}
+
 .section-heading {
   max-width: 720px;
   margin-bottom: 36px;
 }
 
 .section-heading h2 {
-  font-size: 2.2rem;
+  font-size: var(--text-h2);
 }
 
 .card-grid {
@@ -445,14 +652,21 @@ h3 {
 .form-card,
 .dashboard-card,
 .admin-info-panel {
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
 
-  background: var(--surface);
+  background: var(--color-surface);
 
-  box-shadow:
-    0 8px 24px
-    rgba(18, 24, 40, 0.04);
+  box-shadow: var(--shadow-sm);
+
+  transition:
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.service-card:hover {
+  border-color: var(--color-gold);
+  box-shadow: var(--shadow-md);
 }
 
 .service-card {
@@ -573,15 +787,15 @@ h3 {
 .page-header {
   padding: 65px 0;
 
-  background: #efe8dc;
+  background: var(--color-gold-soft);
 }
 
 .page-header h1 {
   margin-bottom: 12px;
 
-  font-size: 2.8rem;
+  font-size: var(--text-h1);
 
-  color: var(--primary-dark);
+  color: var(--color-primary-dark);
 }
 
 .page-header p {
@@ -682,26 +896,31 @@ textarea {
 
   padding: 12px 14px;
 
-  color: var(--text);
+  color: var(--color-text-primary);
 
   border:
-    1px solid #cbc7c0;
+    1px solid var(--color-border);
 
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
 
-  background: white;
+  background: var(--color-surface);
 
   outline: none;
+
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 input:focus,
 select:focus,
-textarea:focus {
-  border-color: var(--primary);
-
-  box-shadow:
-    0 0 0 3px
-    rgba(109, 31, 42, 0.1);
+textarea:focus,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-focus);
+  outline: none;
 }
 
 textarea {
@@ -1207,16 +1426,11 @@ textarea {
     margin-bottom: 28px;
   }
 
-  .section-heading h2 {
-    font-size: clamp(1.75rem, 7vw, 2.2rem);
-  }
-
   .page-header {
     padding: 48px 0;
   }
 
   .page-header h1 {
-    font-size: clamp(2rem, 9vw, 2.8rem);
     overflow-wrap: anywhere;
   }
 

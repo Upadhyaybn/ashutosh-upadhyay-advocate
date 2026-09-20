@@ -54,8 +54,11 @@ function AdminEnquiriesPage() {
   const [success, setSuccess] =
     useState("");
 
-  const loadEnquiries =
-    async () => {
+  useEffect(() => {
+
+    let ignore = false;
+
+    async function loadEnquiries() {
 
       try {
 
@@ -64,23 +67,31 @@ function AdminEnquiriesPage() {
         const data =
           await getAdminEnquiries();
 
-        setItems(data);
+        if (!ignore) {
+          setItems(data);
+        }
 
       } catch (err) {
 
-        setError(
-          getApiErrorMessage(err)
-        );
+        if (!ignore) {
+          setError(
+            getApiErrorMessage(err)
+          );
+        }
 
       } finally {
 
-        setLoading(false);
+        if (!ignore) {
+          setLoading(false);
+        }
       }
-    };
-
-  useEffect(() => {
+    }
 
     void loadEnquiries();
+
+    return () => {
+      ignore = true;
+    };
 
   }, []);
 

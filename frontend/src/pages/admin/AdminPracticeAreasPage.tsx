@@ -88,7 +88,11 @@ function AdminPracticeAreasPage() {
 
   useEffect(() => {
 
-    void loadPracticeAreas();
+    async function loadOnMount() {
+      await loadPracticeAreas();
+    }
+
+    void loadOnMount();
 
   }, []);
 
